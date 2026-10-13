@@ -23,10 +23,10 @@ its ideas.
 
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two small rectangular openings near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="100%"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two openings across its width near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, each ringed by a soft engraved depression, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="100%"></a></td>
 </tr>
 <tr>
-<td align="center"><sub>box-square-6 · the whole flute on one 592 × 155mm sheet</sub></td>
+<td align="center"><sub>box-square-6 · the whole flute on one 596 × 155mm sheet</sub></td>
 </tr>
 </table>
 
@@ -63,33 +63,46 @@ glued over the mouth end, with a half-round notch in its bottom edge, away from 
 finger holes. The notch is a 9.59mm circle centred 0.33mm inside the edge, 5.1mm
 deep, so it opens through the bottom wall into the slow air chamber.
 
+Every variant has the 2017 flute's window and exit hole too: both run **the whole width
+of the bore**, with the flue joining them across that same width. And every finger hole
+sits in the 2017 flute's **soft engraved depression**, its `ring.png` kept in the
+original's proportion to the hole, 1.57 times it across; on a 6mm variant the
+depressions are on the doubler, where the finger lands. In the box no finger
+stands beside either opening, since a full-width opening reaches the inner face of the
+bore, which is the floor of every finger notch.
+
 There is no laminated square bore. A stack is a whole number of 3mm layers deep, 18 or
 21mm, and 19.67 is neither, so the stack keeps the area and gives up the square.
 `box-rect` is the stack's bore built as a box, so the two constructions can be compared
 at one section.
 
-Each of the six is about 469mm long, and each `-plus` variant about 486mm. All of
-them fit a 600 × 308mm bed.
+Each of the six, and each `-plus` variant, is 484–487mm long, and all of them fit a
+600 × 308mm bed.
 
 ## What the model says
 
 **The bore's shape barely matters.** The square and the 18.43 × 21mm rectangle put
-every hole within 0.1mm of each other. Box or stack is a building choice, not an
-acoustic one.
+every hole within 1.5mm of each other, and even that is the window rather than the
+bore: the window is as wide as the bore, so the narrower rectangle has the narrower
+window. At one window width the two agree to 0.1mm. Box or stack is a building choice,
+not an acoustic one.
 
 **The wall's thickness matters most.** With the holes in 6mm of wall instead of 3mm,
-every one of them sits 10–16mm nearer the window, because a hole's chimney is part of
+every one of them sits 11–17mm nearer the window, because a hole's chimney is part of
 its length.
 
-**The holes are laid out for the hands.** Five equal 8mm holes land 27, 30, 46 and 12mm
-apart, and two fingers will not cover holes 12mm apart. So the lower hand takes holes
-1–3 and the upper hand 4–5, each hand's holes 25mm apart, and each hole is sized to its
-note:
+**The holes are laid out for the hands.** In 3mm of wall, five equal 8mm holes land 28,
+31, 47 and 15mm apart, and two fingers will not cover holes 15mm apart; in 6mm of wall
+five equal holes cannot reach all five notes at all. So the lower hand takes holes 1–3
+and the upper hand 4–5, each hand's holes 25mm apart, and each hole is sized to its
+note. The `-plus` variants share these layouts:
 
-| Holes in | Sound chamber | Hole 1, C5 | Hole 2, D5 | Hole 3, E5 | Hole 4, G5 | Hole 5, A5 |
+| Variants | Sound chamber | Hole 1, C5 | Hole 2, D5 | Hole 3, E5 | Hole 4, G5 | Hole 5, A5 |
 |---|---|---|---|---|---|---|
-| 3mm of wall | 328.9mm | 229.7 · ø7.7 | 204.7 · ø8.0 | 179.7 · ø9.2 | 129.4 · ø8.0 | 104.4 · ø6.2 |
-| 6mm of wall | 327.2mm | 219.2 · ø8.1 | 194.2 · ø8.0 | 169.2 · ø8.7 | 113.7 · ø8.0 | 88.7 · ø6.8 |
+| `box-square-3` | 346.9mm | 245.9 · ø7.6 | 220.9 · ø8.0 | 195.9 · ø9.4 | 143.0 · ø8.0 | 118.0 · ø6.4 |
+| `box-square-6` | 345.2mm | 235.3 · ø8.0 | 210.3 · ø8.0 | 185.3 · ø8.9 | 126.4 · ø8.0 | 101.4 · ø7.0 |
+| `box-rect-3`, `stack-rect-3` | 345.4mm | 244.5 · ø7.6 | 219.5 · ø8.0 | 194.5 · ø9.4 | 141.8 · ø8.0 | 116.8 · ø6.4 |
+| `box-rect-6`, `stack-rect-6` | 343.7mm | 233.9 · ø8.1 | 208.9 · ø8.0 | 183.9 · ø8.9 | 125.3 · ø8.0 | 100.3 · ø7.0 |
 
 Distances are from the centre of the window, in mm. Hole 1 is nearest the foot.
 
@@ -118,11 +131,11 @@ and the harmonic 7:4 at 968.8.
 
 **The window's end correction is not measured.** It is the least certain term in the
 model, and no built flute has checked it yet. Each 1mm of error in it moves the foot
-about 4.5mm, or 2.6mm with a full-width window. So the sound chamber is cut **15mm
-long**: trim the foot until the flute sounds A4 with every hole closed.
+about 2.6mm. So the sound chamber is cut **15mm long**: trim the foot until the flute
+sounds A4 with every hole closed.
 
 **The holes move with it, almost as far.** A 10% error in that correction moves the
-foot 3.5mm and every hole 2.3–3.0mm. Trimming the foot puts the fundamental right but
+foot 2.8mm and every hole 2.3–2.6mm. Trimming the foot puts the fundamental right but
 leaves the holes where the model put them, so expect to tune each one. A hole that
 plays flat can be opened with a file. A hole that plays sharp cannot be closed up.
 
@@ -130,9 +143,9 @@ plays flat can be opened with a file. A hole that plays sharp cannot be closed u
 puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in this key
 are narrower.
 
-**The flue is a fill engrave**, about 1mm deep. In the six variants it is 10mm wide, on
-the underside of the bottom bird layer. In the `-plus` variants and the 2017 flute, it is
-on the top plate over the plug, the full width of the bore. The depth is a power
+**The flue is a fill engrave**, about 1mm deep and the full width of the bore. In the
+six variants it is on the underside of the bottom bird layer. In the `-plus` variants
+and the 2017 flute, it is on the top plate over the plug. The depth is a power
 setting, so find it on scrap first.
 
 **File the splitting edge by hand.** The window's far edge, where the air splits, needs
@@ -151,8 +164,8 @@ cap are glued.
 
 Run the colours **blue, orange, black**: blue engraves the part numbers and the flue,
 orange cuts the holes, slots and windows, and black frees the parts. That is the
-sequence every LaserMadeMusic repository uses. The `-plus` variants and the 2017 flute
-also carry a greyscale image round each finger hole, the depression. It needs an image
+sequence every LaserMadeMusic repository uses. Every variant also carries a greyscale
+image round each finger hole, the depression. It needs an image
 engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.
 
 ## Tuning
@@ -201,35 +214,16 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 ## The -plus variants
 
-Each of the six again, with three more ideas from the author's flute below, beyond the
-mouthpiece cap that every variant has:
+Each of the six again, with one more idea from the author's flute below, beyond the
+mouthpiece cap, the full-width window and exit hole and the finger-hole depressions
+that every variant has: **the flue engraved in the nest**, the top plate's face over
+the plug, rather than in the underside of the bird. The bird is then three plain
+layers. That is now the only difference between a variant and its `-plus` version.
 
-1. A window **the whole width of the bore**, rather than 10mm of it.
-2. An exit hole the whole width too, with **the flue engraved in the nest**, over the
-   plug, rather than in the bird. The bird is then three plain layers.
-3. **A soft engraved depression** round every finger hole, the original's own image,
-   1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger
-   lands.
-
-A wider window has a smaller end correction, so the model puts the foot 16.5–18mm
-further down, and every hole moves with it:
-
-| Variant | Sound chamber | Hole 1 | Hole 2 | Hole 3 | Hole 4 | Hole 5 |
-|---|---|---|---|---|---|---|
-| `box-square-3-plus` | 346.9mm | 245.9 · ø7.6 | 220.9 · ø8.0 | 195.9 · ø9.4 | 143.0 · ø8.0 | 118.0 · ø6.4 |
-| `box-square-6-plus` | 345.2mm | 235.3 · ø8.0 | 210.3 · ø8.0 | 185.3 · ø8.9 | 126.4 · ø8.0 | 101.4 · ø7.0 |
-| `box-rect-3-plus`, `stack-rect-3-plus` | 345.4mm | 244.5 · ø7.6 | 219.5 · ø8.0 | 194.5 · ø9.4 | 141.8 · ø8.0 | 116.8 · ø6.4 |
-| `box-rect-6-plus`, `stack-rect-6-plus` | 343.7mm | 233.9 · ø8.1 | 208.9 · ø8.0 | 183.9 · ø8.9 | 125.3 · ø8.0 | 100.3 · ø7.0 |
-
-Here the square and the rectangle differ by 1.5mm, where the six agree to 0.1. That is
-the window, not the bore: it is as wide as the bore, so the narrower rectangle has the
-narrower window.
-
-In the box, a full-width opening reaches the inner faces of the bore, which is the
-floor of every finger notch, so no finger stands beside the exit hole or the window. The cap and the
-bird's layers are glued, as in the original. Two things are not taken. The engraved
-splitting edge charred, so the edge is still filed by hand. And
-the original's stepped block was for looks only, so the bird keeps its plain layers.
+It moves no hole, so each `-plus` variant shares its base's hole layout, in the
+table above. The bird's layers and the cap are glued, as in the original. Two things
+are not taken. The engraved splitting edge charred, so the edge is still filed by hand.
+And the original's stepped block was for looks only, so the bird keeps its plain layers.
 
 ## The author's flute
 
@@ -245,7 +239,7 @@ exactly as they were. Measured out of `yours/original/NAF_flatjoints.svg`:
 | Plug | 11mm, its top engraved as the flue |
 | Finger holes | 7.73, 7.87, 7.79, 7.79 and 5.47mm, 213.9, 185.7, 156.9, 109.5 and 78.0mm from the window |
 
-It tried two things the six variants do not:
+It tried two things the first designs here did not:
 
 - **An engraved splitting edge.** `FluteEdge.png` is a greyscale ramp, black at the
   window and white 9.9mm on, engraved beside the window so the laser would cut the

@@ -41,7 +41,7 @@ FROM THE MOUTH END, the same in every variant:
 
 The block (the bird) sits over the exit hole and the plug, its front edge on
 the window's upstream edge, tied on and not glued, so it can be slid to voice
-the flute. Its underside carries the flue as a FILL ENGRAVE, FLUE_W wide: the
+the flute. Its underside carries the flue as a FILL ENGRAVE, the bore's width: the
 one feature here a laser draws better than a saw, since its depth -- about
 1mm -- is a power setting rather than a cut.
 
@@ -60,6 +60,7 @@ Press-fit throughout, sealed with shellac, except what is laminated or cannot
 be press-fit: the doubler, the bird's layers, every layer of the stack and the
 mouthpiece cap are glued.
 """
+import base64
 import math
 import os
 import sys
@@ -90,7 +91,6 @@ FINGER_CLEAR = 3.0   # ply between a finger notch and an opening
 SIDE = 6.0           # the stack's side walls
 
 SAC, EXIT_L, PLUG = 110.0, 6.0, 12.0
-FLUE_W = M.WINDOW_W
 DOUBLER_PAST = 20.0  # doubler runs this far past the outermost holes
 BIRD_LAYERS, BIRD_UPSTREAM = 3, 6.0
 # The mouthpiece cap, the author's from 2017 (yours/original/Mouthpiece.svg):
@@ -99,6 +99,13 @@ BIRD_LAYERS, BIRD_UPSTREAM = 3, 6.0
 # edge -- that opens through the bottom wall into the slow air chamber. On
 # every variant since 2026-10-13, at the author's asking.
 CAP_D, NOTCH_IN = 9.59, 0.33
+# The finger-hole depression, also the author's: yours/original/ring.png, a
+# soft dark halo engraved round each hole for the finger to find. Kept in the
+# original's proportion to its hole, 12.14mm round a 7.75mm hole. On every
+# variant since 2026-10-13, at the author's asking; on a 6mm variant it goes
+# on the doubler, which is what the finger meets.
+RING_OF = 12.14 / 7.75
+RING_PNG = os.path.join(HERE, 'yours', 'original', 'ring.png')
 
 BED = (600.0, 308.0)
 MARGIN, GAP = 5.0, 4.0
@@ -169,6 +176,7 @@ class Part:
         self.outline = outline          # physical, before the kerf
         self.cuts = []                  # inner cuts: ('rect', poly) / ('circle', cx, cy, r)
         self.fills = []                 # fill-engraved rectangles
+        self.images = []                # (png, x, y, w, h): greyscale image engraves
         x = [p[0] for p in outline]
         y = [p[1] for p in outline]
         self.x0, self.y0 = min(x), min(y)
@@ -244,6 +252,14 @@ def notched(x0, x1, PW, xs):
     return top + bot
 
 
+def design(W, D, wall):
+    """The model's hole layout for a bore W x D with the holes in `wall`,
+    the window the bore's full width, as every build here has had since
+    2026-10-13: the author's 2017 flute's window, on all of them."""
+    with M.window(W):
+        return M.design(M.Bore(W, D), wall, even=True)
+
+
 def build(kind, W, D, wall, L, holes, diams):
     """Every part of one variant, in its own flat coordinates: x along the
     flute from the mouth end, y across it."""
@@ -260,16 +276,21 @@ def build(kind, W, D, wall, L, holes, diams):
         p = Part('top plate', next(num), rect(0, 0, total, PW),
                  'exit hole, window and the five finger holes; file the window\'s '
                  'far edge to a 30 degree bevel before assembly')
-        p.slot(SAC - EXIT_L, yc - FLUE_W / 2, SAC, yc + FLUE_W / 2)
-        p.slot(SAC + PLUG, yc - M.WINDOW_W / 2, SAC + PLUG + M.WINDOW_L,
-               yc + M.WINDOW_W / 2)
+        # the exit hole and the window both run the bore's full width
+        p.slot(SAC - EXIT_L, yc - W / 2, SAC, yc + W / 2)
+        p.slot(SAC + PLUG, yc - W / 2, SAC + PLUG + M.WINDOW_L, yc + W / 2)
         for x, d in zip(hx, diams):
             p.hole(x, yc, d)
+            r = d * RING_OF
+            p.images.append(('ring.png', x - r / 2, yc - r / 2, r, r))
         return p
 
     if kind == 'box':
-        xs = fingers_x(total)
+        # both full-width openings reach the bore's inner face, the floor of
+        # every finger notch, so no finger may stand beside either
+        xs = fingers_x(total, ((SAC - EXIT_L, SAC), (SAC + PLUG, SAC + PLUG + M.WINDOW_L)))
         t = top_plate(); t.outline = notched(0, total, PW, xs); parts.append(t)
+        top = t
         parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
                           'plain'))
         for k in range(2):
@@ -280,7 +301,8 @@ def build(kind, W, D, wall, L, holes, diams):
                               f'{int(PLUG / T)} press-fit into the bore '
                               f'between the exit hole and the window'))
     else:
-        parts.append(top_plate())
+        top = top_plate()
+        parts.append(top)
         parts.append(Part('bottom layer', next(num), rect(0, 0, total, PW), 'plain'))
         s1, s2 = SIDE, SIDE + W
         bore = [(0, 0), (total, 0), (total, s1), (SAC + PLUG, s1),
@@ -294,6 +316,8 @@ def build(kind, W, D, wall, L, holes, diams):
                  'glued over the finger-hole run, holes in line')
         for x, d in zip(hx, diams):
             p.hole(x, yc, d)
+        # the finger meets the doubler, not the top, so the depressions move
+        p.images, top.images = top.images, []
         parts.append(p)
     b0 = SAC - EXIT_L - BIRD_UPSTREAM
     for k in range(BIRD_LAYERS):
@@ -301,8 +325,7 @@ def build(kind, W, D, wall, L, holes, diams):
                  'the flue fill-engraved in the bottom one, about 1mm deep'
                  if k == 0 else 'glued on the one below')
         if k == 0:
-            p.fills.append(rect(SAC - EXIT_L, yc - FLUE_W / 2, SAC + PLUG,
-                                yc + FLUE_W / 2))
+            p.fills.append(rect(SAC - EXIT_L, yc - W / 2, SAC + PLUG, yc + W / 2))
         parts.append(p)
     # last, so every part number the variants had before it is unchanged
     parts.append(cap_part(next(num), PW, D + 2 * T))
@@ -334,6 +357,13 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
         note(min(p.y0 for p in sides) == -T and max(p.y0 + p.h for p in sides) == D + T,
              'the fingers run to the outside faces',
              f'{T:g}mm proud each way, nothing outboard of them')
+    rings = [d * RING_OF for d in diams]
+    gaps = [holes[i] - holes[i + 1] - (rings[i] + rings[i + 1]) / 2 for i in range(4)]
+    note(min(gaps) >= 0, 'the depressions do not run into each other',
+         f'closest {min(gaps):.1f}mm apart')
+    edge = T if kind == 'box' else 1.0
+    note(max(rings) / 2 <= info['PW'] / 2 - edge, 'each depression clears the plate\'s edge joints',
+         f'{info["PW"] / 2 - edge - max(rings) / 2:.1f}mm to spare')
     tops = [p for p in parts if p.name.startswith('top')]
     note(len(tops) == 1 and tops[0].w == info['total'], 'the top is one piece',
          f'{len(tops)} plate, {tops[0].w:.1f}mm long')
@@ -395,9 +425,13 @@ def pack(parts):
     return sheets
 
 
+def ring_data():
+    return 'data:image/png;base64,' + base64.b64encode(open(RING_PNG, 'rb').read()).decode()
+
+
 def svg_sheet(variant, k, n, s, info, what):
     blue, orange, black = [], [], []
-    fills = []
+    fills, imgs = [], []
     for p, sx, sy in s['parts']:
         dx, dy = sx - p.x0 + KERF / 2, sy - p.y0 + KERF / 2
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
@@ -414,6 +448,9 @@ def svg_sheet(variant, k, n, s, info, what):
                               f'r="{r - KERF / 2:.3f}"/>')
         for f in p.fills:
             fills.append(path(mv(f)))
+        for name, x, y, w, h in p.images:
+            imgs.append(f'<image x="{x + dx:.3f}" y="{y + dy:.3f}" width="{w:.3f}" '
+                        f'height="{h:.3f}" preserveAspectRatio="none" href="{ring_data()}"/>')
         # the part number, engraved where nothing is cut: past the bore on a
         # plate, in the middle of a disc
         h = min(5.0, p.h * 0.3)
@@ -436,8 +473,10 @@ def svg_sheet(variant, k, n, s, info, what):
             f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf. Finger joints as the trumpet '
             f'bores cut them: {FINGER:g}mm fingers and spaces, no play, the fit from the '
             f'kerf. Blue {BLUE} engraves '
-            f'(the part numbers, and the flue as a fill engrave about 1mm deep -- set '
-            f'its depth on scrap first), orange {ORANGE} cuts the holes and slots, '
+            f'(the part numbers; the flue as a fill engrave about 1mm deep; and the '
+            f'depression round each finger hole, a greyscale image engrave, Grayscale '
+            f'mode in xTool Creative Space -- set both depths on scrap first), orange '
+            f'{ORANGE} cuts the holes and slots, '
             f'black {BLACK} frees the parts.')
     g = lambda col, items, fill='none': (
         f'  <g fill="{fill}" stroke="{col}" stroke-width="0.2">\n'
@@ -448,6 +487,8 @@ def svg_sheet(variant, k, n, s, info, what):
             f'height="{s["h"]:.2f}mm" viewBox="0 0 {s["w"]:.2f} {s["h"]:.2f}">\n'
             f'<title>Square-bore flute in A4, {variant}, sheet {k} of {n}</title>\n'
             f'<desc>{desc}</desc>\n'
+            + (f'  <g id="images">\n' + ''.join(f'    {i}\n' for i in imgs) + '  </g>\n'
+               if imgs else '')
             + g(BLUE, blue)
             + (f'  <g fill="{BLUE}" stroke="none">\n'
                + ''.join(f'    <path d="{d}"/>\n' for d in fills) + '  </g>\n'
@@ -484,7 +525,7 @@ def main():
         b = M.Bore(W, D)
         key = (round(W, 4), round(D, 4), wall)
         if key not in designs:
-            designs[key] = M.design(b, wall, even=True)
+            designs[key] = design(W, D, wall)
         L, holes, diams, cents = designs[key]
         parts, info = build(kind, W, D, wall, L, holes, diams)
         sheets = pack(parts)

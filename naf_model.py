@@ -223,6 +223,24 @@ def bisect(fn, target, lo, hi, rising=False, n=40):
     return (lo + hi) / 2
 
 
+class window:
+    """The window WIDTH for the length of a with block, then put back. Every
+    box and stack build has had a window the whole width of its bore since
+    2026-10-13, at the author's asking, so the model is run at that width;
+    WINDOW_W itself stays the 10mm the round-bore reference is drawn with."""
+
+    def __init__(self, w):
+        self.w = w
+
+    def __enter__(self):
+        global WINDOW_W
+        self.saved, WINDOW_W = WINDOW_W, self.w
+
+    def __exit__(self, *a):
+        global WINDOW_W
+        WINDOW_W = self.saved
+
+
 def design(b, wall, even=False):
     """Sound-chamber length, five hole positions and five diameters, all
     positions from the window centre and foot-most first, iterated until each
@@ -304,7 +322,8 @@ def main():
             raise SystemExit(f'error: {x} is not a flag this model reads. '
                              f'It takes --hole=, --mouth= and --spacing=.')
     print(f'A4 = {A4:g}Hz, air at {T_C:g}C ({C:.1f} m/s), area {AREA:.1f}mm^2, '
-          f'window {WINDOW_W:g} x {WINDOW_L:g}mm, mouth x{MOUTH:g}')
+          f'window the bore\'s full width x {WINDOW_L:g}mm ({WINDOW_W:g}mm wide on the '
+          f'round reference), mouth x{MOUTH:g}')
     print('distances from the window centre, mm; holes numbered from the foot')
     for even in (False, True):
         print('\n' + (f'LAID OUT FOR THE HANDS, 3 + 2 holes {SPACING:g}mm apart, holes 2 and 4 '
@@ -316,13 +335,15 @@ def main():
         seen = {}
         for name, w, d, wall, how in VARIANTS:
             b = Bore(w, d)
-            key = (round(b.A * 1e9), round(b.rh * 1e6), wall)
+            ww = WINDOW_W if w is None else w
+            key = (round(b.A * 1e9), round(b.rh * 1e6), wall, ww)
             if key not in seen:
                 # equal holes can have no layout at all: at --mouth=0.8 with a
                 # 6mm wall, hole 5 would have to sit on hole 4. That is a
                 # finding about equal holes, not a crash, so it is printed
                 try:
-                    seen[key] = design(b, wall, even)
+                    with window(ww):
+                        seen[key] = design(b, wall, even)
                 except ValueError as e:
                     seen[key] = str(e)
             sec = 'ø22.20' if w is None else f'{w:.2f}x{d:.2f}'

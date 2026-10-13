@@ -51,29 +51,13 @@ from square_flute import Part, rect, pack                      # noqa: E402
 M = F.M
 
 T = F.T
-RING_OF = 12.14 / 7.75                # the original's depression across its hole
+RING_OF = F.RING_OF                   # the original's depression across its hole
 
 VARIANTS = {k + '-plus': v for k, v in F.VARIANTS.items()}
 
 
-class wide_window:
-    """The model's window, made the bore's width for the length of a with
-    block, then put back: compare_page.py runs the six in the same process."""
-
-    def __init__(self, W):
-        self.W = W
-
-    def __enter__(self):
-        self.saved = M.WINDOW_W
-        M.WINDOW_W = self.W
-
-    def __exit__(self, *a):
-        M.WINDOW_W = self.saved
-
-
 def design(W, D, wall):
-    with wide_window(W):
-        return M.design(M.Bore(W, D), wall, even=True)
+    return F.design(W, D, wall)
 
 
 def build(kind, W, D, wall, L, holes, diams):

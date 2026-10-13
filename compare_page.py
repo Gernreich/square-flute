@@ -254,17 +254,18 @@ def main(out, standalone=False):
     every = ([(n, v, False) for n, v in F.VARIANTS.items()]
              + [(n, v, True) for n, v in P.VARIANTS.items()])
     for name, (kind, W, D, wall), plus in every:
-        key = (round(W, 4), round(D, 4), wall, plus)
+        key = (round(W, 4), round(D, 4), wall)
         if key not in designs:
-            designs[key] = (P.design(W, D, wall) if plus
-                            else M.design(M.Bore(W, D), wall, even=True))
+            designs[key] = F.design(W, D, wall)
         L, holes, diams, cents = designs[key]
         parts, info = (P.build if plus else F.build)(kind, W, D, wall, L, holes, diams)
         sheets = F.pack(parts)
         three[name] = solids(kind, W, D, wall, parts, info)
-        if (wall, plus) not in done_plans:
-            done_plans.add((wall, plus))
-            plans.append((wall, L, holes, diams, plus))
+        # one plan per wall, drawn at the square bore: every build has the
+        # full-width window now, so a -plus variant's holes are its base's
+        if wall not in done_plans:
+            done_plans.add(wall)
+            plans.append((wall, L, holes, diams, True))
         how = {'box': 'Finger-jointed box', 'stack': 'Laminated stack'}[kind]
         if plus:
             glued = ('doubler, cap and bird glued; the rest press-fit' if kind == 'box' and wall > 3
@@ -322,14 +323,13 @@ def main(out, standalone=False):
         f'<td class="n">{JUST[n][0]}:{JUST[n][1]}, {1200 * math.log2(JUST[n][0] / JUST[n][1]):.1f}c</td></tr>'
         for n, f in enumerate(yfs))
     ref = M.design(M.Bore(), 5.0, even=True)
-    plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall'
-                             + (', full-width window (-plus)' if pl else '')
+    plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall, square bore'
                              + f' — sound chamber {L:.1f}mm, cut {L + M.FOOT_SPARE:.1f}', pl)
                         for w, L, h, d, pl in plans)
     hole_rows = []
-    labels = [f'{w:g}mm wall' + (', -plus' if pl else '') for w, L, h, d, pl in plans]
+    labels = [f'{w:g}mm wall, square bore' for w, L, h, d, pl in plans]
     for (w, L, h, d, pl), lab in zip(plans + [(5.0,) + ref[:3] + (False,)],
-                                     labels + ['round reference, 5mm wall']):
+                                     labels + ['round reference, 5mm wall, 10mm window']):
         hole_rows.append(f'<tr><th scope="row">{lab}</th><td class="n">{L:.1f}</td>'
                          + ''.join(f'<td class="n">{x:.1f}<span>ø{dd:.1f}</span></td>'
                                    for x, dd in zip(h, d)) + '</tr>')
@@ -445,10 +445,11 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 
 <section class="findings" aria-label="What the model says">
   <div class="finding"><b>Bore shape barely matters</b><p>A {sq:.2f}mm square and an {rw:.2f} × 21mm rectangle of the same
-  area put every hole within 0.1mm of each other. Box or stack is a building choice, not an acoustic one.</p></div>
+  area put every hole within 1.5mm of each other, and that is the window, which is as wide as the bore: at one window
+  width they agree to 0.1mm. Box or stack is a building choice, not an acoustic one.</p></div>
   <div class="finding"><b>Wall thickness matters most</b><p>Moving the holes from 3mm of wall to 6mm moves every one of them
-  10–16mm toward the window, because a hole's chimney is part of its length.</p></div>
-  <div class="finding"><b>Lay it out for the hands</b><p>Equal holes land 27, 30, 46 and 12mm apart. Holes 3 + 2, {spacing:.0f}mm
+  11–17mm toward the window, because a hole's chimney is part of its length.</p></div>
+  <div class="finding"><b>Lay it out for the hands</b><p>In 3mm of wall equal holes land 28, 31, 47 and 15mm apart, and in 6mm no equal layout reaches all five notes. Holes 3 + 2, {spacing:.0f}mm
   apart within each hand, with each hole sized to its note, puts the gap between the hands where it belongs.</p></div>
 </section>
 
@@ -483,12 +484,11 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 
 <section class="col" style="max-width:none">
   <h2>All twelve variants</h2>
-  <p class="col">Every variant carries the 2017 flute's mouthpiece cap, with its half-round notch in the bottom edge.
-  Each <code>-plus</code> variant is the one above it with three more of that flute's ideas: a window and an exit hole
-  the whole width of the bore, the flue engraved in the nest rather than the bird, and a soft depression round every
-  finger hole. The wider window has the
-  smaller end correction, so the model puts the foot 16.5–18mm further down. The 2017 flute's engraved splitting edge
-  is not among them, since it charred, and nor is its stepped block, which was for looks only.</p>
+  <p class="col">Every variant carries four of the 2017 flute's ideas: its mouthpiece cap, with the half-round notch in
+  the bottom edge; a window and an exit hole the whole width of the bore; and a soft depression round every finger hole.
+  Each <code>-plus</code> variant differs from the one above it in one thing only: the flue is engraved in the nest, the
+  top plate's face over the plug, rather than in the bird. The 2017 flute's engraved splitting edge is not taken, since
+  it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>
     <thead><tr><th>Variant</th><th>Construction</th><th>Bore, mm</th><th>Hole wall</th><th>Sound chamber</th><th>Flute, mm</th><th>Parts</th><th>Sheets</th><th>Joints</th></tr></thead>
     <tbody>{rows}</tbody>
@@ -500,7 +500,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 <section class="col">
   <h2>Building any of them</h2>
   <ol>
-    <li><b>Flue.</b> The bottom bird layer carries the flue as a 10mm-wide fill engrave. Set its depth to about 1mm on scrap
+    <li><b>Flue.</b> The flue is a fill engrave the full width of the bore, under the bird in the six and in the nest in the <code>-plus</code> variants. Set its depth to about 1mm on scrap
     first; it is the one dimension here that is a power setting rather than a cut.</li>
     <li><b>Splitting edge.</b> File the window's downstream edge to a bevel of about 30°, before assembly, while the
     top is still a flat plate. If it goes wrong, recut the top.</li>
@@ -510,9 +510,8 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
     <li><b>Tune the holes.</b> Work up from hole 1, opening each hole slightly with a file if it is flat. Each hole nudges
     the ones above it.</li>
   </ol>
-  <p class="note">The window's end correction is the uncalibrated term: each 1mm of it moves the foot about 4.5mm, or 2.6mm
-  with a full-width window. That is why the foot is cut long. The holes move with it almost as far, 2.3–3.0mm for the
-  foot's 3.5mm, so trimming the foot does not tune them: each is tuned in turn, and only a flat hole can be fixed. The
+  <p class="note">The window's end correction is the uncalibrated term: each 1mm of it moves the foot about 2.6mm. That is
+  why the foot is cut long. The holes move with it almost as far, 2.3–2.6mm for the foot's 2.8mm, so trimming the foot does not tune them: each is tuned in turn, and only a flat hole can be fixed. The
   first build to be cut and played will set the term for the rest. Flutopedia's bore table also puts A4
   nearer a 3/4in bore than 7/8in, so this reference is on the large side for its key.</p>
 </section>
