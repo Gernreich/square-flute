@@ -145,7 +145,7 @@ def build(kind, W, D, wall, L, holes, diams):
         if not hasattr(p, 'images'):
             p.images = []
     info = dict(total=total, wc=wc, split=split, PW=PW, hx=hx, exit=exit_, win=win,
-                tabs=xs if kind == 'box' else [], rings=rings,
+                fingers=xs if kind == 'box' else [], rings=rings,
                 doubler=(min(hx) - F.DOUBLER_PAST, max(hx) + F.DOUBLER_PAST) if wall > T else None)
     return parts, info
 
@@ -172,10 +172,10 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
          f'{max(info["rings"]):.1f}mm on {info["PW"]:.2f}')
     if kind == 'box':
         near = min((min(abs(x - a), abs(x - b)) - F.FINGER / 2
-                    for x in info['tabs'] for a, b in (info['exit'], info['win'])),
+                    for x in info['fingers'] for a, b in (info['exit'], info['win'])),
                    default=99)
         note(near >= F.FINGER_CLEAR, 'no finger notch beside a full-width opening',
-             f'{len(info["tabs"])} fingers a side, nearest {near:.1f}mm from one')
+             f'{len(info["fingers"])} fingers a side, nearest {near:.1f}mm from one')
         note(max(info['rings']) / 2 <= info['PW'] / 2 - T,
              'each depression clears the finger notches',
              f'{info["PW"] / 2 - T - max(info["rings"]) / 2:.1f}mm to spare')

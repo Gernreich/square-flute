@@ -260,10 +260,26 @@ def design(b, wall, even=False):
             if not even or n in (2, 4):
                 # only ORDER is enforced here; whether a finger fits between
                 # two holes is reported, not imposed, or a poor start traps a
-                # hole short of its note
+                # hole short of its note. The hole ABOVE still stands where
+                # the last pass, or the starting guess, put it, and at
+                # --mouth=0.8 -- the very command the README gives for
+                # recalibrating -- that fenced hole 5 out of its note ("out
+                # of reach between 30.0 and 117.4"). So when a hole cannot
+                # reach its note the fence above it is moved back, 20mm at a
+                # time, to 30mm from the window. Not straight to 30: that far
+                # up the scan meets another resonance and hole 1 failed
+                # instead. At the default window the first try always lands,
+                # so nothing shipped moves.
                 lo = holes[i + 1] + 0.5 if n < 5 else 30.0
                 hi = holes[i - 1] - 0.5 if n > 1 else L - 15
-                holes[i] = bisect(f_pos, TARGETS[n], lo, hi)
+                while True:
+                    try:
+                        holes[i] = bisect(f_pos, TARGETS[n], lo, hi)
+                        break
+                    except ValueError:
+                        if lo <= 30.0:
+                            raise
+                        lo = max(30.0, lo - 20.0)
                 if even and n == 2:
                     holes[0], holes[2] = holes[1] + SPACING, holes[1] - SPACING
                 if even and n == 4:
@@ -302,9 +318,18 @@ def main():
             b = Bore(w, d)
             key = (round(b.A * 1e9), round(b.rh * 1e6), wall)
             if key not in seen:
-                seen[key] = design(b, wall, even)
-            L, holes, diams, cents = seen[key]
+                # equal holes can have no layout at all: at --mouth=0.8 with a
+                # 6mm wall, hole 5 would have to sit on hole 4. That is a
+                # finding about equal holes, not a crash, so it is printed
+                try:
+                    seen[key] = design(b, wall, even)
+                except ValueError as e:
+                    seen[key] = str(e)
             sec = 'ø22.20' if w is None else f'{w:.2f}x{d:.2f}'
+            if isinstance(seen[key], str):
+                print(f'{name:16} {sec:>12} {wall:4g}   no layout: {seen[key]}')
+                continue
+            L, holes, diams, cents = seen[key]
             print(f'{name:16} {sec:>12} {wall:4g} {L:6.1f} '
                   + ' '.join(f'{h:6.1f}/{dd:<4.1f}' for h, dd in zip(holes, diams))
                   + f'  {max(abs(c) for c in cents):.2f}c')

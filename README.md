@@ -19,7 +19,7 @@ its ideas.
 
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate notched along both edges for finger joints, two side walls with fingers along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="720"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate notched along both edges for finger joints, two side walls with fingers along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="100%"></a></td>
 </tr>
 <tr>
 <td align="center"><sub>box-square-6 · the whole flute on one 592 × 155mm sheet</sub></td>
@@ -56,8 +56,8 @@ Three ways to build the bore, each with the finger holes in 3mm or 6mm of wall:
 
 Every variant carries the author's mouthpiece cap from the 2017 flute below: a plate
 glued over the mouth end, with a half-round notch in its bottom edge, away from the
-finger holes. The notch is a 9.59mm circle centred on the edge, and it opens through
-the bottom wall into the slow air chamber.
+finger holes. The notch is a 9.59mm circle centred 0.33mm inside the edge, 5.1mm
+deep, so it opens through the bottom wall into the slow air chamber.
 
 There is no laminated square bore. A stack is a whole number of 3mm layers deep, 18 or
 21mm, and 19.67 is neither, so the stack keeps the area and gives up the square.
@@ -104,7 +104,7 @@ interval, and the step up from the note below it:
 | A5 | octave | 2:1 | 10:9, a minor whole tone | 1200.0 | 1200 |
 
 The steps run 6:5, 10:9, 9:8, 6:5, 10:9: two minor thirds and three whole tones, and no
-semitone anywhere, which is why any of its notes sound well together. The model tunes to
+semitone anywhere: no two notes are a half step apart. The model tunes to
 equal temperament, the last column, so every flute here is designed within 18 cents of
 the just ratios: the minor third and the minor seventh sit 15.6 and 17.6 cents flat of
 6:5 and 9:5, and the fourth and the fifth are 2 cents off. The minor seventh has two other common just values: 16:9 at 996.1 cents
