@@ -289,10 +289,13 @@ def main(out, standalone=False):
                      f'<p class="meta">{how} · bore {W:.2f} × {D:.2f}mm · holes in '
                      f'{wall:g}mm of wall · {glued}</p><p class="parts">{plist}</p>'
                      + ''.join(imgs) + '</section>')
-    for kind in ('flat', 'fingers'):
-        parts = Y.build(kind)
-        three['yours-' + kind] = solids('yours', Y.W, Y.D, Y.T, parts,
-                                        {'PW': Y.PW, 'total': Y.TOTAL, 'plug': Y.PLUG[0]})
+    K = Y.a4_factor()
+    for kind in ('flat-A4', 'fingers-A4'):
+        with Y.scaled(K):
+            parts = Y.build(kind.split('-')[0])
+            three['yours-' + kind] = solids('yours', Y.W, Y.D, Y.T, parts,
+                                            {'PW': Y.PW, 'total': Y.TOTAL, 'plug': Y.PLUG[0]})
+            yW, yD, yT = Y.W, Y.D, Y.TOTAL
         imgs = []
         sheets = Y.pack(parts)
         for k in range(1, len(sheets) + 1):
@@ -303,6 +306,8 @@ def main(out, standalone=False):
                         f'{sheets[k - 1]["h"]:.0f}mm</p></div>')
         yours_cards.append(''.join(imgs))
     yL, yholes, yfs = Y.predict()
+    with Y.scaled(K):
+        aL, aholes, afs = Y.predict()
     want = [0, 300, 500, 700, 1000, 1200]
     JUST = [(1, 1), (6, 5), (4, 3), (3, 2), (9, 5), (2, 1)]
     yrows = ''.join(
@@ -324,7 +329,7 @@ def main(out, standalone=False):
                          + ''.join(f'<td class="n">{x:.1f}<span>ø{dd:.1f}</span></td>'
                                    for x, dd in zip(h, d)) + '</tr>')
     page = TEMPLATE.format(rows=''.join(rows), cards=''.join(cards), plans=plan_html,
-                           yrows=yrows, ysheets=''.join(yours_cards), yL=yL,
+                           yrows=yrows, ysheets=''.join(yours_cards), yL=yL, k=K, yW=yW, yD=yD,
                            holes=''.join(hole_rows), sq=F.SQ, rw=F.RW, area=M.AREA,
                            spacing=M.SPACING, spare=M.FOOT_SPARE)
     import json
@@ -512,8 +517,10 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   19.37 × 22.44mm, 435mm², and its window runs the whole width of the bore. It tried an engraved splitting edge, a
   greyscale ramp beside the window meant to let the laser cut the bevel; that did not work, so the edge is filed by
   hand here as in every variant above. Each finger hole also sits in a soft engraved depression for the finger.</p>
-  <p class="col">Redrawn as <code>yours-flat</code> and <code>yours-fingers</code> in the 3D view, with the window, every
-  hole and the foot where they were. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
+  <p class="col">Scaled to A4 and redrawn as <code>yours-flat-A4</code> and <code>yours-fingers-A4</code> in the 3D
+  view. Every dimension that sets the pitch is multiplied by {k:.4f}, solved so the model gives 440Hz: the bore, now
+  {yW:.2f} × {yD:.2f}mm, the window, the holes and the sound chamber. The 3mm wall cannot scale, so the intervals widen
+  by 4 to 12 cents. The builds at the original size were removed at the author's asking. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
   four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the top cut as a head plate
   and a body plate, so a spoilt edge costs the short one; and in the fingers build the top finger-jointed like the bottom,
   so it press-fits.</p>

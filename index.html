@@ -445,13 +445,58 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </table>
 
 <p>Its flue is the six variants' idea on the other face: an engrave over the plug, in the nest rather than in the bird.</p>
-<h3 id="redrawn">Redrawn</h3>
-<p><code>your_flute.py</code> redraws it in two builds:</p>
+<h3 id="redrawn-at-a4">Redrawn at A4</h3>
+<p><code>your_flute.py</code> scales it to A4 and redraws it in two builds:</p>
 <ul>
-<li><code>yours-flat</code>: the sides butted between the top and the bottom, and glued.</li>
-<li><code>yours-fingers</code>: finger-jointed top and bottom, with the trumpet bores' joint.</li>
+<li><code>yours-flat-A4</code>: the sides butted between the top and the bottom, and glued.</li>
+<li><code>yours-fingers-A4</code>: finger-jointed top and bottom, with the trumpet bores' joint.</li>
 </ul>
-<p>The window, every finger hole and the foot stay exactly where they were. The tweaks:</p>
+<p>The model hears the original near B♭4, below. To put it on A4, every dimension that sets the pitch is multiplied by one factor, <strong>1.0705</strong>, solved so the model gives 440.00Hz: the bore, the window, each hole's diameter, depression and distance from the window, and the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs, the slow air chamber, the exit hole, the cap's notch and the stepped block.</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Original</th>
+<th>At A4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bore</td>
+<td>19.37 × 22.44mm, 435mm²</td>
+<td>20.74 × 24.02mm, 498mm²</td>
+</tr>
+<tr>
+<td>Window</td>
+<td>19.37 × 6.0mm</td>
+<td>20.74 × 6.4mm</td>
+</tr>
+<tr>
+<td>Sound chamber</td>
+<td>313.3mm</td>
+<td>335.3mm</td>
+</tr>
+<tr>
+<td>Overall length</td>
+<td>456.7mm</td>
+<td>479.0mm</td>
+</tr>
+<tr>
+<td>Finger holes, from the window</td>
+<td>213.9, 185.7, 156.9, 109.5, 78.0mm</td>
+<td>228.9, 198.8, 168.0, 117.2, 83.5mm</td>
+</tr>
+<tr>
+<td>Hole diameters</td>
+<td>7.73, 7.87, 7.79, 7.79, 5.47mm</td>
+<td>8.27, 8.42, 8.34, 8.34, 5.86mm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The scale's shape does not come through exactly. The wall stays 3mm while the holes grow, so each hole acts a little larger, and the intervals widen by 4 to 12 cents. The model puts the notes at C5 +4, D5 +27, E5 +39, G5 +47 and A5 +29 cents. A hole that plays sharp cannot be filed back, so tune these with tape over part of the hole, or have the holes re-solved to equal temperament at this size.</p>
+<p>The builds at the original size were removed at the author's asking; the original's own files are still in <code>yours/original/</code>. The tweaks made in redrawing it:</p>
 <ol type="1">
 <li>Millimetre-true, in the house cut-order colours, kerf-compensated, with every part numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.</li>
 <li>The plug is four 3mm discs, 12mm instead of 11. The exit hole moves 1mm toward the mouth to make room.</li>
@@ -459,7 +504,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <li>The rings are the original's own image, embedded at its original size. The ramp is left out, because the engraved bevel did not work.</li>
 <li>With the edge filed by hand, the top is cut as a short head plate and a long body plate, butted 20mm past the window, as in the six variants. A spoilt edge then costs only the short plate.</li>
 </ol>
-<p>Nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.</p>
+<p>Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.</p>
 <h3 id="what-the-model-hears-in-it">What the model hears in it</h3>
 <div class="tw">
 <table>
@@ -616,12 +661,12 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <td>the author's 2017 files, unchanged: <code>NAF_flatjoints.svg</code>, <code>NAF_fingerjoints.svg</code>, <code>NativeAmericaStyleFlute.svg</code>, <code>AirPlug.svg</code>, <code>BubingaAirPlug.svg</code>, <code>Block.svg</code>, <code>FluteEdge.svg</code>, <code>FluteEdge.png</code>, <code>HoleWithDepression.svg</code>, <code>ring.png</code>, <code>LeatherStrip.svg</code> and <code>Mouthpiece.svg</code></td>
 </tr>
 <tr>
-<td><code>yours/cut-files/flat/your-flute-flat-sheet1-cut-files.svg</code></td>
-<td>the author's flute redrawn, butt-jointed</td>
+<td><code>yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg</code></td>
+<td>the author's flute at A4, butt-jointed</td>
 </tr>
 <tr>
-<td><code>yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg</code></td>
-<td>the author's flute redrawn, finger-jointed</td>
+<td><code>yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg</code></td>
+<td>the author's flute at A4, finger-jointed</td>
 </tr>
 <tr>
 <td><code>yours/cut-files/your-flute-leather-tie-cut-files.svg</code></td>
@@ -633,7 +678,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </tr>
 <tr>
 <td><code>your_flute.py</code></td>
-<td>measures the original and redraws it</td>
+<td>measures the original, scales it to A4 and redraws it</td>
 </tr>
 <tr>
 <td><code>README.md</code> · <code>index.html</code></td>

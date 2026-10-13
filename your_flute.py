@@ -62,7 +62,20 @@ THE TWEAKS, each because something asked for it:
 NOTHING ACOUSTIC IS TWEAKED. The model reads this flute as a minor pentatonic
 to within 40 cents and puts it near B-flat 4; the author has played it and
 the model has not, so the holes stay where the author put them.
+
+SCALED TO A4 (flat-A4 and fingers-A4, 2026-10-13, at the author's asking,
+and in place of the two builds at the original size, which the author asked
+to be removed; the original's own files stay in yours/original/): every dimension that sets the pitch is multiplied by one
+factor, solved so the model puts the fundamental on 440Hz -- 1.0705. That is
+the bore, the window, each hole's diameter, depression and distance from the
+window, and the sound chamber. What ply fixes does not scale: the 3mm wall,
+the plug's four discs, the slow air chamber, the exit hole, the cap's notch
+and the stepped block. So the intervals are NOT kept exactly: with the wall
+relatively thinner each hole acts a little larger, and they widen 4 to 12
+cents -- 300, 522, 733, 1038, 1217 at the original size become 304, 527, 739,
+1047, 1229.
 """
+import contextlib
 import base64
 import math
 import os
@@ -100,14 +113,63 @@ def png(name):
         open(os.path.join(IMG, name), 'rb').read()).decode()
 
 
+A4_HZ = 440.0
+_BASE = dict(W=W, D=D, WIN=WIN, HOLES=HOLES, DIAMS=DIAMS, RING=RING, TOTAL=TOTAL)
+
+
+@contextlib.contextmanager
+def scaled(k):
+    """The flute with every pitch-setting dimension multiplied by k, for the
+    length of a with block: the bore, the window, the holes and their
+    depressions and distances from the window, and the sound chamber. At
+    k == 1 nothing is touched, so the faithful builds cannot move."""
+    g = globals()
+    if k == 1:
+        yield
+        return
+    b = _BASE
+    wc0 = (b['WIN'][0] + b['WIN'][1]) / 2
+    win = (b['WIN'][0], b['WIN'][0] + (b['WIN'][1] - b['WIN'][0]) * k)
+    wc = (win[0] + win[1]) / 2
+    new = dict(W=b['W'] * k, D=b['D'] * k, WIN=win, WC=wc,
+               HOLES=[wc + (h - wc0) * k for h in b['HOLES']],
+               DIAMS=[x * k for x in b['DIAMS']], RING=[x * k for x in b['RING']],
+               TOTAL=wc + (b['TOTAL'] - wc0) * k)
+    new['PW'] = new['W'] + 2 * T
+    new['SPLIT'] = win[1] + 20.0
+    # the cap keeps the original's allowance over the flute's outside
+    new['CAP'] = (new['PW'] + (CAP[0] - (b['W'] + 2 * T)),
+                  new['D'] + 2 * T + (CAP[1] - (b['D'] + 2 * T)), CAP[2])
+    saved = {n: g[n] for n in new}
+    g.update(new)
+    try:
+        yield
+    finally:
+        g.update(saved)
+
+
+def a4_factor():
+    """The k at which the model puts the fundamental on A4_HZ, bisected."""
+    lo, hi = 1.0, 1.2
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        with scaled(mid):
+            f = predict()[2][0]
+        if f > A4_HZ:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
 def fingers_x():
     """square_flute's finger layout, the trumpet bores' joint, kept clear of
     the full-width exit hole and window and of the butt joint in the top."""
     return F.fingers_x(TOTAL, (EXIT, WIN, (SPLIT, SPLIT)))
 
 
-def plate_with_notches(name, num, note, x0=0.0, x1=TOTAL):
-    return Part(name, num, F.notched(x0, x1, PW, fingers_x()), note)
+def plate_with_notches(name, num, note, x0=0.0, x1=None):
+    return Part(name, num, F.notched(x0, TOTAL if x1 is None else x1, PW, fingers_x()), note)
 
 
 def side_with_fingers(num):
@@ -296,8 +358,8 @@ def main():
             out = x.split('=', 1)[1]
         elif x.startswith('--only='):
             only = x.split('=', 1)[1]
-            if only not in ('flat', 'fingers', 'leather'):
-                raise SystemExit('error: --only= takes flat, fingers or leather.')
+            if only not in ('flat-A4', 'fingers-A4', 'leather'):
+                raise SystemExit('error: --only= takes flat-A4, fingers-A4 or leather.')
         else:
             raise SystemExit(f'error: {x} is not a flag this generator reads. '
                              f'It takes --out=, --only=, --flat and --no-write.')
@@ -310,15 +372,28 @@ def main():
         print(f'  {n} open  {f:6.1f}Hz  {nm:3} {c:+4.0f}c   {1200 * math.log2(f / fs[0]):5.0f}c '
               f'above the fundamental (a minor pentatonic wants {[0, 300, 500, 700, 1000, 1200][n]})')
     bad = 0
-    for kind in ('flat', 'fingers'):
+    K = None
+    for kind in ('flat-A4', 'fingers-A4'):
         if only and only != kind:
             continue
-        parts = build(kind)
-        sheets = pack(parts)
-        print(f'\n{kind}: {len(parts)} parts')
-        for ok, what, detail in checks(kind, parts, sheets):
-            print(f'  {"pass" if ok else "FAIL"}  {what:46} {detail}')
-            bad += not ok
+        k_ = 1.0
+        if kind.endswith('-A4'):
+            if K is None:
+                K = a4_factor()
+                with scaled(K):
+                    L4, _, f4 = predict()
+                    print(f'\nscaled x{K:.4f} to A4: bore {W:.2f} x {D:.2f}mm, sound chamber '
+                          f'{L4:.1f}mm, fundamental {f4[0]:.2f}Hz, intervals '
+                          + ', '.join(f'{1200 * math.log2(f / f4[0]):.0f}' for f in f4[1:]))
+                    bad += abs(1200 * math.log2(f4[0] / A4_HZ)) > 1
+            k_ = K
+        with scaled(k_):
+            parts = build(kind.split('-')[0])
+            sheets = pack(parts)
+            print(f'\n{kind}: {len(parts)} parts')
+            for ok, what, detail in checks(kind.split('-')[0], parts, sheets):
+                print(f'  {"pass" if ok else "FAIL"}  {what:46} {detail}')
+                bad += not ok
         if write and not bad:
             d = out if flat else os.path.join(out, kind)
             os.makedirs(d, exist_ok=True)

@@ -30,12 +30,12 @@ previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg :: pytho
 variants.html :: python3 compare_page.py --standalone $OUT
 index.html :: python3 ../lasermade-tools/md2html.py README.md $OUT
 
-# --- the author's flute, redrawn by your_flute.py ---
-yours/cut-files/flat/your-flute-flat-sheet1-cut-files.svg :: python3 your_flute.py --only=flat --flat --out=$(dirname $OUT)
-yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg :: python3 your_flute.py --only=fingers --flat --out=$(dirname $OUT)
+# --- the author's flute, scaled to A4 and redrawn by your_flute.py ---
+yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg :: python3 your_flute.py --only=flat-A4 --flat --out=$(dirname $OUT)
+yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg :: python3 your_flute.py --only=fingers-A4 --flat --out=$(dirname $OUT)
 yours/cut-files/your-flute-leather-tie-cut-files.svg :: python3 your_flute.py --only=leather --out=$(dirname $OUT)
-yours/previews/flat/your-flute-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/flat/your-flute-flat-sheet1-cut-files.svg $OUT
-yours/previews/fingers/your-flute-fingers-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg $OUT
+yours/previews/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg $OUT
+yours/previews/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg $OUT
 yours/previews/your-flute-leather-tie-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/your-flute-leather-tie-cut-files.svg $OUT
 
 # --- the author's originals, from 2017, as they were given: drawn by hand in

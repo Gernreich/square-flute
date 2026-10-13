@@ -266,14 +266,36 @@ It tried two things the six variants do not:
 Its flue is the six variants' idea on the other face: an engrave over the plug, in the
 nest rather than in the bird.
 
-### Redrawn
+### Redrawn at A4
 
-`your_flute.py` redraws it in two builds:
+`your_flute.py` scales it to A4 and redraws it in two builds:
 
-- `yours-flat`: the sides butted between the top and the bottom, and glued.
-- `yours-fingers`: finger-jointed top and bottom, with the trumpet bores' joint.
+- `yours-flat-A4`: the sides butted between the top and the bottom, and glued.
+- `yours-fingers-A4`: finger-jointed top and bottom, with the trumpet bores' joint.
 
-The window, every finger hole and the foot stay exactly where they were. The tweaks:
+The model hears the original near B♭4, below. To put it on A4, every dimension that sets
+the pitch is multiplied by one factor, **1.0705**, solved so the model gives 440.00Hz:
+the bore, the window, each hole's diameter, depression and distance from the window, and
+the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs,
+the slow air chamber, the exit hole, the cap's notch and the stepped block.
+
+| | Original | At A4 |
+|---|---|---|
+| Bore | 19.37 × 22.44mm, 435mm² | 20.74 × 24.02mm, 498mm² |
+| Window | 19.37 × 6.0mm | 20.74 × 6.4mm |
+| Sound chamber | 313.3mm | 335.3mm |
+| Overall length | 456.7mm | 479.0mm |
+| Finger holes, from the window | 213.9, 185.7, 156.9, 109.5, 78.0mm | 228.9, 198.8, 168.0, 117.2, 83.5mm |
+| Hole diameters | 7.73, 7.87, 7.79, 7.79, 5.47mm | 8.27, 8.42, 8.34, 8.34, 5.86mm |
+
+The scale's shape does not come through exactly. The wall stays 3mm while the holes
+grow, so each hole acts a little larger, and the intervals widen by 4 to 12 cents. The
+model puts the notes at C5 +4, D5 +27, E5 +39, G5 +47 and A5 +29 cents. A hole that
+plays sharp cannot be filed back, so tune these with tape over part of the hole, or
+have the holes re-solved to equal temperament at this size.
+
+The builds at the original size were removed at the author's asking; the original's own
+files are still in `yours/original/`. The tweaks made in redrawing it:
 
 1. Millimetre-true, in the house cut-order colours, kerf-compensated, with every part
    numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.
@@ -288,8 +310,8 @@ The window, every finger hole and the foot stay exactly where they were. The twe
    plate, butted 20mm past the window, as in the six variants. A spoilt edge then
    costs only the short plate.
 
-Nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as
-they were. The leather tie is its own file: cut it from leather, not ply.
+Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's
+layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.
 
 ### What the model hears in it
 
@@ -335,11 +357,11 @@ with it the foot of every build here.
 | `square_flute.py` | the generator |
 | `compare_page.py` | builds `variants.html` |
 | `yours/original/` | the author's 2017 files, unchanged: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
-| `yours/cut-files/flat/your-flute-flat-sheet1-cut-files.svg` | the author's flute redrawn, butt-jointed |
-| `yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg` | the author's flute redrawn, finger-jointed |
+| `yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg` | the author's flute at A4, butt-jointed |
+| `yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg` | the author's flute at A4, finger-jointed |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | its leather tie |
 | `yours/previews/` | display renderings of those three — **not** cut files |
-| `your_flute.py` | measures the original and redraws it |
+| `your_flute.py` | measures the original, scales it to A4 and redraws it |
 | `README.md` · `index.html` | this writeup and its published page; the markdown is the source |
 | `.repro` | the command that draws each shipped file |
 
