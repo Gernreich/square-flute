@@ -144,8 +144,8 @@ puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in th
 are narrower.
 
 **The flue is a fill engrave**, about 1mm deep and the full width of the bore. In the
-six variants it is on the underside of the bottom bird layer. In the `-plus` variants
-and the 2017 flute, it is on the top plate over the plug. The depth is a power
+six variants it is on the underside of the bottom bird layer, woodland style. In the
+`-plus` variants and the 2017 flute, it is on the top plate over the plug, plains style. The depth is a power
 setting, so find it on scrap first.
 
 **File the splitting edge by hand.** The window's far edge, where the air splits, needs
@@ -212,13 +212,39 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 `.repro` holds the exact command for every file here.
 
-## The -plus variants
+## The -plus variants: woodland and plains
 
 Each of the six again, with one more idea from the author's flute below, beyond the
 mouthpiece cap, the full-width window and exit hole and the finger-hole depressions
 that every variant has: **the flue engraved in the nest**, the top plate's face over
 the plug, rather than in the underside of the bird. The bird is then three plain
 layers. That is now the only difference between a variant and its `-plus` version.
+
+The two are the two traditional places for a Native American flute's flue, and they
+are kept as a pair on purpose:
+
+| | Where the flue is carved | Style | Here |
+|---|---|---|---|
+| The six | the underside of the block, the bird | **woodland** | `box-square-3` … `stack-rect-6` |
+| The `-plus` six | the flute's body, the nest under the bird | **plains**, or prairie | `box-square-3-plus` … `stack-rect-6-plus`, and the 2017 flute |
+
+The two put the airstream at different heights. A flue carved in the bird has the nest's
+flat surface as its floor, so the air leaves **just above** the top plate. A flue carved
+in the nest has the bird's flat underside as its roof, so the air leaves **just below**
+the top plate's surface. Against the splitting edge on the window's far side, that is a
+shift of about one flue depth, roughly 1mm, which is one reason the two styles voice
+differently. The model does not simulate the jet, so which suits these flutes is for a
+test cut to show.
+
+A third traditional way forms the flue with a **spacer plate**: a thin plate with a slot
+cut through it, between a flat bird and a flat nest. Its floor is the nest, so the air
+leaves above the top plate exactly as from a bird flue; only the making differs. The
+depth is the spacer's thickness rather than an engrave, so it is exact and even; the
+floor and roof are clean ply faces rather than a charred groove; a different depth is a
+different spacer, not a new bird; but it is one more surface to seal, and it wants stock
+about 1mm thick, not 3mm. None of the builds here uses one.
+[Flutopedia's anatomy of the flute](https://www.flutopedia.com/anatomy.htm) and its
+[glossary](https://www.flutopedia.com/glossary.htm) describe all three.
 
 It moves no hole, so each `-plus` variant shares its base's hole layout, in the
 table above. The bird's layers and the cap are glued, as in the original. Two things

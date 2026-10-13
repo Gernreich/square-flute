@@ -94,7 +94,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <body>
 <button class="tog" type="button">theme</button>
 <div class="wrap">
-<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-six-variants">The six variants</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#the--plus-variants">The -plus variants</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#files">Files</a></nav>
+<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-six-variants">The six variants</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#the--plus-variants-woodland-and-plains">The -plus variants: woodland and plains</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#files">Files</a></nav>
 <main>
 <h1 id="square-bore-flute">Square-bore flute</h1>
 <p><strong><a href="https://gernreich.github.io/square-flute/variants.html">See every variant, in 3D</a></strong></p>
@@ -325,7 +325,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <p><strong>The window's end correction is not measured.</strong> It is the least certain term in the model, and no built flute has checked it yet. Each 1mm of error in it moves the foot about 2.6mm. So the sound chamber is cut <strong>15mm long</strong>: trim the foot until the flute sounds A4 with every hole closed.</p>
 <p><strong>The holes move with it, almost as far.</strong> A 10% error in that correction moves the foot 2.8mm and every hole 2.3–2.6mm. Trimming the foot puts the fundamental right but leaves the holes where the model put them, so expect to tune each one. A hole that plays flat can be opened with a file. A hole that plays sharp cannot be closed up.</p>
 <p><strong>7/8in is a large bore for A4.</strong> <a href="https://www.flutopedia.com/bore_diameter.htm">Flutopedia's bore table</a> puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in this key are narrower.</p>
-<p><strong>The flue is a fill engrave</strong>, about 1mm deep and the full width of the bore. In the six variants it is on the underside of the bottom bird layer. In the <code>-plus</code> variants and the 2017 flute, it is on the top plate over the plug. The depth is a power setting, so find it on scrap first.</p>
+<p><strong>The flue is a fill engrave</strong>, about 1mm deep and the full width of the bore. In the six variants it is on the underside of the bottom bird layer, woodland style. In the <code>-plus</code> variants and the 2017 flute, it is on the top plate over the plug, plains style. The depth is a power setting, so find it on scrap first.</p>
 <p><strong>File the splitting edge by hand.</strong> The window's far edge, where the air splits, needs a clean bevel of about 30°, and a laser cuts square, charred edges. File it before assembly, while the top is still a flat plate on the bench; if the edge goes wrong, recut the top.</p>
 <p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The finger joints are the ones on the trumpet bores in <a href="https://github.com/Gernreich/trumpet-elbows-allowed">trumpet-elbows-allowed</a>: Boxes.py's own, with 6mm fingers and 6mm spaces and no play, so the fit comes from the kerf compensation alone. The plug discs are drawn 0.12mm over the bore, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece cap are glued.</p>
 <p>Run the colours <strong>blue, orange, black</strong>: blue engraves the part numbers and the flue, orange cuts the holes, slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic repository uses. Every variant also carries a greyscale image round each finger hole, the depression. It needs an image engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.</p>
@@ -357,8 +357,37 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </ul>
 <p>It borrows the stroke font for its part numbers from <a href="https://github.com/Gernreich/trumpet-elbows-allowed/blob/main/parts/bore/concept/swept-curve/ribbon_bore.py"><code>ribbon_bore.py</code></a> in trumpet-elbows-allowed, so it expects that repository cloned beside this one.</p>
 <p><code>.repro</code> holds the exact command for every file here.</p>
-<h2 id="the--plus-variants">The -plus variants</h2>
+<h2 id="the--plus-variants-woodland-and-plains">The -plus variants: woodland and plains</h2>
 <p>Each of the six again, with one more idea from the author's flute below, beyond the mouthpiece cap, the full-width window and exit hole and the finger-hole depressions that every variant has: <strong>the flue engraved in the nest</strong>, the top plate's face over the plug, rather than in the underside of the bird. The bird is then three plain layers. That is now the only difference between a variant and its <code>-plus</code> version.</p>
+<p>The two are the two traditional places for a Native American flute's flue, and they are kept as a pair on purpose:</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Where the flue is carved</th>
+<th>Style</th>
+<th>Here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The six</td>
+<td>the underside of the block, the bird</td>
+<td><strong>woodland</strong></td>
+<td><code>box-square-3</code> … <code>stack-rect-6</code></td>
+</tr>
+<tr>
+<td>The <code>-plus</code> six</td>
+<td>the flute's body, the nest under the bird</td>
+<td><strong>plains</strong>, or prairie</td>
+<td><code>box-square-3-plus</code> … <code>stack-rect-6-plus</code>, and the 2017 flute</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The two put the airstream at different heights. A flue carved in the bird has the nest's flat surface as its floor, so the air leaves <strong>just above</strong> the top plate. A flue carved in the nest has the bird's flat underside as its roof, so the air leaves <strong>just below</strong> the top plate's surface. Against the splitting edge on the window's far side, that is a shift of about one flue depth, roughly 1mm, which is one reason the two styles voice differently. The model does not simulate the jet, so which suits these flutes is for a test cut to show.</p>
+<p>A third traditional way forms the flue with a <strong>spacer plate</strong>: a thin plate with a slot cut through it, between a flat bird and a flat nest. Its floor is the nest, so the air leaves above the top plate exactly as from a bird flue; only the making differs. The depth is the spacer's thickness rather than an engrave, so it is exact and even; the floor and roof are clean ply faces rather than a charred groove; a different depth is a different spacer, not a new bird; but it is one more surface to seal, and it wants stock about 1mm thick, not 3mm. None of the builds here uses one. <a href="https://www.flutopedia.com/anatomy.htm">Flutopedia's anatomy of the flute</a> and its <a href="https://www.flutopedia.com/glossary.htm">glossary</a> describe all three.</p>
 <p>It moves no hole, so each <code>-plus</code> variant shares its base's hole layout, in the table above. The bird's layers and the cap are glued, as in the original. Two things are not taken. The engraved splitting edge charred, so the edge is still filed by hand. And the original's stepped block was for looks only, so the bird keeps its plain layers.</p>
 <h2 id="the-authors-flute">The author's flute</h2>
 <p>The six variants above are a fresh take, worked out without seeing this one. This flute was designed, cut and played in 2017, and its files are in <code>yours/original/</code> exactly as they were. Measured out of <code>yours/original/NAF_flatjoints.svg</code>:</p>

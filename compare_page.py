@@ -487,7 +487,9 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="col">Every variant carries four of the 2017 flute's ideas: its mouthpiece cap, with the half-round notch in
   the bottom edge; a window and an exit hole the whole width of the bore; and a soft depression round every finger hole.
   Each <code>-plus</code> variant differs from the one above it in one thing only: the flue is engraved in the nest, the
-  top plate's face over the plug, rather than in the bird. The 2017 flute's engraved splitting edge is not taken, since
+  top plate's face over the plug, rather than in the bird. The two are the traditional pair: a flue carved in the
+  block is the woodland style, a flue carved in the body is the plains style, so the first six are woodland and the
+  <code>-plus</code> six plains. The 2017 flute's engraved splitting edge is not taken, since
   it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>
     <thead><tr><th>Variant</th><th>Construction</th><th>Bore, mm</th><th>Hole wall</th><th>Sound chamber</th><th>Flute, mm</th><th>Parts</th><th>Sheets</th><th>Joints</th></tr></thead>
