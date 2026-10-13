@@ -18,10 +18,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import square_flute as F                                       # noqa: E402
 import your_flute as Y                                         # noqa: E402
+import plus_flute as P                                         # noqa: E402
 M = F.M
 
 
-def plan(L, holes, diams, wall, label):
+def plan(L, holes, diams, wall, label, plus=False):
     """The flute from above, to scale: mouth at the left."""
     wc = F.SAC + F.PLUG + M.WINDOW_L / 2
     total = wc + L + M.FOOT_SPARE
@@ -37,8 +38,9 @@ def plan(L, holes, diams, wall, label):
         z0, z1 = min(hx) - F.DOUBLER_PAST, max(hx) + F.DOUBLER_PAST
         s.append(f'<rect class="dbl" x="{z0:.1f}" y="{y0 + 1.5}" width="{z1 - z0:.1f}" '
                  f'height="{W - 3}"/>')
-    s.append(f'<rect class="cut" x="{F.SAC - F.EXIT_L}" y="{yc - 5}" width="{F.EXIT_L}" height="10"/>')
-    s.append(f'<rect class="cut" x="{F.SAC + F.PLUG}" y="{yc - 5}" width="{M.WINDOW_L}" height="10"/>')
+    o = W / 2 - 3 if plus else 5          # -plus: exit hole and window the bore's width
+    s.append(f'<rect class="cut" x="{F.SAC - F.EXIT_L}" y="{yc - o}" width="{F.EXIT_L}" height="{2 * o}"/>')
+    s.append(f'<rect class="cut" x="{F.SAC + F.PLUG}" y="{yc - o}" width="{M.WINDOW_L}" height="{2 * o}"/>')
     for x, d, n in zip(hx, diams, range(1, 6)):
         s.append(f'<circle class="cut" cx="{x:.1f}" cy="{yc}" r="{d / 2:.2f}"/>')
         s.append(f'<text class="num" x="{x:.1f}" y="{y0 + W + 9}">{n}</text>')
@@ -244,21 +246,29 @@ def main(out, standalone=False):
     rows, cards, plans = [], [], []
     three, yours_cards = {}, []
     done_plans = set()
-    for name, (kind, W, D, wall) in F.VARIANTS.items():
-        key = (round(W, 4), round(D, 4), wall)
+    every = ([(n, v, False) for n, v in F.VARIANTS.items()]
+             + [(n, v, True) for n, v in P.VARIANTS.items()])
+    for name, (kind, W, D, wall), plus in every:
+        key = (round(W, 4), round(D, 4), wall, plus)
         if key not in designs:
-            designs[key] = M.design(M.Bore(W, D), wall, even=True)
+            designs[key] = (P.design(W, D, wall) if plus
+                            else M.design(M.Bore(W, D), wall, even=True))
         L, holes, diams, cents = designs[key]
-        parts, info = F.build(kind, W, D, wall, L, holes, diams)
+        parts, info = (P.build if plus else F.build)(kind, W, D, wall, L, holes, diams)
         sheets = F.pack(parts)
         three[name] = solids(kind, W, D, wall, parts, info)
-        if wall not in done_plans:
-            done_plans.add(wall)
-            plans.append((wall, L, holes, diams))
+        if (wall, plus) not in done_plans:
+            done_plans.add((wall, plus))
+            plans.append((wall, L, holes, diams, plus))
         how = {'box': 'Finger-jointed box', 'stack': 'Laminated stack'}[kind]
-        glued = ('doubler and bird glued; the rest press-fit' if kind == 'box' and wall > 3
-                 else 'bird glued; the rest press-fit' if kind == 'box'
-                 else 'every layer glued')
+        if plus:
+            glued = ('doubler, cap and block glued; the rest press-fit' if kind == 'box' and wall > 3
+                     else 'cap and block glued; the rest press-fit' if kind == 'box'
+                     else 'every layer glued')
+        else:
+            glued = ('doubler and bird glued; the rest press-fit' if kind == 'box' and wall > 3
+                     else 'bird glued; the rest press-fit' if kind == 'box'
+                     else 'every layer glued')
         rows.append(f'<tr><th scope="row"><code>{name}</code></th><td>{how}</td>'
                     f'<td class="n">{W:.2f} × {D:.2f}</td><td class="n">{wall:g}</td>'
                     f'<td class="n">{L:.1f}</td><td class="n">{info["total"]:.0f} × {info["PW"]:.1f}</td>'
@@ -300,12 +310,14 @@ def main(out, standalone=False):
         f'<td class="n">{1200 * math.log2(f / yfs[0]):.0f}c</td><td class="n">{want[n]}c</td></tr>'
         for n, f in enumerate(yfs))
     ref = M.design(M.Bore(), 5.0, even=True)
-    plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall — sound chamber '
-                             f'{L:.1f}mm, cut {L + M.FOOT_SPARE:.1f}')
-                        for w, L, h, d in plans)
+    plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall'
+                             + (', full-width window (-plus)' if pl else '')
+                             + f' — sound chamber {L:.1f}mm, cut {L + M.FOOT_SPARE:.1f}', pl)
+                        for w, L, h, d, pl in plans)
     hole_rows = []
-    for (w, L, h, d), lab in zip(plans + [(5.0,) + ref[:3]],
-                                 ['3mm wall', '6mm wall', 'round reference, 5mm wall']):
+    labels = [f'{w:g}mm wall' + (', -plus' if pl else '') for w, L, h, d, pl in plans]
+    for (w, L, h, d, pl), lab in zip(plans + [(5.0,) + ref[:3] + (False,)],
+                                     labels + ['round reference, 5mm wall']):
         hole_rows.append(f'<tr><th scope="row">{lab}</th><td class="n">{L:.1f}</td>'
                          + ''.join(f'<td class="n">{x:.1f}<span>ø{dd:.1f}</span></td>'
                                    for x, dd in zip(h, d)) + '</tr>')
@@ -414,7 +426,8 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <h1>Square-Bore A4 Flute</h1>
   <p class="lede">A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm ply with
   the bore area of a 7/8in round-bore flute: {area:.0f}mm², the same air column in a section a laser can build.
-  Six variants, from one acoustic model and one generator.</p>
+  Six variants from one acoustic model, the same six again with the ideas of the 2017 flute folded in, and that flute
+  itself, redrawn.</p>
 </header>
 
 <section class="findings" aria-label="What the model says">
@@ -429,7 +442,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 <!--VIEWER-->
 
 <section class="col" style="max-width:none">
-  <h2>The two hole layouts</h2>
+  <h2>The hole layouts</h2>
   <p class="col">Plan view to scale, mouth on the left. Distances are from the window centre. The shaded end is the
   {spare:.0f}mm cut long to trim to pitch.</p>
   {plans}
@@ -441,7 +454,12 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 </section>
 
 <section class="col" style="max-width:none">
-  <h2>All six variants</h2>
+  <h2>All twelve variants</h2>
+  <p class="col">Each <code>-plus</code> variant is the one above it with five ideas from the 2017 flute: a window and
+  an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, the stepped block, a
+  mouthpiece cap with a 9.6mm breath hole, and a soft depression round every finger hole. The wider window has the
+  smaller end correction, so the model puts the foot about 18mm further down. The 2017 flute's engraved splitting edge
+  is not among them: it charred.</p>
   <div class="scroll"><table>
     <thead><tr><th>Variant</th><th>Construction</th><th>Bore, mm</th><th>Hole wall</th><th>Sound chamber</th><th>Flute, mm</th><th>Parts</th><th>Sheets</th><th>Joints</th></tr></thead>
     <tbody>{rows}</tbody>
@@ -473,7 +491,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="col">Designed, cut and played in 2017, and kept here as it was in <code>yours/original/</code>. Its bore is
   19.37 × 22.44mm, 435mm², and its window runs the whole width of the bore. It tried an engraved splitting edge, a
   greyscale ramp beside the window meant to let the laser cut the bevel; that did not work, so the edge is filed by
-  hand here as in the six above. Each finger hole also sits in a soft engraved depression for the finger.</p>
+  hand here as in every variant above. Each finger hole also sits in a soft engraved depression for the finger.</p>
   <p class="col">Redrawn as <code>yours-flat</code> and <code>yours-fingers</code> in the 3D view, with the window, every
   hole and the foot where they were. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
   four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the top cut as a head plate

@@ -94,13 +94,13 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <body>
 <button class="tog" type="button">theme</button>
 <div class="wrap">
-<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-six-variants">The six variants</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#files">Files</a></nav>
+<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-six-variants">The six variants</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#the--plus-variants">The -plus variants</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#files">Files</a></nav>
 <main>
 <h1 id="square-bore-flute">Square-bore flute</h1>
 <p><strong><a href="https://gernreich.github.io/square-flute/variants.html">See every variant, in 3D</a></strong> · <strong><a href="https://gernreich.github.io/square-flute/">Read the writeup</a></strong></p>
 <p>A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm plywood with a square or rectangular bore. It keeps the <strong>bore area of a 7/8in (22.2mm) round-bore flute, 387mm²</strong>, so the air column is the same in a section a laser can build. All closed it sounds A4; opening the holes from the foot up gives C5, D5, E5, G5 and A5.</p>
 <p>Output is millimetre-true — <code>1 user unit = 1 mm</code> with a physical <code>width</code>/<code>height</code> — so it prints and cuts at real size.</p>
-<p><strong>Nothing here has been cut or played yet.</strong> The holes and the foot come from an acoustic model, and the foot is cut long to be trimmed to pitch.</p>
+<p><strong>None of these variants has been cut or played yet.</strong> The holes and the foot come from an acoustic model, and the foot is cut long to be trimmed to pitch. The author's own flute of 2017, which has been, is here too, with six more variants that borrow its ideas.</p>
 <table>
 <tr>
 <td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate with orange mortice slots along both edges, two side walls with tabs along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs and three bird layers, one with a blue filled rectangle for the flue" width="720"></a></td>
@@ -265,6 +265,71 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </ul>
 <p>It borrows the stroke font for its part numbers from <a href="https://github.com/Gernreich/trumpet-elbows-allowed/blob/main/parts/bore/concept/swept-curve/ribbon_bore.py"><code>ribbon_bore.py</code></a> in trumpet-elbows-allowed, so it expects that repository cloned beside this one.</p>
 <p><code>.repro</code> holds the exact command for every file here.</p>
+<h2 id="the--plus-variants">The -plus variants</h2>
+<p>Each of the six again, with five ideas from the author's flute below:</p>
+<ol type="1">
+<li>A window <strong>the whole width of the bore</strong>, rather than 10mm of it.</li>
+<li>An exit hole the whole width too, with <strong>the flue engraved in the nest</strong>, over the plug, rather than in the bird.</li>
+<li><strong>The stepped block</strong>: four layers 25, 19.8, 15.8 and 12.6mm long, front edges together on the window.</li>
+<li><strong>A mouthpiece cap</strong> over the mouth end, with a 9.6mm breath hole.</li>
+<li><strong>A soft engraved depression</strong> round every finger hole, the original's own image, 1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger lands.</li>
+</ol>
+<p>A wider window has a smaller end correction, so the model puts the foot about 18mm further down, and every hole moves with it:</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Sound chamber</th>
+<th>Hole 1</th>
+<th>Hole 2</th>
+<th>Hole 3</th>
+<th>Hole 4</th>
+<th>Hole 5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>box-square-3-plus</code></td>
+<td>346.9mm</td>
+<td>245.9 · ø7.6</td>
+<td>220.9 · ø8.0</td>
+<td>195.9 · ø9.4</td>
+<td>143.0 · ø8.0</td>
+<td>118.0 · ø6.4</td>
+</tr>
+<tr>
+<td><code>box-square-6-plus</code></td>
+<td>345.2mm</td>
+<td>235.3 · ø8.0</td>
+<td>210.3 · ø8.0</td>
+<td>185.3 · ø8.9</td>
+<td>126.4 · ø8.0</td>
+<td>101.4 · ø7.0</td>
+</tr>
+<tr>
+<td><code>box-rect-3-plus</code>, <code>stack-rect-3-plus</code></td>
+<td>345.4mm</td>
+<td>244.5 · ø7.6</td>
+<td>219.5 · ø8.0</td>
+<td>194.5 · ø9.4</td>
+<td>141.8 · ø8.0</td>
+<td>116.8 · ø6.4</td>
+</tr>
+<tr>
+<td><code>box-rect-6-plus</code>, <code>stack-rect-6-plus</code></td>
+<td>343.7mm</td>
+<td>233.9 · ø8.1</td>
+<td>208.9 · ø8.0</td>
+<td>183.9 · ø8.9</td>
+<td>125.3 · ø8.0</td>
+<td>100.3 · ø7.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here the square and the rectangle differ by 1.5mm, where the six agree to 0.1. That is the window, not the bore: it is as wide as the bore, so the narrower rectangle has the narrower window.</p>
+<p>In the box, a full-width opening reaches the inner faces of the bore, which is where the mortices are, so no tab stands beside the exit hole or the window. The cap and the block's layers are glued, as in the original. The engraved splitting edge is the one idea not taken: it charred, so the edge is still filed by hand and the top still split.</p>
 <h2 id="the-authors-flute">The author's flute</h2>
 <p>The six variants above are a fresh take, worked out without seeing this one. This flute was designed, cut and played in 2017, and its files are in <code>yours/original/</code> exactly as they were. Measured out of <code>yours/original/NAF_flatjoints.svg</code>:</p>
 <div class="tw">
@@ -418,8 +483,44 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <td>display renderings of every sheet — <strong>not</strong> cut files</td>
 </tr>
 <tr>
+<td><code>cut-files/box-square-3-plus/square-flute-A4-box-square-3-plus-sheet1-cut-files.svg</code></td>
+<td><code>box-square-3</code> with the 2017 ideas</td>
+</tr>
+<tr>
+<td><code>cut-files/box-square-6-plus/square-flute-A4-box-square-6-plus-sheet1-cut-files.svg</code></td>
+<td><code>box-square-6</code> with the 2017 ideas</td>
+</tr>
+<tr>
+<td><code>cut-files/box-rect-3-plus/square-flute-A4-box-rect-3-plus-sheet1-cut-files.svg</code></td>
+<td><code>box-rect-3</code> with the 2017 ideas</td>
+</tr>
+<tr>
+<td><code>cut-files/box-rect-6-plus/square-flute-A4-box-rect-6-plus-sheet1-cut-files.svg</code></td>
+<td><code>box-rect-6</code> with the 2017 ideas</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet1-cut-files.svg</code></td>
+<td><code>stack-rect-3</code> with the 2017 ideas, sheet 1 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet2-cut-files.svg</code></td>
+<td><code>stack-rect-3</code> with the 2017 ideas, sheet 2 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet1-cut-files.svg</code></td>
+<td><code>stack-rect-6</code> with the 2017 ideas, sheet 1 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet2-cut-files.svg</code></td>
+<td><code>stack-rect-6</code> with the 2017 ideas, sheet 2 of 2</td>
+</tr>
+<tr>
 <td><code>variants.html</code></td>
-<td>all six side by side, in 3D, with every sheet</td>
+<td>every variant side by side, in 3D, with every sheet</td>
+</tr>
+<tr>
+<td><code>plus_flute.py</code></td>
+<td>the six again with the 2017 flute's ideas</td>
 </tr>
 <tr>
 <td><code>naf_model.py</code></td>

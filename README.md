@@ -12,8 +12,10 @@ G5 and A5.
 Output is millimetre-true — `1 user unit = 1 mm` with a physical `width`/`height` — so
 it prints and cuts at real size.
 
-**Nothing here has been cut or played yet.** The holes and the foot come from an
-acoustic model, and the foot is cut long to be trimmed to pitch.
+**None of these variants has been cut or played yet.** The holes and the foot come
+from an acoustic model, and the foot is cut long to be trimmed to pitch. The author's
+own flute of 2017, which has been, is here too, with six more variants that borrow
+its ideas.
 
 <table>
 <tr>
@@ -148,6 +150,39 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 `.repro` holds the exact command for every file here.
 
+## The -plus variants
+
+Each of the six again, with five ideas from the author's flute below:
+
+1. A window **the whole width of the bore**, rather than 10mm of it.
+2. An exit hole the whole width too, with **the flue engraved in the nest**, over the
+   plug, rather than in the bird.
+3. **The stepped block**: four layers 25, 19.8, 15.8 and 12.6mm long, front edges
+   together on the window.
+4. **A mouthpiece cap** over the mouth end, with a 9.6mm breath hole.
+5. **A soft engraved depression** round every finger hole, the original's own image,
+   1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger
+   lands.
+
+A wider window has a smaller end correction, so the model puts the foot about 18mm
+further down, and every hole moves with it:
+
+| Variant | Sound chamber | Hole 1 | Hole 2 | Hole 3 | Hole 4 | Hole 5 |
+|---|---|---|---|---|---|---|
+| `box-square-3-plus` | 346.9mm | 245.9 · ø7.6 | 220.9 · ø8.0 | 195.9 · ø9.4 | 143.0 · ø8.0 | 118.0 · ø6.4 |
+| `box-square-6-plus` | 345.2mm | 235.3 · ø8.0 | 210.3 · ø8.0 | 185.3 · ø8.9 | 126.4 · ø8.0 | 101.4 · ø7.0 |
+| `box-rect-3-plus`, `stack-rect-3-plus` | 345.4mm | 244.5 · ø7.6 | 219.5 · ø8.0 | 194.5 · ø9.4 | 141.8 · ø8.0 | 116.8 · ø6.4 |
+| `box-rect-6-plus`, `stack-rect-6-plus` | 343.7mm | 233.9 · ø8.1 | 208.9 · ø8.0 | 183.9 · ø8.9 | 125.3 · ø8.0 | 100.3 · ø7.0 |
+
+Here the square and the rectangle differ by 1.5mm, where the six agree to 0.1. That is
+the window, not the bore: it is as wide as the bore, so the narrower rectangle has the
+narrower window.
+
+In the box, a full-width opening reaches the inner faces of the bore, which is where the
+mortices are, so no tab stands beside the exit hole or the window. The cap and the
+block's layers are glued, as in the original. The engraved splitting edge is the one
+idea not taken: it charred, so the edge is still filed by hand and the top still split.
+
 ## The author's flute
 
 The six variants above are a fresh take, worked out without seeing this one. This
@@ -238,7 +273,16 @@ needs**, and it would set the foot for all eight builds.
 | `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 6mm hole wall, sheet 1 of 2 |
 | `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg` | stack, 6mm hole wall, sheet 2 of 2 |
 | `previews/` | display renderings of every sheet — **not** cut files |
-| `variants.html` | all six side by side, in 3D, with every sheet |
+| `cut-files/box-square-3-plus/square-flute-A4-box-square-3-plus-sheet1-cut-files.svg` | `box-square-3` with the 2017 ideas |
+| `cut-files/box-square-6-plus/square-flute-A4-box-square-6-plus-sheet1-cut-files.svg` | `box-square-6` with the 2017 ideas |
+| `cut-files/box-rect-3-plus/square-flute-A4-box-rect-3-plus-sheet1-cut-files.svg` | `box-rect-3` with the 2017 ideas |
+| `cut-files/box-rect-6-plus/square-flute-A4-box-rect-6-plus-sheet1-cut-files.svg` | `box-rect-6` with the 2017 ideas |
+| `cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet1-cut-files.svg` | `stack-rect-3` with the 2017 ideas, sheet 1 of 2 |
+| `cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet2-cut-files.svg` | `stack-rect-3` with the 2017 ideas, sheet 2 of 2 |
+| `cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet1-cut-files.svg` | `stack-rect-6` with the 2017 ideas, sheet 1 of 2 |
+| `cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet2-cut-files.svg` | `stack-rect-6` with the 2017 ideas, sheet 2 of 2 |
+| `variants.html` | every variant side by side, in 3D, with every sheet |
+| `plus_flute.py` | the six again with the 2017 flute's ideas |
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator |
 | `compare_page.py` | builds `variants.html` |
