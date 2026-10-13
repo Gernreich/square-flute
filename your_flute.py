@@ -25,7 +25,10 @@ to the inch, 0.28222mm a unit), along the flute from the mouth end:
                     cut the bevel by laser. IT DID NOT WORK: the author, on
                     2026-10-13. It stays in yours/original/ as it was, and is
                     not in the redraw
-  finger holes      each ringed by a soft engraved depression
+  finger holes      each ringed by a soft engraved depression. They worked,
+                    the author recalls, cut on a Glowforge, whose 3D engrave
+                    reads grey as depth; whether an xTool does the same is
+                    not known here
   mouthpiece        an end cap 25.89 x 28.89mm with a 9.59mm breath hole
   block             four layers 25mm wide, 25, 19.8, 15.8 and 12.6 long
   tie               a leather strip 359.6 x 4.6mm
@@ -152,7 +155,7 @@ def build(kind):
     head.fills.append(rect(PLUG[0], yc - W / 2, PLUG[1], yc + W / 2))   # the flue
     for x, d in zip(HOLES, DIAMS):
         body.hole(x, yc, d)
-    body.images = [('ring.png', x - r / 2, yc - r / 2, r, r, 0) for x, r in zip(HOLES, RING)]
+    body.images = [('ring.png', x - r / 2, yc - r / 2, r, r) for x, r in zip(HOLES, RING)]
     parts += [head, body]
     if kind == 'fingers':
         parts.append(plate_with_notches('bottom plate', next(num), 'plain'))
@@ -200,19 +203,11 @@ def svg(kind, k, n, sheet, what, leather=False):
                               f'r="{c[3] - F.KERF / 2:.3f}"/>')
         for f in p.fills:
             fills.append(path(mv(f)))
-        for name, x, y, w, h, rot in p.images:
+        for name, x, y, w, h in p.images:
             if name not in cache:
                 cache[name] = png(name)
-            if rot:
-                # the ramp's dark edge sits against the window: drawn as an
-                # image h across and w along, turned a quarter
-                cx, cy = x + dx + w / 2, y + dy + h / 2
-                imgs.append(f'<image x="{cx - h / 2:.3f}" y="{cy - w / 2:.3f}" width="{h:.3f}" '
-                            f'height="{w:.3f}" preserveAspectRatio="none" '
-                            f'transform="rotate({rot} {cx:.3f} {cy:.3f})" href="{cache[name]}"/>')
-            else:
-                imgs.append(f'<image x="{x + dx:.3f}" y="{y + dy:.3f}" width="{w:.3f}" '
-                            f'height="{h:.3f}" preserveAspectRatio="none" href="{cache[name]}"/>')
+            imgs.append(f'<image x="{x + dx:.3f}" y="{y + dy:.3f}" width="{w:.3f}" '
+                        f'height="{h:.3f}" preserveAspectRatio="none" href="{cache[name]}"/>')
         if not leather:
             xs = sorted([p.x0 + 6, p.x0 + p.w - 6]
                         + [c[1] for c in p.cuts if c[0] == 'circle']

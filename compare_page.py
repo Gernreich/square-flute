@@ -136,7 +136,7 @@ VIEWER = r"""
     <button type="button" id="vreset">Reset view</button>
     <label class="chk"><input type="checkbox" id="xray"> See through the walls</label>
   </div>
-  <p class="note">Drag to turn, scroll or pinch to zoom. The parts are the generator's own outlines before the kerf, so this is the flute as built: the box's tabs in their mortices, the four plug discs, the stack's seven bore layers with the plug left solid, the doubler, and the bird with its flue (blue) over the exit hole.</p>
+  <p class="note">Drag to turn, scroll or pinch to zoom. The parts are the generator's own outlines before the kerf, so this is the flute as built: the box's tabs in their mortices, the four plug discs, the stack's seven bore layers with the plug left solid, the doubler, and the bird over the exit hole. In the first six the flue is engraved in the bird's underside, shown blue; in the <code>-plus</code> variants and the 2017 flute it is engraved in the top plate over the plug, where the bird covers it.</p>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -502,8 +502,8 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
     <tbody>{yrows}</tbody>
   </table></div>
   <p class="note">What the model hears in it, sound chamber {yL:.1f}mm. The shape of the scale agrees to within 40 cents
-  at every hole. The pitch, near B♭4, uses the same uncalibrated window term as everything else here, so the flute itself
-  is the better answer: its actual note sets that term for all eight builds.</p>
+  at every hole. The pitch, near B♭4, uses the same uncalibrated window term as everything else here. The 2017 flutes have
+  all been given away, so none can be measured: the first of these builds to be cut and played will set that term.</p>
   {ysheets}
 </section>
 

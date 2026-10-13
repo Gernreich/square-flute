@@ -97,7 +97,7 @@ def build(kind, W, D, wall, L, holes, diams):
     for x, d in zip(hx, diams):
         body.hole(x, yc, d)
     rings = [d * RING_OF for d in diams]
-    body.images = [('ring.png', x - r / 2, yc - r / 2, r, r, 0) for x, r in zip(hx, rings)]
+    body.images = [('ring.png', x - r / 2, yc - r / 2, r, r) for x, r in zip(hx, rings)]
 
     if kind == 'box':
         # a tab beside the exit hole or the window would leave no ply between

@@ -203,7 +203,9 @@ It tried two things the six variants do not:
   bevel itself. **It did not work**, so the edge is filed by hand, as it is in the six
   variants.
 - **A soft engraved depression round each finger hole**, `ring.png`, for the finger
-  to find.
+  to find. These worked, cut on a Glowforge, whose 3D engrave reads a grey image as
+  depth. Whether an xTool's greyscale engrave does the same is untested, so try one
+  on scrap first.
 
 <table>
 <tr>
@@ -256,8 +258,9 @@ they were. The leather tie is its own file: cut it from leather, not ply.
 
 The shape of the scale agrees to within 40 cents at every hole, which is the best test
 the model has had. Its pitch, near B♭4, rests on the same uncalibrated window term as
-everything else here. **What this flute actually plays is the calibration that term
-needs**, and it would set the foot for all eight builds.
+everything else here. The 2017 flutes have all been given away, so that term cannot be
+measured from one. **The first of these builds to be cut and played will set it**, and
+with it the foot of every build here.
 
 ## Files
 
