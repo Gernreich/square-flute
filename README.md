@@ -19,10 +19,10 @@ its ideas.
 
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate with orange mortice slots along both edges, two side walls with tabs along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs and three bird layers, one with a blue filled rectangle for the flue" width="720"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate with orange mortice slots along both edges, two side walls with tabs along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="720"></a></td>
 </tr>
 <tr>
-<td align="center"><sub>box-square-6 · the whole flute on one 586 × 167mm sheet</sub></td>
+<td align="center"><sub>box-square-6 · the whole flute on one 596 × 167mm sheet</sub></td>
 </tr>
 </table>
 
@@ -39,12 +39,12 @@ Three ways to build the bore, each with the finger holes in 3mm or 6mm of wall:
 
 | Variant | Construction | Bore | Hole wall | Parts | Sheets | Joints |
 |---|---|---|---|---|---|---|
-| `box-square-3` | finger-jointed box | 19.67 × 19.67mm | 3mm | 12 | 1 | the bird glued, the rest press-fit |
-| `box-square-6` | finger-jointed box | 19.67 × 19.67mm | 6mm | 13 | 1 | the doubler and the bird glued |
-| `box-rect-3` | finger-jointed box | 18.43 × 21mm | 3mm | 12 | 1 | the bird glued, the rest press-fit |
-| `box-rect-6` | finger-jointed box | 18.43 × 21mm | 6mm | 13 | 1 | the doubler and the bird glued |
-| `stack-rect-3` | laminated stack | 18.43 × 21mm | 3mm | 13 | 2 | every layer glued |
-| `stack-rect-6` | laminated stack | 18.43 × 21mm | 6mm | 14 | 2 | every layer glued |
+| `box-square-3` | finger-jointed box | 19.67 × 19.67mm | 3mm | 13 | 1 | the bird and the cap glued, the rest press-fit |
+| `box-square-6` | finger-jointed box | 19.67 × 19.67mm | 6mm | 14 | 1 | the doubler, the bird and the cap glued |
+| `box-rect-3` | finger-jointed box | 18.43 × 21mm | 3mm | 13 | 1 | the bird and the cap glued, the rest press-fit |
+| `box-rect-6` | finger-jointed box | 18.43 × 21mm | 6mm | 14 | 1 | the doubler, the bird and the cap glued |
+| `stack-rect-3` | laminated stack | 18.43 × 21mm | 3mm | 14 | 2 | every layer and the cap glued |
+| `stack-rect-6` | laminated stack | 18.43 × 21mm | 6mm | 15 | 2 | every layer and the cap glued |
 
 - **The box** is four plates: the two sides are tabbed into the top and the bottom, and
   the plug is four discs pressed into the bore.
@@ -52,6 +52,11 @@ Three ways to build the bore, each with the finger holes in 3mm or 6mm of wall:
   the plug left solid, and the top.
 - **The 6mm variants** glue a 3mm doubler over the run of finger holes, so each hole has
   a 6mm chimney, as a wooden flute's wall would give it.
+
+Every variant carries the author's mouthpiece cap from the 2017 flute below: a plate
+glued over the mouth end, with a half-round notch in its bottom edge, away from the
+finger holes. The notch is a 9.59mm circle centred on the edge, and it opens through
+the bottom wall into the slow air chamber.
 
 There is no laminated square bore. A stack is a whole number of 3mm layers deep, 18 or
 21mm, and 19.67 is neither, so the stack keeps the area and gives up the square.
@@ -132,8 +137,8 @@ short head plate and a long body plate, so a spoilt edge costs only the short on
 **Cut it in 3mm Baltic birch plywood**, at a 0.13mm kerf. The tabs are drawn 0.19mm
 tight along their length and 0.12mm across the ply, the mallet fit used on the
 [lyre-harp](https://github.com/Gernreich/lyre-harp). Press-fit, then seal every seam with
-shellac. The doubler, the bird's layers and every layer of the stack are glued, and so
-is the mouthpiece cap of a `-plus` variant.
+shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece
+cap are glued.
 
 Run the colours **blue, orange, black**: blue engraves the part numbers and the flue,
 orange cuts the holes, slots and windows, and black frees the parts. That is the
@@ -186,15 +191,13 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 ## The -plus variants
 
-Each of the six again, with four ideas from the author's flute below:
+Each of the six again, with three more ideas from the author's flute below, beyond the
+mouthpiece cap that every variant has:
 
 1. A window **the whole width of the bore**, rather than 10mm of it.
 2. An exit hole the whole width too, with **the flue engraved in the nest**, over the
    plug, rather than in the bird. The bird is then three plain layers.
-3. **A mouthpiece cap** over the mouth end, with a half-round notch in its bottom edge,
-   on the side away from the finger holes: a 9.6mm circle centred on the edge, which
-   opens through the bottom wall into the bore.
-4. **A soft engraved depression** round every finger hole, the original's own image,
+3. **A soft engraved depression** round every finger hole, the original's own image,
    1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger
    lands.
 

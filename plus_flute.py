@@ -20,7 +20,8 @@ WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
      in the NEST -- the top of the head plate over the plug -- rather than in
      the bird. The bird is then plain layers, and the flue is on the part that
      stays put.
-  3. A mouthpiece cap over the mouth end, the size of the flute's outside,
+  3. A mouthpiece cap over the mouth end -- on every variant since, the six
+     included, through square_flute.cap_part -- the size of the flute's outside,
      with the original's half-round notch in its bottom edge: a 9.59mm circle
      centred 0.33mm inside the edge, so the notch opens through the bottom
      wall into the bore, away from the finger holes. Glued, like the bird's

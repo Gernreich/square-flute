@@ -264,11 +264,11 @@ def main(out, standalone=False):
         if plus:
             glued = ('doubler, cap and bird glued; the rest press-fit' if kind == 'box' and wall > 3
                      else 'cap and bird glued; the rest press-fit' if kind == 'box'
-                     else 'every layer glued')
+                     else 'every layer and the cap glued')
         else:
-            glued = ('doubler and bird glued; the rest press-fit' if kind == 'box' and wall > 3
-                     else 'bird glued; the rest press-fit' if kind == 'box'
-                     else 'every layer glued')
+            glued = ('doubler, bird and cap glued; the rest press-fit' if kind == 'box' and wall > 3
+                     else 'bird and cap glued; the rest press-fit' if kind == 'box'
+                     else 'every layer and the cap glued')
         rows.append(f'<tr><th scope="row"><code>{name}</code></th><td>{how}</td>'
                     f'<td class="n">{W:.2f} × {D:.2f}</td><td class="n">{wall:g}</td>'
                     f'<td class="n">{L:.1f}</td><td class="n">{info["total"]:.0f} × {info["PW"]:.1f}</td>'
@@ -472,9 +472,10 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 
 <section class="col" style="max-width:none">
   <h2>All twelve variants</h2>
-  <p class="col">Each <code>-plus</code> variant is the one above it with four ideas from the 2017 flute: a window and
-  an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, a mouthpiece cap with
-  a half-round notch in its bottom edge, and a soft depression round every finger hole. The wider window has the
+  <p class="col">Every variant carries the 2017 flute's mouthpiece cap, with its half-round notch in the bottom edge.
+  Each <code>-plus</code> variant is the one above it with three more of that flute's ideas: a window and an exit hole
+  the whole width of the bore, the flue engraved in the nest rather than the bird, and a soft depression round every
+  finger hole. The wider window has the
   smaller end correction, so the model puts the foot 16.5–18mm further down. The 2017 flute's engraved splitting edge
   is not among them, since it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>

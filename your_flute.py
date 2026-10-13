@@ -70,6 +70,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import square_flute as F                                       # noqa: E402
 from square_flute import Part, rect, offset, pack, path, label  # noqa: E402
+from square_flute import cap_part, cap_path                      # noqa: E402
 M = F.M
 
 T = F.T
@@ -85,7 +86,7 @@ DIAMS = [7.73, 7.87, 7.79, 7.79, 5.47]
 RING = [12.14, 12.14, 12.14, 12.14, 8.56]                # depression image, across
 SPLIT = WIN[1] + 20.0                # the head plate ends here
 CAP = (25.89, 28.89, 9.59)
-NOTCH_IN = 0.33                      # the circle's centre, inside the cap's bottom edge
+NOTCH_IN = F.NOTCH_IN                # the circle's centre, inside the cap's bottom edge
 BIRD = [25.0, 19.8, 15.8, 12.6]
 STRIP = (359.64, 4.64)
 FINGER, FPITCH = 10.0, 20.0
@@ -185,37 +186,6 @@ def build(kind):
         if not hasattr(p, 'images'):
             p.images = []
     return parts
-
-
-def cap_part(num, w, h, d=CAP[2], inset=NOTCH_IN):
-    """The mouthpiece cap: a plate w across and h tall whose bottom edge,
-    y = 0, carries a half-round notch -- the original's circle, d across,
-    centred `inset` inside the edge. It is drawn as part of the outline: as a
-    separate circle it would run 4.5mm past the cap and cut the next part on
-    the sheet, which the 4mm gap between parts does not clear."""
-    cx, r = w / 2, d / 2
-    a = math.asin(inset / r)
-    arc = [(cx + r * math.cos(t), inset + r * math.sin(t))
-           for t in [math.pi + a - (math.pi + 2 * a) * i / 32 for i in range(33)]]
-    p = Part('mouthpiece cap', num, [(0, 0)] + arc + [(w, 0), (w, h), (0, h)],
-             'glued over the mouth end, the notched edge at the bottom')
-    p.notch = (cx, inset, r)
-    p.images = []
-    return p
-
-
-def cap_path(p, dx, dy, e):
-    """The cap's outline grown by the kerf: the rectangle out by e, the
-    notch's arc, which bounds material lying outside it, in by e."""
-    cx, cy, r = p.notch
-    w, h = p.w, p.h
-    r2 = r - e
-    hx = math.sqrt(r2 * r2 - (cy + e) ** 2)
-    X = lambda x: f'{x + dx:.3f}'
-    Yy = lambda y: f'{y + dy:.3f}'
-    return (f'M {X(-e)},{Yy(-e)} L {X(cx - hx)},{Yy(-e)} '
-            f'A {r2:.3f} {r2:.3f} 0 1 0 {X(cx + hx)},{Yy(-e)} '
-            f'L {X(w + e)},{Yy(-e)} L {X(w + e)},{Yy(h + e)} L {X(-e)},{Yy(h + e)} Z')
 
 
 def strip_part():

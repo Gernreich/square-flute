@@ -50,8 +50,12 @@ bevel of about 30 degrees that a laser cannot cut. File it by hand. The top
 is cut in two, a head plate and a body plate, butted 20mm below the window,
 so a spoilt edge costs the short plate and not the long one.
 
-Press-fit throughout, sealed with shellac, except what is laminated: the
-doubler, the bird's layers and every layer of the stack are glued.
+Over the mouth end goes the author's 2017 mouthpiece cap, with its half-round
+notch in the bottom edge (CAP_D, NOTCH_IN below).
+
+Press-fit throughout, sealed with shellac, except what is laminated or cannot
+be press-fit: the doubler, the bird's layers, every layer of the stack and the
+mouthpiece cap are glued.
 """
 import math
 import os
@@ -80,6 +84,12 @@ FLUE_W = M.WINDOW_W
 SPLIT_PAST = 20.0    # head plate ends this far past the window
 DOUBLER_PAST = 20.0  # doubler runs this far past the outermost holes
 BIRD_LAYERS, BIRD_UPSTREAM = 3, 6.0
+# The mouthpiece cap, the author's from 2017 (yours/original/Mouthpiece.svg):
+# a plate over the mouth end, the flute's outside in size, whose bottom edge
+# carries a half-round notch -- a 9.59mm circle centred NOTCH_IN inside the
+# edge -- that opens through the bottom wall into the slow air chamber. On
+# every variant since 2026-10-13, at the author's asking.
+CAP_D, NOTCH_IN = 9.59, 0.33
 
 BED = (600.0, 308.0)
 MARGIN, GAP = 5.0, 4.0
@@ -158,6 +168,37 @@ class Part:
 
     def slot(self, x0, y0, x1, y1):
         self.cuts.append(('rect', rect(x0, y0, x1, y1)))
+
+
+def cap_part(num, w, h, d=CAP_D, inset=NOTCH_IN):
+    """The mouthpiece cap: a plate w across and h tall whose bottom edge,
+    y = 0, carries a half-round notch -- the original's circle, d across,
+    centred `inset` inside the edge. It is drawn as part of the outline: as a
+    separate circle it would run 4.5mm past the cap and cut the next part on
+    the sheet, which the 4mm gap between parts does not clear."""
+    cx, r = w / 2, d / 2
+    a = math.asin(inset / r)
+    arc = [(cx + r * math.cos(t), inset + r * math.sin(t))
+           for t in [math.pi + a - (math.pi + 2 * a) * i / 32 for i in range(33)]]
+    p = Part('mouthpiece cap', num, [(0, 0)] + arc + [(w, 0), (w, h), (0, h)],
+             'glued over the mouth end, the notched edge at the bottom')
+    p.notch = (cx, inset, r)
+    p.images = []           # your_flute's sheet writer reads it; nothing here does
+    return p
+
+
+def cap_path(p, dx, dy, e):
+    """The cap's outline grown by the kerf: the rectangle out by e, the
+    notch's arc, which bounds material lying outside it, in by e."""
+    cx, cy, r = p.notch
+    w, h = p.w, p.h
+    r2 = r - e
+    hx = math.sqrt(r2 * r2 - (cy + e) ** 2)
+    X = lambda x: f'{x + dx:.3f}'
+    Yy = lambda y: f'{y + dy:.3f}'
+    return (f'M {X(-e)},{Yy(-e)} L {X(cx - hx)},{Yy(-e)} '
+            f'A {r2:.3f} {r2:.3f} 0 1 0 {X(cx + hx)},{Yy(-e)} '
+            f'L {X(w + e)},{Yy(-e)} L {X(w + e)},{Yy(h + e)} L {X(-e)},{Yy(h + e)} Z')
 
 
 def side_wall(L, D, avoid, n):
@@ -255,6 +296,8 @@ def build(kind, W, D, wall, L, holes, diams):
             p.fills.append(rect(SAC - EXIT_L, yc - FLUE_W / 2, SAC + PLUG,
                                 yc + FLUE_W / 2))
         parts.append(p)
+    # last, so every part number the variants had before it is unchanged
+    parts.append(cap_part(next(num), PW, D + 2 * T))
     return parts, dict(total=total, wc=wc, split=split, PW=PW, hx=hx,
                        doubler=(dz0, dz1) if wall > T else None)
 
@@ -293,6 +336,11 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
          'every sheet fits the bed',
          f'{len(sheets)} sheet(s), largest '
          f'{max(s["w"] for s in sheets):.0f} x {max(s["h"] for s in sheets):.0f}mm')
+    cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
+    cx, cy, r = cap.notch
+    into = cy + r - T - (cap.h - (D + 2 * T)) / 2
+    note(into > 0, 'the cap\'s notch opens into the bore',
+         f'{cy + r:.2f}mm deep, {into:.2f}mm past the bottom wall')
     placed = sum(len(s['parts']) for s in sheets)
     note(placed == len(parts), 'every part is on a sheet', f'{placed} of {len(parts)}')
     return out
@@ -342,7 +390,10 @@ def svg_sheet(variant, k, n, s, info, what):
     for p, sx, sy in s['parts']:
         dx, dy = sx - p.x0 + KERF / 2, sy - p.y0 + KERF / 2
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
-        black.append(path(mv(offset(p.outline, KERF / 2))))
+        if getattr(p, 'notch', None):
+            black.append(cap_path(p, dx, dy, KERF / 2))
+        else:
+            black.append(path(mv(offset(p.outline, KERF / 2))))
         for c in p.cuts:
             if c[0] == 'rect':
                 orange.append(path(mv(offset(c[1], -KERF / 2))))
