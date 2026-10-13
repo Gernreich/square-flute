@@ -103,10 +103,10 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <p><strong>None of these variants has been cut or played yet.</strong> The holes and the foot come from an acoustic model, and the foot is cut long to be trimmed to pitch. The author's own flute of 2017, which has been, is here too, with six more variants that borrow its ideas.</p>
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate with orange mortice slots along both edges, two side walls with tabs along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="720"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate notched along both edges for finger joints, two side walls with fingers along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="720"></a></td>
 </tr>
 <tr>
-<td align="center"><sub>box-square-6 · the whole flute on one 596 × 167mm sheet</sub></td>
+<td align="center"><sub>box-square-6 · the whole flute on one 592 × 155mm sheet</sub></td>
 </tr>
 </table>
 
@@ -187,7 +187,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 </table>
 </div>
 <ul>
-<li><strong>The box</strong> is four plates: the two sides are tabbed into the top and the bottom, and the plug is four discs pressed into the bore.</li>
+<li><strong>The box</strong> is four plates, finger-jointed edge to edge: the sides' fingers fill notches in the edges of the top and the bottom and run flush to the outside faces, so no plate is left outboard of a joint. The plug is four discs pressed into the bore.</li>
 <li><strong>The stack</strong> is a bottom layer, seven bore layers with the bore cut out of them and the plug left solid, and the top.</li>
 <li><strong>The 6mm variants</strong> glue a 3mm doubler over the run of finger holes, so each hole has a 6mm chimney, as a wooden flute's wall would give it.</li>
 </ul>
@@ -307,7 +307,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <p><strong>7/8in is a large bore for A4.</strong> <a href="https://www.flutopedia.com/bore_diameter.htm">Flutopedia's bore table</a> puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in this key are narrower.</p>
 <p><strong>The flue is a fill engrave</strong>, about 1mm deep. In the six variants it is 10mm wide, on the underside of the bottom bird layer. In the <code>-plus</code> variants and the 2017 flute, it is on the top plate over the plug, the full width of the bore. The depth is a power setting, so find it on scrap first.</p>
 <p><strong>File the splitting edge by hand.</strong> The window's far edge, where the air splits, needs a clean bevel of about 30°, and a laser cuts square, charred edges. The top is cut as a short head plate and a long body plate, so a spoilt edge costs only the short one.</p>
-<p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The tabs are drawn 0.19mm tight along their length and 0.12mm across the ply, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece cap are glued.</p>
+<p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The finger joints are the ones on the trumpet bores in <a href="https://github.com/Gernreich/trumpet-elbows-allowed">trumpet-elbows-allowed</a>: Boxes.py's own, with 6mm fingers and 6mm spaces and no play, so the fit comes from the kerf compensation alone. The plug discs are drawn 0.12mm over the bore, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece cap are glued.</p>
 <p>Run the colours <strong>blue, orange, black</strong>: blue engraves the part numbers and the flue, orange cuts the holes, slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic repository uses. The <code>-plus</code> variants and the 2017 flute also carry a greyscale image round each finger hole, the depression. It needs an image engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.</p>
 <h2 id="tuning">Tuning</h2>
 <ol type="1">
@@ -330,7 +330,8 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <li>every note within a cent of its target</li>
 <li>every part on the bed</li>
 <li>every hole inside the bore</li>
-<li>enough ply between neighbouring holes, and between a hole and a mortice</li>
+<li>enough ply between neighbouring holes, and between a hole and a finger notch</li>
+<li>the fingers flush with the outside faces</li>
 <li>the joint in the top clear of the window and the top hole</li>
 <li>every part placed on a sheet</li>
 </ul>
@@ -398,7 +399,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </table>
 </div>
 <p>Here the square and the rectangle differ by 1.5mm, where the six agree to 0.1. That is the window, not the bore: it is as wide as the bore, so the narrower rectangle has the narrower window.</p>
-<p>In the box, a full-width opening reaches the inner faces of the bore, which is where the mortices are, so no tab stands beside the exit hole or the window. The cap and the bird's layers are glued, as in the original. Two things are not taken. The engraved splitting edge charred, so the edge is still filed by hand and the top still split. And the original's stepped block was for looks only, so the bird keeps its plain layers.</p>
+<p>In the box, a full-width opening reaches the inner faces of the bore, which is the floor of every finger notch, so no finger stands beside the exit hole or the window. The cap and the bird's layers are glued, as in the original. Two things are not taken. The engraved splitting edge charred, so the edge is still filed by hand and the top still split. And the original's stepped block was for looks only, so the bird keeps its plain layers.</p>
 <h2 id="the-authors-flute">The author's flute</h2>
 <p>The six variants above are a fresh take, worked out without seeing this one. This flute was designed, cut and played in 2017, and its files are in <code>yours/original/</code> exactly as they were. Measured out of <code>yours/original/NAF_flatjoints.svg</code>:</p>
 <div class="tw">
@@ -448,13 +449,13 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <p><code>your_flute.py</code> redraws it in two builds:</p>
 <ul>
 <li><code>yours-flat</code>: the sides butted between the top and the bottom, and glued.</li>
-<li><code>yours-fingers</code>: box-jointed top and bottom.</li>
+<li><code>yours-fingers</code>: finger-jointed top and bottom, with the trumpet bores' joint.</li>
 </ul>
 <p>The window, every finger hole and the foot stay exactly where they were. The tweaks:</p>
 <ol type="1">
 <li>Millimetre-true, in the house cut-order colours, kerf-compensated, with every part numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.</li>
 <li>The plug is four 3mm discs, 12mm instead of 11. The exit hole moves 1mm toward the mouth to make room.</li>
-<li>In the fingers build the top is box-jointed to the sides, like the bottom, so it press-fits instead of being glued.</li>
+<li>In the fingers build the top is finger-jointed to the sides, like the bottom, so it press-fits instead of being glued. Its joint is the trumpet bores' one, 6mm fingers with no play, instead of the original's 10mm fingers.</li>
 <li>The rings are the original's own image, embedded at its original size. The ramp is left out, because the engraved bevel did not work.</li>
 <li>With the edge filed by hand, the top is cut as a short head plate and a long body plate, butted 20mm past the window, as in the six variants. A spoilt edge then costs only the short plate.</li>
 </ol>
@@ -620,7 +621,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </tr>
 <tr>
 <td><code>yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg</code></td>
-<td>the author's flute redrawn, box-jointed</td>
+<td>the author's flute redrawn, finger-jointed</td>
 </tr>
 <tr>
 <td><code>yours/cut-files/your-flute-leather-tie-cut-files.svg</code></td>

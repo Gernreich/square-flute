@@ -136,7 +136,7 @@ VIEWER = r"""
     <button type="button" id="vreset">Reset view</button>
     <label class="chk"><input type="checkbox" id="xray"> See through the walls</label>
   </div>
-  <p class="note">Drag to turn, scroll or pinch to zoom. The parts are the generator's own outlines before the kerf, so this is the flute as built: the box's tabs in their mortices, the four plug discs, the stack's seven bore layers with the plug left solid, the doubler, and the bird over the exit hole. In the first six the flue is engraved in the bird's underside, shown blue; in the <code>-plus</code> variants and the 2017 flute it is engraved in the top plate over the plug, where the bird covers it.</p>
+  <p class="note">Drag to turn, scroll or pinch to zoom. The parts are the generator's own outlines before the kerf, so this is the flute as built: the box's fingers in their notches, flush to the outside, the four plug discs, the stack's seven bore layers with the plug left solid, the doubler, and the bird over the exit hole. In the first six the flue is engraved in the bird's underside, shown blue; in the <code>-plus</code> variants and the 2017 flute it is engraved in the top plate over the plug, where the bird covers it.</p>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -515,7 +515,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="col">Redrawn as <code>yours-flat</code> and <code>yours-fingers</code> in the 3D view, with the window, every
   hole and the foot where they were. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
   four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the top cut as a head plate
-  and a body plate, so a spoilt edge costs the short one; and in the fingers build the top box-jointed like the bottom,
+  and a body plate, so a spoilt edge costs the short one; and in the fingers build the top finger-jointed like the bottom,
   so it press-fits.</p>
   <div class="scroll"><table>
     <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th><th>Just ratio</th></tr></thead>

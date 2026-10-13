@@ -4,3 +4,8 @@
 # stroke font from there, and the README links it in that repository.
 
 ribbon_bore.py
+
+# Boxes.py is Florian Festi's box generator, the project whose finger joint the
+# box variants copy from the trumpet bores. It is named as a project, spelled
+# the way its own README spells it, and none of it is in this repository.
+Boxes.py

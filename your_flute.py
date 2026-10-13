@@ -47,8 +47,10 @@ THE TWEAKS, each because something asked for it:
   2. The plug is four 3mm discs, 12mm, where the original's land was 11: ply
      comes in 3mm. The exit hole moves 1mm toward the mouth to make room;
      the window, every finger hole and the foot stay exactly where they were.
-  3. FINGERS: the top is box-jointed to the sides as the bottom already was,
-     tabs INTERF_ALONG tight, so it press-fits instead of being glued.
+  3. FINGERS: the top is finger-jointed to the sides as the bottom already
+     was, so it press-fits instead of being glued. Since 2026-10-13 the joint
+     is the trumpet bores' -- 6mm fingers and spaces, no play -- in place of
+     the original's 10mm fingers at a mallet fit.
   4. The rings are the original's own image, re-embedded at its original
      size. The ramp is left out, because the engraved bevel did not work.
   5. So the splitting edge is filed by hand, and the top is cut as a head
@@ -89,7 +91,6 @@ CAP = (25.89, 28.89, 9.59)
 NOTCH_IN = F.NOTCH_IN                # the circle's centre, inside the cap's bottom edge
 BIRD = [25.0, 19.8, 15.8, 12.6]
 STRIP = (359.64, 4.64)
-FINGER, FPITCH = 10.0, 20.0
 
 IMG = os.path.join(HERE, 'yours', 'original')
 
@@ -100,48 +101,17 @@ def png(name):
 
 
 def fingers_x():
-    """Finger centres along a long edge, FPITCH apart, clear of both ends,
-    and of the exit hole and the window: both run the full width of the bore,
-    so a notch beside either would cut straight into it. And clear of the
-    butt joint in the top, where a finger would straddle two plates."""
-    n = int((TOTAL - 2 * FINGER) // FPITCH)
-    span = (n - 1) * FPITCH
-    xs = [TOTAL / 2 - span / 2 + i * FPITCH for i in range(n)]
-    keep = FINGER / 2 + 3.0
-    return [x for x in xs if not any(a - keep < x < b + keep
-                                     for a, b in (EXIT, WIN, (SPLIT, SPLIT)))]
+    """square_flute's finger layout, the trumpet bores' joint, kept clear of
+    the full-width exit hole and window and of the butt joint in the top."""
+    return F.fingers_x(TOTAL, (EXIT, WIN, (SPLIT, SPLIT)))
 
 
 def plate_with_notches(name, num, note, x0=0.0, x1=TOTAL):
-    """A plate PW wide from x0 to x1 whose long edges are notched T deep
-    wherever a side wall's finger comes in: a box joint, the plate's own
-    fingers being the material left between."""
-    xs = [x for x in fingers_x() if x0 < x < x1]
-    top = [(x0, 0)]
-    for x in xs:
-        top += [(x - FINGER / 2, 0), (x - FINGER / 2, T), (x + FINGER / 2, T), (x + FINGER / 2, 0)]
-    top.append((x1, 0))
-    bot = [(x1, PW)]
-    for x in reversed(xs):
-        bot += [(x + FINGER / 2, PW), (x + FINGER / 2, PW - T), (x - FINGER / 2, PW - T), (x - FINGER / 2, PW)]
-    bot.append((x0, PW))
-    return Part(name, num, top + bot, note)
+    return Part(name, num, F.notched(x0, x1, PW, fingers_x()), note)
 
 
 def side_with_fingers(num):
-    """A side D tall with fingers T long into the top and the bottom, each
-    INTERF_ALONG longer than its notch."""
-    fl = FINGER + F.INTERF_ALONG
-    xs = fingers_x()
-    top = [(0, 0)]
-    for x in xs:
-        top += [(x - fl / 2, 0), (x - fl / 2, -T), (x + fl / 2, -T), (x + fl / 2, 0)]
-    top.append((TOTAL, 0))
-    bot = [(TOTAL, D)]
-    for x in reversed(xs):
-        bot += [(x + fl / 2, D), (x + fl / 2, D + T), (x - fl / 2, D + T), (x - fl / 2, D)]
-    bot.append((0, D))
-    return Part('side wall', num, top + bot, 'fingers into the top and the bottom')
+    return F.finger_side(TOTAL, D, fingers_x(), num)
 
 
 def build(kind):
@@ -303,7 +273,7 @@ def checks(kind, parts, sheets):
           f'{max(RING):.2f}mm on a {PW:.2f}mm plate')
     if kind == 'fingers':
         xs = fingers_x()
-        clear = min(min(abs(x - a), abs(x - b)) - FINGER / 2 for x in xs for a, b in (EXIT, WIN)
+        clear = min(min(abs(x - a), abs(x - b)) - F.FINGER / 2 for x in xs for a, b in (EXIT, WIN)
                     if not (a <= x <= b))
         note_(clear >= 3.0, 'no finger notch beside the exit hole or the window',
               f'{len(xs)} fingers a side, nearest {clear:.1f}mm from either')

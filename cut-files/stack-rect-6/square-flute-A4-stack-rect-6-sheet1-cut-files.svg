@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="596.78mm" height="282.50mm" viewBox="0 0 596.78 282.50">
 <title>Square-bore flute in A4, stack-rect-6, sheet 1 of 2</title>
-<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-6, sheet 1 of 2: bird layer, bore layer, bottom layer, mouthpiece cap. 3mm ply, drawn for a 0.13mm kerf, joints 0.19mm tight along a tab and 0.12mm across. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
+<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-6, sheet 1 of 2: bird layer, bore layer, bottom layer, mouthpiece cap. 3mm ply, drawn for a 0.13mm kerf. Finger joints as the trumpet bores cut them: 6mm fingers and spaces, no play, the fit from the kerf. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
   <g fill="none" stroke="#0000ff" stroke-width="0.2">
     <path d="M 237.673,17.781 L 240.153,17.781 L 238.758,20.031"/>
     <path d="M 238.758,20.031 L 240.153,20.031 L 240.153,21.981 L 239.595,22.781 L 238.231,22.781 L 237.673,21.981"/>

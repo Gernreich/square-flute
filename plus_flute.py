@@ -37,8 +37,8 @@ three plain layers as in the six, and with the flue in the nest it carries
 none.
 
 A full-width window or exit hole reaches the bore's inner faces, which in the
-box is exactly where the mortices are. So no side-wall tab may stand beside
-either; the box keeps them clear the way the original's finger joints are.
+box is the floor of every finger notch. So no finger may stand beside either;
+the box keeps them clear the way the original's finger joints are.
 """
 import os
 import sys
@@ -52,7 +52,6 @@ M = F.M
 
 T = F.T
 RING_OF = 12.14 / 7.75                # the original's depression across its hole
-TAB_CLEAR = 3.0                       # tab edge to a full-width opening
 
 VARIANTS = {k + '-plus': v for k, v in F.VARIANTS.items()}
 
@@ -82,7 +81,7 @@ def build(kind, W, D, wall, L, holes, diams):
     total = wc + L + M.FOOT_SPARE
     split = F.SAC + F.PLUG + M.WINDOW_L + F.SPLIT_PAST
     hx = [wc + h for h in holes]
-    PW = W + 2 * (T + F.WEB) if kind == 'box' else W + 2 * F.SIDE
+    PW = W + 2 * T if kind == 'box' else W + 2 * F.SIDE
     yc = PW / 2
     exit_ = (F.SAC - F.EXIT_L, F.SAC)
     win = (F.SAC + F.PLUG, F.SAC + F.PLUG + M.WINDOW_L)
@@ -103,19 +102,15 @@ def build(kind, W, D, wall, L, holes, diams):
     body.images = [('ring.png', x - r / 2, yc - r / 2, r, r) for x, r in zip(hx, rings)]
 
     if kind == 'box':
-        # a tab beside the exit hole or the window would leave no ply between
-        # its mortice and the opening: keep every tab TAB_CLEAR beyond them
-        reach = F.TAB / 2 + TAB_CLEAR
-        xs = [x for x in F.tabs_x(total, (split,))
-              if not any(a - reach < x < b + reach for a, b in (exit_, win))]
-        F.mortices(head, xs, PW, 0, split)
-        F.mortices(body, xs, PW, split, total)
+        # a finger notch beside the exit hole or the window would run straight
+        # into it: both reach the bore's inner face, which is the notch's floor
+        xs = F.fingers_x(total, ((split, split), exit_, win))
+        head.outline = F.notched(0, split, PW, xs)
+        body.outline = F.notched(split, total, PW, xs)
         parts += [head, body]
-        bot = Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain')
-        F.mortices(bot, xs, PW, 0, total)
-        parts.append(bot)
+        parts.append(Part('bottom plate', next(num), F.notched(0, total, PW, xs), 'plain'))
         for k in range(2):
-            parts.append(side_wall_at(total, D, xs, next(num)))
+            parts.append(F.finger_side(total, D, xs, next(num)))
         for k in range(int(F.PLUG / T)):
             parts.append(Part('plug disc', next(num),
                               rect(0, 0, W + F.INTERF_ACROSS, D + F.INTERF_ACROSS),
@@ -155,21 +150,6 @@ def build(kind, W, D, wall, L, holes, diams):
     return parts, info
 
 
-def side_wall_at(L, D, xs, n):
-    """square_flute.side_wall, with the tab positions given rather than
-    chosen, so the ones beside the full-width openings can be left out."""
-    tl = F.TAB + F.INTERF_ALONG
-    top = [(0, 0)]
-    for x in xs:
-        top += [(x - tl / 2, 0), (x - tl / 2, -T), (x + tl / 2, -T), (x + tl / 2, 0)]
-    top.append((L, 0))
-    bot = [(L, D)]
-    for x in reversed(xs):
-        bot += [(x + tl / 2, D), (x + tl / 2, D + T), (x - tl / 2, D + T), (x - tl / 2, D)]
-    bot.append((0, D))
-    return Part('side wall', n, top + bot, 'tabs up into the top, down into the bottom')
-
-
 def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
     out = []
     note = lambda ok, what, detail: out.append((ok, what, detail))
@@ -191,11 +171,14 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
     note(max(info['rings']) <= info['PW'] - 2, 'each depression stays on the plate',
          f'{max(info["rings"]):.1f}mm on {info["PW"]:.2f}')
     if kind == 'box':
-        near = min((min(abs(x - a), abs(x - b)) - F.TAB / 2
+        near = min((min(abs(x - a), abs(x - b)) - F.FINGER / 2
                     for x in info['tabs'] for a, b in (info['exit'], info['win'])),
                    default=99)
-        note(near >= TAB_CLEAR, 'no tab beside a full-width opening',
-             f'{len(info["tabs"])} tabs a side, nearest {near:.1f}mm from one')
+        note(near >= F.FINGER_CLEAR, 'no finger notch beside a full-width opening',
+             f'{len(info["tabs"])} fingers a side, nearest {near:.1f}mm from one')
+        note(max(info['rings']) / 2 <= info['PW'] / 2 - T,
+             'each depression clears the finger notches',
+             f'{info["PW"] / 2 - T - max(info["rings"]) / 2:.1f}mm to spare')
     near = info['split'] - info['win'][1]
     top_ring = min(info['hx']) - max(info['rings']) / 2 - info['split']
     note(near >= 10 and top_ring >= 10, 'the butt joint clears the window and the top hole',

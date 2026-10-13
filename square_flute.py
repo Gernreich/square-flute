@@ -72,12 +72,19 @@ from ribbon_bore import label, path                            # noqa: E402
 
 T = 3.0              # ply
 KERF = 0.13          # measured, ribbon_bore's and lyre_harp's figure
-# The fit. These are the interferences lyre_harp.py drew at FIT 0.25, the
-# friction fit that needs a rubber mallet: along a tab, and across the ply.
-INTERF_ALONG, INTERF_ACROSS = 0.19, 0.12
-WEB = 2.0            # plate left outboard of a mortice
+# The plug discs' press-fit, across the ply: lyre_harp.py's mallet fit.
+INTERF_ACROSS = 0.12
+# THE FINGER JOINT, since 2026-10-13: the trumpet bores' own. tools/bore_split.py
+# hands Boxes.py's snakeboxvar.py the default FingerJointSettings -- fingers and
+# spaces each two sheets wide, no play, the fit left to the kerf -- and the
+# fingers run out to the outside face, with no plate outboard of them. Until
+# then the box was tabs in mortices with 2mm of plate outside each mortice,
+# which the author called faux finger joints: the sliver showed.
+FINGER = 2 * T       # finger width, and the space between fingers
+FINGER_PLAY = 0.0    # Boxes.py's default; the kerf compensation is the fit
+FINGER_END = 2 * FINGER   # Boxes.py's surroundingspaces: clear of each end
+FINGER_CLEAR = 3.0   # ply between a finger notch and an opening or a butt joint
 SIDE = 6.0           # the stack's side walls
-TAB, TAB_PITCH, TAB_END = 10.0, 40.0, 15.0
 
 SAC, EXIT_L, PLUG = 110.0, 6.0, 12.0
 FLUE_W = M.WINDOW_W
@@ -141,15 +148,18 @@ def rect(x0, y0, x1, y1):
     return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
 
 
-def tabs_x(L, avoid=()):
-    """Tab centres along a wall of length L, TAB_PITCH apart and TAB_END
-    clear of each end, skipping any within a tab's width of a line in
-    `avoid` -- the butt joint in the top, where a tab would straddle two
-    plates."""
-    n = int((L - 2 * TAB_END) // TAB_PITCH) + 1
-    span = (n - 1) * TAB_PITCH
-    xs = [L / 2 - span / 2 + i * TAB_PITCH for i in range(n)]
-    return [x for x in xs if all(abs(x - a) > TAB for a in avoid)]
+def fingers_x(L, clear=()):
+    """Where the side walls' fingers go along a flute L long: FINGER wide,
+    FINGER apart, centred, FINGER_END clear of each end, and none within
+    FINGER_CLEAR of an interval in `clear` -- the butt joint in the top,
+    where a finger would straddle two plates, and any opening that runs to
+    the bore's inner face, where a notch would cut straight into it."""
+    pitch = 2 * FINGER
+    n = int((L - 2 * FINGER_END - FINGER) // pitch) + 1
+    span = (n - 1) * pitch
+    xs = [L / 2 - span / 2 + i * pitch for i in range(n)]
+    reach = FINGER / 2 + FINGER_CLEAR
+    return [x for x in xs if not any(a - reach < x < b + reach for a, b in clear)]
 
 
 class Part:
@@ -201,30 +211,36 @@ def cap_path(p, dx, dy, e):
             f'L {X(w + e)},{Yy(-e)} L {X(w + e)},{Yy(h + e)} L {X(-e)},{Yy(h + e)} Z')
 
 
-def side_wall(L, D, avoid, n):
-    """A wall D tall with tabs up into the top and down into the bottom,
-    each tab INTERF_ALONG longer than its mortice."""
-    tl = TAB + INTERF_ALONG
-    xs = tabs_x(L, avoid)
+def finger_side(L, D, xs, n):
+    """A side wall D tall whose fingers stand T proud, up into the top and
+    down into the bottom, flush with their outside faces."""
+    fw = FINGER + FINGER_PLAY
     top = [(0, 0)]
     for x in xs:
-        top += [(x - tl / 2, 0), (x - tl / 2, -T), (x + tl / 2, -T), (x + tl / 2, 0)]
+        top += [(x - fw / 2, 0), (x - fw / 2, -T), (x + fw / 2, -T), (x + fw / 2, 0)]
     top.append((L, 0))
     bot = [(L, D)]
     for x in reversed(xs):
-        bot += [(x + tl / 2, D), (x + tl / 2, D + T), (x - tl / 2, D + T), (x - tl / 2, D)]
+        bot += [(x + fw / 2, D), (x + fw / 2, D + T), (x - fw / 2, D + T), (x - fw / 2, D)]
     bot.append((0, D))
-    return Part(f'side wall', n, top + bot,
-                'tabs up into the top, down into the bottom'), xs
+    return Part('side wall', n, top + bot, 'fingers into the top and the bottom')
 
 
-def mortices(p, xs, PW, lo, hi):
-    """Slots for the side walls' tabs, both edges, those within [lo, hi]."""
-    w = T - INTERF_ACROSS
+def notched(x0, x1, PW, xs):
+    """A plate's outline from x0 to x1, PW wide, notched T deep along both
+    long edges wherever a side wall's finger comes in. The plate's own
+    fingers are the material left between."""
+    xs = [x for x in xs if x0 < x < x1]
+    top = [(x0, 0)]
     for x in xs:
-        if lo + TAB / 2 <= x <= hi - TAB / 2:
-            for y in (WEB + (T - w) / 2, PW - WEB - T + (T - w) / 2):
-                p.slot(x - TAB / 2, y, x + TAB / 2, y + w)
+        top += [(x - FINGER / 2, 0), (x - FINGER / 2, T), (x + FINGER / 2, T), (x + FINGER / 2, 0)]
+    top.append((x1, 0))
+    bot = [(x1, PW)]
+    for x in reversed(xs):
+        bot += [(x + FINGER / 2, PW), (x + FINGER / 2, PW - T), (x - FINGER / 2, PW - T),
+                (x - FINGER / 2, PW)]
+    bot.append((x0, PW))
+    return top + bot
 
 
 def build(kind, W, D, wall, L, holes, diams):
@@ -235,7 +251,7 @@ def build(kind, W, D, wall, L, holes, diams):
     split = SAC + PLUG + M.WINDOW_L + SPLIT_PAST
     hx = [wc + h for h in holes]                   # finger holes, foot-most first
     dz0, dz1 = min(hx) - DOUBLER_PAST, max(hx) + DOUBLER_PAST
-    PW = W + 2 * (T + WEB) if kind == 'box' else W + 2 * SIDE
+    PW = W + 2 * T if kind == 'box' else W + 2 * SIDE
     yc = PW / 2
     parts = []
     num = iter(range(1, 100))
@@ -256,15 +272,13 @@ def build(kind, W, D, wall, L, holes, diams):
         return p
 
     if kind == 'box':
-        sw, xs = side_wall(total, D, (split,), 0)
-        h = top_head(); mortices(h, xs, PW, 0, split); parts.append(h)
-        b = top_body(); mortices(b, xs, PW, split, total); parts.append(b)
-        bot = Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain')
-        mortices(bot, xs, PW, 0, total)
-        parts.append(bot)
+        xs = fingers_x(total, ((split, split),))
+        h = top_head(); h.outline = notched(0, split, PW, xs); parts.append(h)
+        b = top_body(); b.outline = notched(split, total, PW, xs); parts.append(b)
+        parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
+                          'plain'))
         for k in range(2):
-            s, _ = side_wall(total, D, (split,), next(num))
-            parts.append(s)
+            parts.append(finger_side(total, D, xs, next(num)))
         for k in range(int(PLUG / T)):
             parts.append(Part('plug disc', next(num),
                               rect(0, 0, W + INTERF_ACROSS, D + INTERF_ACROSS),
@@ -320,9 +334,12 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
          f'narrowest {min(gaps):.1f}mm')
     if kind == 'box':
         hole_edge = info['PW'] / 2 - max(diams) / 2
-        mort_in = WEB + T
-        note(hole_edge - mort_in >= MIN_WEB, 'ply between a finger hole and a mortice',
-             f'{hole_edge - mort_in:.2f}mm against {MIN_WEB:g}')
+        note(hole_edge - T >= MIN_WEB, 'ply between a finger hole and a finger notch',
+             f'{hole_edge - T:.2f}mm against {MIN_WEB:g}')
+        sides = [p for p in parts if p.name == 'side wall']
+        note(min(p.y0 for p in sides) == -T and max(p.y0 + p.h for p in sides) == D + T,
+             'the fingers run to the outside faces',
+             f'{T:g}mm proud each way, nothing outboard of them')
     near = info['split'] - (SAC + PLUG + M.WINDOW_L)
     note(near >= 10 and min(info['hx']) - info['split'] >= 10,
          'the butt joint clears the window and the top hole',
@@ -422,8 +439,9 @@ def svg_sheet(variant, k, n, s, info, what):
             h = 3.0
         blue += [d for d in label(str(p.num), lx + dx, ly + dy, h)]
     desc = (f'1 user unit = 1mm. Square-bore flute in A4, {variant}, sheet {k} of {n}: '
-            f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf, joints {INTERF_ALONG:g}mm '
-            f'tight along a tab and {INTERF_ACROSS:g}mm across. Blue {BLUE} engraves '
+            f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf. Finger joints as the trumpet '
+            f'bores cut them: {FINGER:g}mm fingers and spaces, no play, the fit from the '
+            f'kerf. Blue {BLUE} engraves '
             f'(the part numbers, and the flue as a fill engrave about 1mm deep -- set '
             f'its depth on scrap first), orange {ORANGE} cuts the holes and slots, '
             f'black {BLACK} frees the parts.')
