@@ -162,13 +162,14 @@ exactly as they were. Measured out of `yours/original/NAF_flatjoints.svg`:
 | Plug | 11mm, its top engraved as the flue |
 | Finger holes | 7.73, 7.87, 7.79, 7.79 and 5.47mm, 213.9, 185.7, 156.9, 109.5 and 78.0mm from the window |
 
-Two of its ideas are better than mine:
+It tried two things the six variants do not:
 
-- **The splitting edge is engraved, not filed.** `FluteEdge.png` is a greyscale ramp,
-  black at the window and white 9.9mm on, engraved beside the window so the laser
-  cuts the bevel itself.
-- **Each finger hole sits in a soft engraved depression**, `ring.png`, so a finger
-  finds it and seals it.
+- **An engraved splitting edge.** `FluteEdge.png` is a greyscale ramp, black at the
+  window and white 9.9mm on, engraved beside the window so the laser would cut the
+  bevel itself. **It did not work**, so the edge is filed by hand, as it is in the six
+  variants.
+- **A soft engraved depression round each finger hole**, `ring.png`, for the finger
+  to find.
 
 <table>
 <tr>
@@ -176,7 +177,7 @@ Two of its ideas are better than mine:
 <td align="center"><img src="yours/original/ring.png" alt="A white disc ringed by a soft dark halo that fades outward" width="86"></td>
 </tr>
 <tr>
-<td align="center"><sub>FluteEdge.png · the bevel</sub></td>
+<td align="center"><sub>FluteEdge.png · the bevel, which did not work</sub></td>
 <td align="center"><sub>ring.png · the depression</sub></td>
 </tr>
 </table>
@@ -199,10 +200,11 @@ The window, every finger hole and the foot stay exactly where they were. The twe
    mouth to make room.
 3. In the fingers build the top is box-jointed to the sides, like the bottom, so it
    press-fits instead of being glued.
-4. The ramp and the rings are the original's own images, embedded at their original
-   size.
-5. The top stays one piece. The six variants split theirs so that a hand-filed edge
-   can be remade cheaply, and an engraved edge doesn't need that.
+4. The rings are the original's own image, embedded at its original size. The ramp
+   is left out, because the engraved bevel did not work.
+5. With the edge filed by hand, the top is cut as a short head plate and a long body
+   plate, butted 20mm past the window, as in the six variants. A spoilt edge then
+   costs only the short plate.
 
 Nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as
 they were. The leather tie is its own file: cut it from leather, not ply.

@@ -471,13 +471,14 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 <section class="col" style="max-width:none" id="yours">
   <h2>The author's flute</h2>
   <p class="col">Designed, cut and played in 2017, and kept here as it was in <code>yours/original/</code>. Its bore is
-  19.37 × 22.44mm, 435mm², and its window runs the whole width of the bore. Two things in it are better than anything in
-  the six above. The splitting edge is a greyscale ramp the laser engraves, so the bevel is cut rather than filed. And
-  each finger hole sits in a soft engraved depression for the finger.</p>
+  19.37 × 22.44mm, 435mm², and its window runs the whole width of the bore. It tried an engraved splitting edge, a
+  greyscale ramp beside the window meant to let the laser cut the bevel; that did not work, so the edge is filed by
+  hand here as in the six above. Each finger hole also sits in a soft engraved depression for the finger.</p>
   <p class="col">Redrawn as <code>yours-flat</code> and <code>yours-fingers</code> in the 3D view, with the window, every
   hole and the foot where they were. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
-  four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; and in the fingers build the top box-jointed like
-  the bottom, so it press-fits.</p>
+  four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the top cut as a head plate
+  and a body plate, so a spoilt edge costs the short one; and in the fingers build the top box-jointed like the bottom,
+  so it press-fits.</p>
   <div class="scroll"><table>
     <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th></tr></thead>
     <tbody>{yrows}</tbody>

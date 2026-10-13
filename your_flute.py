@@ -21,8 +21,10 @@ to the inch, 0.28222mm a unit), along the flute from the mouth end:
   sound chamber     313.25mm from the window's centre to the foot
   finger holes      7.73, 7.87, 7.79, 7.79 and 5.47mm, foot-most first,
                     213.9, 185.7, 156.9, 109.5 and 78.0mm from the window
-  splitting edge    a grey ramp, 19.4 x 9.9mm, engraved beside the window:
-                    the bevel cut by the laser, black where it is deepest
+  splitting edge    a grey ramp, 19.4 x 9.9mm, engraved beside the window to
+                    cut the bevel by laser. IT DID NOT WORK: the author, on
+                    2026-10-13. It stays in yours/original/ as it was, and is
+                    not in the redraw
   finger holes      each ringed by a soft engraved depression
   mouthpiece        an end cap 25.89 x 28.89mm with a 9.59mm breath hole
   block             four layers 25mm wide, 25, 19.8, 15.8 and 12.6 long
@@ -38,11 +40,13 @@ THE TWEAKS, each because something asked for it:
      the window, every finger hole and the foot stay exactly where they were.
   3. FINGERS: the top is box-jointed to the sides as the bottom already was,
      tabs INTERF_ALONG tight, so it press-fits instead of being glued.
-  4. The ramp and the rings are the original's own images, re-embedded at
-     their original size. Nothing about them was redrawn.
-  5. The top stays one piece. The engraved bevel is the reason: square_flute
-     splits its top so a hand-filed edge can be remade cheaply, and an edge
-     the laser cuts does not need that.
+  4. The rings are the original's own image, re-embedded at its original
+     size. The ramp is left out, because the engraved bevel did not work.
+  5. So the splitting edge is filed by hand, and the top is cut as a head
+     plate and a body plate butted SPLIT_PAST beyond the window, as
+     square_flute's are: a spoilt edge then costs the short plate. A first
+     redraw kept the top in one piece on the strength of the ramp, before the
+     author said the ramp had failed.
 
 NOTHING ACOUSTIC IS TWEAKED. The model reads this flute as a minor pentatonic
 to within 40 cents and puts it near B-flat 4; the author has played it and
@@ -70,7 +74,7 @@ WC = (WIN[0] + WIN[1]) / 2
 HOLES = [357.315, 329.135, 300.375, 252.975, 221.455]    # from the mouth, foot-most first
 DIAMS = [7.73, 7.87, 7.79, 7.79, 5.47]
 RING = [12.14, 12.14, 12.14, 12.14, 8.56]                # depression image, across
-RAMP = (19.40, 9.88)                                      # across x along
+SPLIT = WIN[1] + 20.0                # the head plate ends here
 CAP = (25.89, 28.89, 9.59)
 BIRD = [25.0, 19.8, 15.8, 12.6]
 STRIP = (359.64, 4.64)
@@ -87,27 +91,29 @@ def png(name):
 def fingers_x():
     """Finger centres along a long edge, FPITCH apart, clear of both ends,
     and of the exit hole and the window: both run the full width of the bore,
-    so a notch beside either would cut straight into it."""
+    so a notch beside either would cut straight into it. And clear of the
+    butt joint in the top, where a finger would straddle two plates."""
     n = int((TOTAL - 2 * FINGER) // FPITCH)
     span = (n - 1) * FPITCH
     xs = [TOTAL / 2 - span / 2 + i * FPITCH for i in range(n)]
     keep = FINGER / 2 + 3.0
-    return [x for x in xs if not any(a - keep < x < b + keep for a, b in (EXIT, WIN))]
+    return [x for x in xs if not any(a - keep < x < b + keep
+                                     for a, b in (EXIT, WIN, (SPLIT, SPLIT)))]
 
 
-def plate_with_notches(name, num, note):
-    """A plate PW wide whose long edges are notched T deep wherever a side
-    wall's finger comes in: a box joint, the plate's own fingers being the
-    material left between."""
-    xs = fingers_x()
-    top = [(0, 0)]
+def plate_with_notches(name, num, note, x0=0.0, x1=TOTAL):
+    """A plate PW wide from x0 to x1 whose long edges are notched T deep
+    wherever a side wall's finger comes in: a box joint, the plate's own
+    fingers being the material left between."""
+    xs = [x for x in fingers_x() if x0 < x < x1]
+    top = [(x0, 0)]
     for x in xs:
         top += [(x - FINGER / 2, 0), (x - FINGER / 2, T), (x + FINGER / 2, T), (x + FINGER / 2, 0)]
-    top.append((TOTAL, 0))
-    bot = [(TOTAL, PW)]
+    top.append((x1, 0))
+    bot = [(x1, PW)]
     for x in reversed(xs):
         bot += [(x + FINGER / 2, PW), (x + FINGER / 2, PW - T), (x - FINGER / 2, PW - T), (x - FINGER / 2, PW)]
-    bot.append((0, PW))
+    bot.append((x0, PW))
     return Part(name, num, top + bot, note)
 
 
@@ -132,19 +138,22 @@ def build(kind):
     y across."""
     num = iter(range(1, 100))
     parts = []
+    hn = 'exit hole, window and flue; file the far edge of the window to a bevel'
+    bn = 'the finger holes, each in its depression'
     if kind == 'fingers':
-        top = plate_with_notches('top plate', next(num), 'holes, window, flue, ramp and rings')
+        head = plate_with_notches('top, head plate', next(num), hn, 0.0, SPLIT)
+        body = plate_with_notches('top, body plate', next(num), bn, SPLIT, TOTAL)
     else:
-        top = Part('top plate', next(num), rect(0, 0, TOTAL, PW), 'holes, window, flue, ramp and rings')
+        head = Part('top, head plate', next(num), rect(0, 0, SPLIT, PW), hn)
+        body = Part('top, body plate', next(num), rect(SPLIT, 0, TOTAL, PW), bn)
     yc = PW / 2
-    top.slot(EXIT[0], yc - W / 2, EXIT[1], yc + W / 2)
-    top.slot(WIN[0], yc - W / 2, WIN[1], yc + W / 2)
+    head.slot(EXIT[0], yc - W / 2, EXIT[1], yc + W / 2)
+    head.slot(WIN[0], yc - W / 2, WIN[1], yc + W / 2)
+    head.fills.append(rect(PLUG[0], yc - W / 2, PLUG[1], yc + W / 2))   # the flue
     for x, d in zip(HOLES, DIAMS):
-        top.hole(x, yc, d)
-    top.fills.append(rect(PLUG[0], yc - W / 2, PLUG[1], yc + W / 2))   # the flue
-    top.images = ([('FluteEdge.png', WIN[1], yc - RAMP[0] / 2, RAMP[1], RAMP[0], -90)]
-                  + [('ring.png', x - r / 2, yc - r / 2, r, r, 0) for x, r in zip(HOLES, RING)])
-    parts.append(top)
+        body.hole(x, yc, d)
+    body.images = [('ring.png', x - r / 2, yc - r / 2, r, r, 0) for x, r in zip(HOLES, RING)]
+    parts += [head, body]
     if kind == 'fingers':
         parts.append(plate_with_notches('bottom plate', next(num), 'plain'))
         for k in range(2):
@@ -218,9 +227,9 @@ def svg(kind, k, n, sheet, what, leather=False):
     desc = (f'1 user unit = 1mm. The author\'s 2017 flute, redrawn: {kind}, sheet {k} of {n}: '
             f'{what}. ' + ('Cut from leather, not ply; black cuts. ' if leather else
             f'3mm ply, drawn for a {F.KERF:g}mm kerf. Blue {F.BLUE} engraves: the part numbers, '
-            f'the flue as a fill engrave about 1mm deep over the plug, and the two greyscale '
-            f'images, the splitting-edge ramp beside the window and the depression round each '
-            f'finger hole, which need an image engrave set to depth on scrap. Orange {F.ORANGE} '
+            f'the flue as a fill engrave about 1mm deep over the plug, and the depression round '
+            f'each finger hole, a greyscale image engrave to set to depth on scrap. File the '
+            f'window\'s far edge to a bevel by hand. Orange {F.ORANGE} '
             f'cuts the holes and the window, black {F.BLACK} frees the parts.'))
     g = lambda col, items: (f'  <g fill="none" stroke="{col}" stroke-width="0.2">\n'
                             + ''.join(f'    {i}\n' if i.startswith('<') else f'    <path d="{i}"/>\n'
@@ -274,6 +283,10 @@ def checks(kind, parts, sheets):
           f'{PLUG[1] - PLUG[0]:.2f}mm for 4 x {T:g}')
     note_(PLUG[1] == WIN[0] and EXIT[1] == PLUG[0], 'exit hole, plug and window meet edge to edge',
           f'{EXIT[1]:.2f} / {PLUG[0]:.2f}, {PLUG[1]:.2f} / {WIN[0]:.2f}')
+    note_(SPLIT - WIN[1] >= 10 and min(HOLES) - max(RING) / 2 - SPLIT >= 10,
+          'the butt joint clears the window and the top hole',
+          f'{SPLIT - WIN[1]:.0f}mm past the window, '
+          f'{min(HOLES) - max(RING) / 2 - SPLIT:.0f}mm before the top depression')
     gaps = [HOLES[i] - HOLES[i + 1] - (RING[i] + RING[i + 1]) / 2 for i in range(4)]
     note_(min(gaps) >= 0, 'the depressions do not run into each other',
           f'closest {min(gaps):.1f}mm apart')
