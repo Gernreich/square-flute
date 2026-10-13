@@ -83,6 +83,27 @@ note:
 
 Distances are from the centre of the window, in mm. Hole 1 is nearest the foot.
 
+### The scale as ratios
+
+Each note's frequency against the lowest one, as the just ratio that names the
+interval, and the step up from the note below it:
+
+| Note | Interval from A4 | Ratio from A4 | Step from the note below | Just, cents | Tuned to, cents |
+|---|---|---|---|---|---|
+| A4 | unison | 1:1 | | 0 | 0 |
+| C5 | minor third | 6:5 | 6:5, a minor third | 315.6 | 300 |
+| D5 | perfect fourth | 4:3 | 10:9, a minor whole tone | 498.0 | 500 |
+| E5 | perfect fifth | 3:2 | 9:8, a major whole tone | 702.0 | 700 |
+| G5 | minor seventh | 9:5 | 6:5, a minor third | 1017.6 | 1000 |
+| A5 | octave | 2:1 | 10:9, a minor whole tone | 1200.0 | 1200 |
+
+The steps run 6:5, 10:9, 9:8, 6:5, 10:9: two minor thirds and three whole tones, and no
+semitone anywhere, which is why any of its notes sound well together. The model tunes to
+equal temperament, the last column, so every flute here is designed within 18 cents of
+the just ratios: the minor third and the minor seventh sit 15.6 and 17.6 cents flat of
+6:5 and 9:5, and the fourth and the fifth are 2 cents off. The minor seventh has two other common just values: 16:9 at 996.1 cents
+and the harmonic 7:4 at 968.8.
+
 ## Before you cut
 
 **The window's end correction is not measured.** It is the least certain term in the
@@ -261,14 +282,14 @@ they were. The leather tie is its own file: cut it from leather, not ply.
 
 ### What the model hears in it
 
-| Holes open | Model | Above the fundamental | Minor pentatonic |
-|---|---|---|---|
-| none | 470Hz, A♯4 +14c | 0c | 0c |
-| 1 | 559Hz, C♯5 +15c | 300c | 300c |
-| 2 | 636Hz, D♯5 +36c | 522c | 500c |
-| 3 | 718Hz, F5 +48c | 733c | 700c |
-| 4 | 856Hz, A5 −48c | 1038c | 1000c |
-| 5 | 949Hz, A♯5 +31c | 1217c | 1200c |
+| Holes open | Model | Above the fundamental | Minor pentatonic | Just ratio |
+|---|---|---|---|---|
+| none | 470Hz, A♯4 +14c | 0c | 0c | 1:1 |
+| 1 | 559Hz, C♯5 +15c | 300c | 300c | 6:5, 315.6c |
+| 2 | 636Hz, D♯5 +36c | 522c | 500c | 4:3, 498.0c |
+| 3 | 718Hz, F5 +48c | 733c | 700c | 3:2, 702.0c |
+| 4 | 856Hz, A5 −48c | 1038c | 1000c | 9:5, 1017.6c |
+| 5 | 949Hz, A♯5 +31c | 1217c | 1200c | 2:1, 1200c |
 
 The shape of the scale agrees to within 40 cents at every hole, which is the best test
 the model has had. Its pitch, near B♭4, rests on the same uncalibrated window term as

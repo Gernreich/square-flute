@@ -304,10 +304,12 @@ def main(out, standalone=False):
         yours_cards.append(''.join(imgs))
     yL, yholes, yfs = Y.predict()
     want = [0, 300, 500, 700, 1000, 1200]
+    JUST = [(1, 1), (6, 5), (4, 3), (3, 2), (9, 5), (2, 1)]
     yrows = ''.join(
         f'<tr><th scope="row">{n} open</th><td class="n">{f:.0f}Hz</td>'
         f'<td class="n">{Y.note(f)[0]} {Y.note(f)[1]:+.0f}c</td>'
-        f'<td class="n">{1200 * math.log2(f / yfs[0]):.0f}c</td><td class="n">{want[n]}c</td></tr>'
+        f'<td class="n">{1200 * math.log2(f / yfs[0]):.0f}c</td><td class="n">{want[n]}c</td>'
+        f'<td class="n">{JUST[n][0]}:{JUST[n][1]}, {1200 * math.log2(JUST[n][0] / JUST[n][1]):.1f}c</td></tr>'
         for n, f in enumerate(yfs))
     ref = M.design(M.Bore(), 5.0, even=True)
     plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall'
@@ -448,6 +450,21 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   {plans}
   <div class="key"><span><i style="background:var(--plug)"></i>plug</span><span><i style="background:var(--accent);opacity:.4"></i>trim to pitch</span><span><i style="border-style:dashed;background:none"></i>doubler, 6mm wall</span><span>numbers below: holes from the foot · above: diameter</span></div>
   <div class="scroll"><table>
+    <thead><tr><th>Note</th><th>Interval from A4</th><th>Ratio from A4</th><th>Step from the note below</th><th>Just, cents</th><th>Tuned to, cents</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">A4</th><td>unison</td><td class="n">1:1</td><td></td><td class="n">0</td><td class="n">0</td></tr>
+      <tr><th scope="row">C5</th><td>minor third</td><td class="n">6:5</td><td>6:5, a minor third</td><td class="n">315.6</td><td class="n">300</td></tr>
+      <tr><th scope="row">D5</th><td>perfect fourth</td><td class="n">4:3</td><td>10:9, a minor whole tone</td><td class="n">498.0</td><td class="n">500</td></tr>
+      <tr><th scope="row">E5</th><td>perfect fifth</td><td class="n">3:2</td><td>9:8, a major whole tone</td><td class="n">702.0</td><td class="n">700</td></tr>
+      <tr><th scope="row">G5</th><td>minor seventh</td><td class="n">9:5</td><td>6:5, a minor third</td><td class="n">1017.6</td><td class="n">1000</td></tr>
+      <tr><th scope="row">A5</th><td>octave</td><td class="n">2:1</td><td>10:9, a minor whole tone</td><td class="n">1200.0</td><td class="n">1200</td></tr>
+    </tbody>
+  </table></div>
+  <p class="col">The scale as ratios: steps of 6:5, 10:9, 9:8, 6:5 and 10:9, two minor thirds and three whole tones and no
+  semitone anywhere. The
+  model tunes to equal temperament, the last column, within 18 cents of every just ratio; the minor seventh can also be
+  taken as 16:9 (996.1 cents) or the harmonic 7:4 (968.8).</p>
+  <div class="scroll"><table>
     <thead><tr><th>Holes in</th><th>Sound chamber</th><th>Hole 1 (C5)</th><th>Hole 2 (D5)</th><th>Hole 3 (E5)</th><th>Hole 4 (G5)</th><th>Hole 5 (A5)</th></tr></thead>
     <tbody>{holes}</tbody>
   </table></div>
@@ -500,7 +517,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   and a body plate, so a spoilt edge costs the short one; and in the fingers build the top box-jointed like the bottom,
   so it press-fits.</p>
   <div class="scroll"><table>
-    <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th></tr></thead>
+    <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th><th>Just ratio</th></tr></thead>
     <tbody>{yrows}</tbody>
   </table></div>
   <p class="note">What the model hears in it, sound chamber {yL:.1f}mm. The shape of the scale agrees to within 40 cents
