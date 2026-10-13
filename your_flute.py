@@ -27,8 +27,8 @@ to the inch, 0.28222mm a unit), along the flute from the mouth end:
                     not in the redraw
   finger holes      each ringed by a soft engraved depression. They worked,
                     the author recalls, cut on a Glowforge, whose 3D engrave
-                    reads grey as depth; whether an xTool does the same is
-                    not known here
+                    reads grey as depth. An xTool P2S's Grayscale mode in XCS
+                    varies power with pixel brightness, which should do the same
   mouthpiece        an end cap 25.89 x 28.89mm with a 9.59mm breath hole
   block             four layers 25mm wide, 25, 19.8, 15.8 and 12.6 long
   tie               a leather strip 359.6 x 4.6mm

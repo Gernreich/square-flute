@@ -30,9 +30,13 @@ The model, from the foot up:
 
 THE WINDOW IS THE UNCALIBRATED PART. Its end correction is physics-based but
 not measured, and it moves the foot by more than any other term: each 1mm of
-window correction is about 5.5mm of sound chamber. So the foot is cut LONG
-(FOOT_SPARE) and trimmed to pitch, and --mouth= is the knob to set once a
-real flute has been measured. The hole positions depend on it far less.
+window correction is about 4.5mm of sound chamber at the 10mm window, 2.6mm at
+a full-width one. So the foot is cut LONG (FOOT_SPARE) and trimmed to pitch,
+and --mouth= is the knob to set once a real flute has been measured. The holes
+move with it ALMOST AS FAR -- a 10% error moves the foot 3.5mm and the holes
+2.3 to 3.0mm -- so trimming the foot does not put them right: each is tuned.
+(This said 5.5mm and "the holes depend on it far less" until 2026-10-13,
+from an area ratio never run through the model. Both were wrong.)
 """
 import cmath
 import math

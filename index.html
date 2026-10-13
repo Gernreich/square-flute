@@ -192,7 +192,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <li><strong>The 6mm variants</strong> glue a 3mm doubler over the run of finger holes, so each hole has a 6mm chimney, as a wooden flute's wall would give it.</li>
 </ul>
 <p>There is no laminated square bore. A stack is a whole number of 3mm layers deep, 18 or 21mm, and 19.67 is neither, so the stack keeps the area and gives up the square. <code>box-rect</code> is the stack's bore built as a box, so the two constructions can be compared at one section.</p>
-<p>Every flute is about 469mm long and fits a 600 × 308mm bed.</p>
+<p>Each of the six is about 469mm long, and each <code>-plus</code> variant about 486mm. All of them fit a 600 × 308mm bed.</p>
 <h2 id="what-the-model-says">What the model says</h2>
 <p><strong>The bore's shape barely matters.</strong> The square and the 18.43 × 21mm rectangle put every hole within 0.1mm of each other. Box or stack is a building choice, not an acoustic one.</p>
 <p><strong>The wall's thickness matters most.</strong> With the holes in 6mm of wall instead of 3mm, every one of them sits 10–16mm nearer the window, because a hole's chimney is part of its length.</p>
@@ -234,12 +234,13 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 </div>
 <p>Distances are from the centre of the window, in mm. Hole 1 is nearest the foot.</p>
 <h2 id="before-you-cut">Before you cut</h2>
-<p><strong>The window's end correction is not measured.</strong> It is the one term in the model worked out from physics rather than from a flute, and each 1mm of error in it moves the foot about 5.5mm. So the sound chamber is cut <strong>15mm long</strong>: trim the foot until the flute sounds A4 with every hole closed. The hole positions depend on that term far less.</p>
+<p><strong>The window's end correction is not measured.</strong> It is the least certain term in the model, and no built flute has checked it yet. Each 1mm of error in it moves the foot about 4.5mm, or 2.6mm with a full-width window. So the sound chamber is cut <strong>15mm long</strong>: trim the foot until the flute sounds A4 with every hole closed.</p>
+<p><strong>The holes move with it, almost as far.</strong> A 10% error in that correction moves the foot 3.5mm and every hole 2.3–3.0mm. Trimming the foot puts the fundamental right but leaves the holes where the model put them, so expect to tune each one. A hole that plays flat can be opened with a file. A hole that plays sharp cannot be closed up.</p>
 <p><strong>7/8in is a large bore for A4.</strong> <a href="https://www.flutopedia.com/bore_diameter.htm">Flutopedia's bore table</a> puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in this key are narrower.</p>
-<p><strong>The flue is a fill engrave</strong>, 10mm wide, on the underside of the bottom bird layer. It wants to be about 1mm deep. That depth is a power setting, so find it on scrap first.</p>
+<p><strong>The flue is a fill engrave</strong>, about 1mm deep. In the six variants it is 10mm wide, on the underside of the bottom bird layer. In the <code>-plus</code> variants and the 2017 flute, it is on the top plate over the plug, the full width of the bore. The depth is a power setting, so find it on scrap first.</p>
 <p><strong>File the splitting edge by hand.</strong> The window's far edge, where the air splits, needs a clean bevel of about 30°, and a laser cuts square, charred edges. The top is cut as a short head plate and a long body plate, so a spoilt edge costs only the short one.</p>
-<p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The tabs are drawn 0.19mm tight along their length and 0.12mm across the ply, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers and every layer of the stack are glued.</p>
-<p>Run the colours <strong>blue, orange, black</strong>: blue engraves the part numbers and the flue, orange cuts the holes, slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic repository uses.</p>
+<p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The tabs are drawn 0.19mm tight along their length and 0.12mm across the ply, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers and every layer of the stack are glued, and so is the mouthpiece cap of a <code>-plus</code> variant.</p>
+<p>Run the colours <strong>blue, orange, black</strong>: blue engraves the part numbers and the flue, orange cuts the holes, slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic repository uses. The <code>-plus</code> variants and the 2017 flute also carry a greyscale image round each finger hole, the depression. It needs an image engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.</p>
 <h2 id="tuning">Tuning</h2>
 <ol type="1">
 <li>Tie the bird on over the exit hole, its front edge on the window's near edge. It is tied rather than glued, so it can be slid to voice the flute.</li>
@@ -252,6 +253,8 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 python3 naf_model.py --mouth=0.8              # with a different window correction
 python3 square_flute.py --no-write            # the generator&#39;s checks, writing nothing
 python3 square_flute.py --out=cut-files       # every variant into cut-files/&lt;variant&gt;/
+python3 plus_flute.py --out=cut-files         # the -plus variants
+python3 your_flute.py --out=yours/cut-files   # the 2017 flute, redrawn
 python3 compare_page.py --standalone variants.html</code></pre>
 <p><code>naf_model.py</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
 <p><code>square_flute.py</code> builds each variant from what the model asks for and checks it before writing anything:</p>
@@ -273,7 +276,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <li><strong>A mouthpiece cap</strong> over the mouth end, with a 9.6mm breath hole.</li>
 <li><strong>A soft engraved depression</strong> round every finger hole, the original's own image, 1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger lands.</li>
 </ol>
-<p>A wider window has a smaller end correction, so the model puts the foot about 18mm further down, and every hole moves with it:</p>
+<p>A wider window has a smaller end correction, so the model puts the foot 16.5–18mm further down, and every hole moves with it:</p>
 <div class="tw">
 <table>
 <thead>
@@ -360,7 +363,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <p>It tried two things the six variants do not:</p>
 <ul>
 <li><strong>An engraved splitting edge.</strong> <code>FluteEdge.png</code> is a greyscale ramp, black at the window and white 9.9mm on, engraved beside the window so the laser would cut the bevel itself. <strong>It did not work</strong>, so the edge is filed by hand, as it is in the six variants.</li>
-<li><strong>A soft engraved depression round each finger hole</strong>, <code>ring.png</code>, for the finger to find. These worked, cut on a Glowforge, whose 3D engrave reads a grey image as depth. Whether an xTool's greyscale engrave does the same is untested, so try one on scrap first.</li>
+<li><strong>A soft engraved depression round each finger hole</strong>, <code>ring.png</code>, for the finger to find. These worked, cut on a Glowforge, whose 3D engrave reads a grey image as depth. On an xTool P2S, Grayscale mode in xTool Creative Space varies the power with each pixel's brightness, so the same image should work there too. Set its depth on scrap first.</li>
 </ul>
 <table>
 <tr>
@@ -373,7 +376,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 </tr>
 </table>
 
-<p>The flue is the same idea as mine on the other face: an engrave over the plug, in the nest rather than in the bird.</p>
+<p>Its flue is the six variants' idea on the other face: an engrave over the plug, in the nest rather than in the bird.</p>
 <h3 id="redrawn">Redrawn</h3>
 <p><code>your_flute.py</code> redraws it in two builds:</p>
 <ul>

@@ -458,7 +458,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="col">Each <code>-plus</code> variant is the one above it with four ideas from the 2017 flute: a window and
   an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, a mouthpiece cap with
   a 9.6mm breath hole, and a soft depression round every finger hole. The wider window has the
-  smaller end correction, so the model puts the foot about 18mm further down. The 2017 flute's engraved splitting edge
+  smaller end correction, so the model puts the foot 16.5–18mm further down. The 2017 flute's engraved splitting edge
   is not among them, since it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>
     <thead><tr><th>Variant</th><th>Construction</th><th>Bore, mm</th><th>Hole wall</th><th>Sound chamber</th><th>Flute, mm</th><th>Parts</th><th>Sheets</th><th>Joints</th></tr></thead>
@@ -481,8 +481,10 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
     <li><b>Tune the holes.</b> Work up from hole 1, opening each hole slightly with a file if it is flat. Each hole nudges
     the ones above it.</li>
   </ol>
-  <p class="note">The window's end correction is the uncalibrated term: each 1mm of it moves the foot about 5.5mm. That is
-  why the foot is cut long. Measure one built flute and the model can be set to it. Flutopedia's bore table also puts A4
+  <p class="note">The window's end correction is the uncalibrated term: each 1mm of it moves the foot about 4.5mm, or 2.6mm
+  with a full-width window. That is why the foot is cut long. The holes move with it almost as far, 2.3–3.0mm for the
+  foot's 3.5mm, so trimming the foot does not tune them: each is tuned in turn, and only a flat hole can be fixed. The
+  first build to be cut and played will set the term for the rest. Flutopedia's bore table also puts A4
   nearer a 3/4in bore than 7/8in, so this reference is on the large side for its key.</p>
 </section>
 
