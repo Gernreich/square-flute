@@ -21,7 +21,10 @@ WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
      the bird. The bird is then plain layers, and the flue is on the part that
      stays put.
   3. A mouthpiece cap over the mouth end, the size of the flute's outside,
-     with the original's 9.59mm breath hole. Glued, like the bird's layers.
+     with the original's half-round notch in its bottom edge: a 9.59mm circle
+     centred 0.33mm inside the edge, so the notch opens through the bottom
+     wall into the bore, away from the finger holes. Glued, like the bird's
+     layers.
   4. A soft engraved depression round every finger hole: the original's own
      ring.png, scaled to each hole as the original scaled it, 1.57 times the
      hole across.
@@ -47,7 +50,6 @@ from square_flute import Part, rect, pack                      # noqa: E402
 M = F.M
 
 T = F.T
-CAP_HOLE = Y.CAP[2]                   # 9.59
 RING_OF = 12.14 / 7.75                # the original's depression across its hole
 TAB_CLEAR = 3.0                       # tab edge to a full-width opening
 
@@ -138,10 +140,7 @@ def build(kind, W, D, wall, L, holes, diams):
         # the finger meets the doubler, not the plate, so the depressions go here
         p.images, body.images = body.images, []
         parts.append(p)
-    cap = Part('mouthpiece cap', next(num), rect(0, 0, outside[0], outside[1]),
-               'glued over the mouth end')
-    cap.hole(outside[0] / 2, outside[1] / 2, CAP_HOLE)
-    parts.append(cap)
+    parts.append(Y.cap_part(next(num), outside[0], outside[1]))
     b0 = exit_[0] - F.BIRD_UPSTREAM
     for k in range(F.BIRD_LAYERS):
         parts.append(Part('bird layer', next(num), rect(b0, 0, win[0], PW),
@@ -179,6 +178,11 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
          f'{info["total"]:.1f}mm')
     note(max(diams) <= W - 2 * F.MIN_WEB, 'every finger hole opens inside the bore',
          f'largest {max(diams):.2f}mm')
+    cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
+    cx, cy, r = cap.notch
+    into = cy + r - T - (cap.h - (D + 2 * T)) / 2
+    note(into > 0, 'the cap\'s notch opens into the bore',
+          f'{cy + r:.2f}mm deep, {into:.2f}mm past the bottom wall')
     gaps = [holes[i] - holes[i + 1] - (info['rings'][i] + info['rings'][i + 1]) / 2
             for i in range(4)]
     note(min(gaps) >= 0, 'the depressions do not run into each other',

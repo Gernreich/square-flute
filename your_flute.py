@@ -29,7 +29,13 @@ to the inch, 0.28222mm a unit), along the flute from the mouth end:
                     the author recalls, cut on a Glowforge, whose 3D engrave
                     reads grey as depth. An xTool P2S's Grayscale mode in XCS
                     varies power with pixel brightness, which should do the same
-  mouthpiece        an end cap 25.89 x 28.89mm with a 9.59mm breath hole
+  mouthpiece        an end cap 25.89 x 28.89mm. Its 9.59mm circle is centred
+                    0.33mm inside one long edge, so cutting both leaves a
+                    half-round NOTCH in that edge, not a hole in the middle:
+                    the edge goes to the bottom, away from the finger holes,
+                    and the notch opens through the bottom wall into the bore.
+                    (Read as a centred breath hole until 2026-10-13, when the
+                    author pointed it out.)
   block             four layers 25mm wide, 25, 19.8, 15.8 and 12.6 long
   tie               a leather strip 359.6 x 4.6mm
 
@@ -79,6 +85,7 @@ DIAMS = [7.73, 7.87, 7.79, 7.79, 5.47]
 RING = [12.14, 12.14, 12.14, 12.14, 8.56]                # depression image, across
 SPLIT = WIN[1] + 20.0                # the head plate ends here
 CAP = (25.89, 28.89, 9.59)
+NOTCH_IN = 0.33                      # the circle's centre, inside the cap's bottom edge
 BIRD = [25.0, 19.8, 15.8, 12.6]
 STRIP = (359.64, 4.64)
 FINGER, FPITCH = 10.0, 20.0
@@ -170,9 +177,7 @@ def build(kind):
         parts.append(Part('plug disc', next(num),
                           rect(0, 0, W + F.INTERF_ACROSS, D + F.INTERF_ACROSS),
                           'four, press-fit under the flue'))
-    cap = Part('mouthpiece cap', next(num), rect(0, 0, CAP[0], CAP[1]), 'glued over the mouth end')
-    cap.hole(CAP[0] / 2, CAP[1] / 2, CAP[2])
-    parts.append(cap)
+    parts.append(cap_part(next(num), CAP[0], CAP[1]))
     for k, L in enumerate(BIRD):
         parts.append(Part('block layer', next(num), rect(PLUG[1] - L, 0, PLUG[1], PW),
                           'stepped, front edges together on the window'))
@@ -180,6 +185,37 @@ def build(kind):
         if not hasattr(p, 'images'):
             p.images = []
     return parts
+
+
+def cap_part(num, w, h, d=CAP[2], inset=NOTCH_IN):
+    """The mouthpiece cap: a plate w across and h tall whose bottom edge,
+    y = 0, carries a half-round notch -- the original's circle, d across,
+    centred `inset` inside the edge. It is drawn as part of the outline: as a
+    separate circle it would run 4.5mm past the cap and cut the next part on
+    the sheet, which the 4mm gap between parts does not clear."""
+    cx, r = w / 2, d / 2
+    a = math.asin(inset / r)
+    arc = [(cx + r * math.cos(t), inset + r * math.sin(t))
+           for t in [math.pi + a - (math.pi + 2 * a) * i / 32 for i in range(33)]]
+    p = Part('mouthpiece cap', num, [(0, 0)] + arc + [(w, 0), (w, h), (0, h)],
+             'glued over the mouth end, the notched edge at the bottom')
+    p.notch = (cx, inset, r)
+    p.images = []
+    return p
+
+
+def cap_path(p, dx, dy, e):
+    """The cap's outline grown by the kerf: the rectangle out by e, the
+    notch's arc, which bounds material lying outside it, in by e."""
+    cx, cy, r = p.notch
+    w, h = p.w, p.h
+    r2 = r - e
+    hx = math.sqrt(r2 * r2 - (cy + e) ** 2)
+    X = lambda x: f'{x + dx:.3f}'
+    Yy = lambda y: f'{y + dy:.3f}'
+    return (f'M {X(-e)},{Yy(-e)} L {X(cx - hx)},{Yy(-e)} '
+            f'A {r2:.3f} {r2:.3f} 0 1 0 {X(cx + hx)},{Yy(-e)} '
+            f'L {X(w + e)},{Yy(-e)} L {X(w + e)},{Yy(h + e)} L {X(-e)},{Yy(h + e)} Z')
 
 
 def strip_part():
@@ -194,7 +230,10 @@ def svg(kind, k, n, sheet, what, leather=False):
     for p, sx, sy in sheet['parts']:
         dx, dy = sx - p.x0 + F.KERF / 2, sy - p.y0 + F.KERF / 2
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
-        black.append(path(mv(offset(p.outline, F.KERF / 2))))
+        if getattr(p, 'notch', None):
+            black.append(cap_path(p, dx, dy, F.KERF / 2))
+        else:
+            black.append(path(mv(offset(p.outline, F.KERF / 2))))
         for c in p.cuts:
             if c[0] == 'rect':
                 orange.append(path(mv(offset(c[1], -F.KERF / 2))))
@@ -216,8 +255,8 @@ def svg(kind, k, n, sheet, what, leather=False):
             g0, g1 = max(zip(xs, xs[1:]), key=lambda g: g[1] - g[0])
             h = min(5.0, p.h * 0.3)
             lx, ly = (g0 + g1) / 2, p.y0 + p.h / 2
-            if p.name == 'mouthpiece cap':      # the breath hole has the middle
-                lx, ly, h = p.x0 + 5, p.y0 + 4, 3.0
+            if p.name == 'mouthpiece cap':      # clear of the notch, in a top corner
+                lx, ly, h = p.x0 + 5, p.y0 + p.h - 4, 3.0
             blue += label(str(p.num), lx + dx, ly + dy, h)
     desc = (f'1 user unit = 1mm. The author\'s 2017 flute, redrawn: {kind}, sheet {k} of {n}: '
             f'{what}. ' + ('Cut from leather, not ply; black cuts. ' if leather else
@@ -282,6 +321,11 @@ def checks(kind, parts, sheets):
           'the butt joint clears the window and the top hole',
           f'{SPLIT - WIN[1]:.0f}mm past the window, '
           f'{min(HOLES) - max(RING) / 2 - SPLIT:.0f}mm before the top depression')
+    cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
+    cx, cy, r = cap.notch
+    into = cy + r - T - (cap.h - (D + 2 * T)) / 2
+    note_(into > 0, 'the cap\'s notch opens into the bore',
+          f'{cy + r:.2f}mm deep, {into:.2f}mm past the bottom wall')
     gaps = [HOLES[i] - HOLES[i + 1] - (RING[i] + RING[i + 1]) / 2 for i in range(4)]
     note_(min(gaps) >= 0, 'the depressions do not run into each other',
           f'closest {min(gaps):.1f}mm apart')

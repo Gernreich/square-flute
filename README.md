@@ -191,7 +191,9 @@ Each of the six again, with four ideas from the author's flute below:
 1. A window **the whole width of the bore**, rather than 10mm of it.
 2. An exit hole the whole width too, with **the flue engraved in the nest**, over the
    plug, rather than in the bird. The bird is then three plain layers.
-3. **A mouthpiece cap** over the mouth end, with a 9.6mm breath hole.
+3. **A mouthpiece cap** over the mouth end, with a half-round notch in its bottom edge,
+   on the side away from the finger holes: a 9.6mm circle centred on the edge, which
+   opens through the bottom wall into the bore.
 4. **A soft engraved depression** round every finger hole, the original's own image,
    1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger
    lands.

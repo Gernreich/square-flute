@@ -474,7 +474,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <h2>All twelve variants</h2>
   <p class="col">Each <code>-plus</code> variant is the one above it with four ideas from the 2017 flute: a window and
   an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, a mouthpiece cap with
-  a 9.6mm breath hole, and a soft depression round every finger hole. The wider window has the
+  a half-round notch in its bottom edge, and a soft depression round every finger hole. The wider window has the
   smaller end correction, so the model puts the foot 16.5–18mm further down. The 2017 flute's engraved splitting edge
   is not among them, since it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>
