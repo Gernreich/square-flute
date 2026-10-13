@@ -1,6 +1,6 @@
 # Square-bore flute
 
-**[See all six variants, in 3D](https://gernreich.github.io/square-flute/variants.html)** ·
+**[See every variant, in 3D](https://gernreich.github.io/square-flute/variants.html)** ·
 **[Read the writeup](https://gernreich.github.io/square-flute/)**
 
 A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm
@@ -148,6 +148,81 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 `.repro` holds the exact command for every file here.
 
+## The author's flute
+
+The six variants above are a fresh take, worked out without seeing this one. This
+flute was designed, cut and played in 2017, and its files are in `yours/original/`
+exactly as they were. Measured out of `yours/original/NAF_flatjoints.svg`:
+
+| | |
+|---|---|
+| Bore | 19.37 wide × 22.44mm deep, 435mm² |
+| Sound chamber | 313.25mm from the window's centre to the foot |
+| Window | 19.37 × 6.0mm, the whole width of the bore |
+| Plug | 11mm, its top engraved as the flue |
+| Finger holes | 7.73, 7.87, 7.79, 7.79 and 5.47mm, 213.9, 185.7, 156.9, 109.5 and 78.0mm from the window |
+
+Two of its ideas are better than mine:
+
+- **The splitting edge is engraved, not filed.** `FluteEdge.png` is a greyscale ramp,
+  black at the window and white 9.9mm on, engraved beside the window so the laser
+  cuts the bevel itself.
+- **Each finger hole sits in a soft engraved depression**, `ring.png`, so a finger
+  finds it and seals it.
+
+<table>
+<tr>
+<td align="center"><img src="yours/original/FluteEdge.png" alt="A short grey ramp, black along one long edge fading evenly to white along the other" width="110"></td>
+<td align="center"><img src="yours/original/ring.png" alt="A white disc ringed by a soft dark halo that fades outward" width="86"></td>
+</tr>
+<tr>
+<td align="center"><sub>FluteEdge.png · the bevel</sub></td>
+<td align="center"><sub>ring.png · the depression</sub></td>
+</tr>
+</table>
+
+The flue is the same idea as mine on the other face: an engrave over the plug, in the
+nest rather than in the bird.
+
+### Redrawn
+
+`your_flute.py` redraws it in two builds:
+
+- `yours-flat`: the sides butted between the top and the bottom, and glued.
+- `yours-fingers`: box-jointed top and bottom.
+
+The window, every finger hole and the foot stay exactly where they were. The tweaks:
+
+1. Millimetre-true, in the house cut-order colours, kerf-compensated, with every part
+   numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.
+2. The plug is four 3mm discs, 12mm instead of 11. The exit hole moves 1mm toward the
+   mouth to make room.
+3. In the fingers build the top is box-jointed to the sides, like the bottom, so it
+   press-fits instead of being glued.
+4. The ramp and the rings are the original's own images, embedded at their original
+   size.
+5. The top stays one piece. The six variants split theirs so that a hand-filed edge
+   can be remade cheaply, and an engraved edge doesn't need that.
+
+Nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as
+they were. The leather tie is its own file: cut it from leather, not ply.
+
+### What the model hears in it
+
+| Holes open | Model | Above the fundamental | Minor pentatonic |
+|---|---|---|---|
+| none | 470Hz, A♯4 +14c | 0c | 0c |
+| 1 | 559Hz, C♯5 +15c | 300c | 300c |
+| 2 | 636Hz, D♯5 +36c | 522c | 500c |
+| 3 | 718Hz, F5 +48c | 733c | 700c |
+| 4 | 856Hz, A5 −48c | 1038c | 1000c |
+| 5 | 949Hz, A♯5 +31c | 1217c | 1200c |
+
+The shape of the scale agrees to within 40 cents at every hole, which is the best test
+the model has had. Its pitch, near B♭4, rests on the same uncalibrated window term as
+everything else here. **What this flute actually plays is the calibration that term
+needs**, and it would set the foot for all eight builds.
+
 ## Files
 
 | | |
@@ -165,6 +240,12 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator |
 | `compare_page.py` | builds `variants.html` |
+| `yours/original/` | the author's 2017 files, unchanged: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
+| `yours/cut-files/flat/your-flute-flat-sheet1-cut-files.svg` | the author's flute redrawn, butt-jointed |
+| `yours/cut-files/fingers/your-flute-fingers-sheet1-cut-files.svg` | the author's flute redrawn, box-jointed |
+| `yours/cut-files/your-flute-leather-tie-cut-files.svg` | its leather tie |
+| `yours/previews/` | display renderings of those three — **not** cut files |
+| `your_flute.py` | measures the original and redraws it |
 | `README.md` · `index.html` | this writeup and its published page; the markdown is the source |
 | `.repro` | the command that draws each shipped file |
 

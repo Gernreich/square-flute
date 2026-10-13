@@ -9,6 +9,7 @@ so the page cannot disagree with the cut files.
 Both need the previews to exist, since it inlines them.
 """
 import html
+import math
 import os
 import re
 import sys
@@ -16,6 +17,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import square_flute as F                                       # noqa: E402
+import your_flute as Y                                         # noqa: E402
 M = F.M
 
 
@@ -87,7 +89,7 @@ def solids(kind, W, D, wall, parts, info):
             k_side += 1
             g = 'wall'
         elif n == 'plug disc':
-            m = [[0, 0, 1, F.SAC + k_plug * T], [1, 0, 0, -(W + F.INTERF_ACROSS) / 2], [0, 1, 0, T]]
+            m = [[0, 0, 1, info.get('plug', F.SAC) + k_plug * T], [1, 0, 0, -(W + F.INTERF_ACROSS) / 2], [0, 1, 0, T]]
             e = [-1.2 - 0.25 * k_plug, 0, 0]
             k_plug += 1
             g = 'plug'
@@ -102,7 +104,11 @@ def solids(kind, W, D, wall, parts, info):
             m, e, g = plate(T + D), [0, 0, 1.2], 'plate'
         elif n == 'doubler':
             m, e, g = plate(2 * T + D), [0, 0, 1.8], 'dbl'
-        elif n == 'bird layer':
+        elif n == 'mouthpiece cap':
+            ch = p.h - (D + 2 * T)
+            m = [[0, 0, 1, -T], [1, 0, 0, -p.w / 2], [0, 1, 0, -ch / 2]]
+            e, g = [-2.2, 0, 0], 'bird'
+        elif n in ('bird layer', 'block layer'):
             m = plate(2 * T + D + k_bird * T)
             e = [0, 0, 2.6 + 0.4 * k_bird]
             k_bird += 1
@@ -236,7 +242,7 @@ VIEWER = r"""
 def main(out, standalone=False):
     designs = {}
     rows, cards, plans = [], [], []
-    three = {}
+    three, yours_cards = {}, []
     done_plans = set()
     for name, (kind, W, D, wall) in F.VARIANTS.items():
         key = (round(W, 4), round(D, 4), wall)
@@ -273,6 +279,26 @@ def main(out, standalone=False):
                      f'<p class="meta">{how} · bore {W:.2f} × {D:.2f}mm · holes in '
                      f'{wall:g}mm of wall · {glued}</p><p class="parts">{plist}</p>'
                      + ''.join(imgs) + '</section>')
+    for kind in ('flat', 'fingers'):
+        parts = Y.build(kind)
+        three['yours-' + kind] = solids('yours', Y.W, Y.D, Y.T, parts,
+                                        {'PW': Y.PW, 'total': Y.TOTAL, 'plug': Y.PLUG[0]})
+        imgs = []
+        sheets = Y.pack(parts)
+        for k in range(1, len(sheets) + 1):
+            f = os.path.join(HERE, 'yours', 'previews', kind,
+                             f'your-flute-{kind}-sheet{k}-cut-files.svg')
+            imgs.append(f'<div class="sheet">{inline_svg(f)}<p class="cap">your flute, {kind}, '
+                        f'sheet {k} of {len(sheets)} · {sheets[k - 1]["w"]:.0f} × '
+                        f'{sheets[k - 1]["h"]:.0f}mm</p></div>')
+        yours_cards.append(''.join(imgs))
+    yL, yholes, yfs = Y.predict()
+    want = [0, 300, 500, 700, 1000, 1200]
+    yrows = ''.join(
+        f'<tr><th scope="row">{n} open</th><td class="n">{f:.0f}Hz</td>'
+        f'<td class="n">{Y.note(f)[0]} {Y.note(f)[1]:+.0f}c</td>'
+        f'<td class="n">{1200 * math.log2(f / yfs[0]):.0f}c</td><td class="n">{want[n]}c</td></tr>'
+        for n, f in enumerate(yfs))
     ref = M.design(M.Bore(), 5.0, even=True)
     plan_html = ''.join(plan(L, h, d, w, f'Holes in {w:g}mm of wall — sound chamber '
                              f'{L:.1f}mm, cut {L + M.FOOT_SPARE:.1f}')
@@ -284,6 +310,7 @@ def main(out, standalone=False):
                          + ''.join(f'<td class="n">{x:.1f}<span>ø{dd:.1f}</span></td>'
                                    for x, dd in zip(h, d)) + '</tr>')
     page = TEMPLATE.format(rows=''.join(rows), cards=''.join(cards), plans=plan_html,
+                           yrows=yrows, ysheets=''.join(yours_cards), yL=yL,
                            holes=''.join(hole_rows), sq=F.SQ, rw=F.RW, area=M.AREA,
                            spacing=M.SPACING, spare=M.FOOT_SPARE)
     import json
@@ -439,6 +466,26 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="note">The window's end correction is the uncalibrated term: each 1mm of it moves the foot about 5.5mm. That is
   why the foot is cut long. Measure one built flute and the model can be set to it. Flutopedia's bore table also puts A4
   nearer a 3/4in bore than 7/8in, so this reference is on the large side for its key.</p>
+</section>
+
+<section class="col" style="max-width:none" id="yours">
+  <h2>The author's flute</h2>
+  <p class="col">Designed, cut and played in 2017, and kept here as it was in <code>yours/original/</code>. Its bore is
+  19.37 × 22.44mm, 435mm², and its window runs the whole width of the bore. Two things in it are better than anything in
+  the six above. The splitting edge is a greyscale ramp the laser engraves, so the bevel is cut rather than filed. And
+  each finger hole sits in a soft engraved depression for the finger.</p>
+  <p class="col">Redrawn as <code>yours-flat</code> and <code>yours-fingers</code> in the 3D view, with the window, every
+  hole and the foot where they were. Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
+  four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; and in the fingers build the top box-jointed like
+  the bottom, so it press-fits.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th></tr></thead>
+    <tbody>{yrows}</tbody>
+  </table></div>
+  <p class="note">What the model hears in it, sound chamber {yL:.1f}mm. The shape of the scale agrees to within 40 cents
+  at every hole. The pitch, near B♭4, uses the same uncalibrated window term as everything else here, so the flute itself
+  is the better answer: its actual note sets that term for all eight builds.</p>
+  {ysheets}
 </section>
 
 <section class="variants" aria-label="Cut sheets">
