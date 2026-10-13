@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Square-bore flute</title>
+<style>
+:root{--bg:#fbfbfa;--fg:#1a1c1e;--mut:#5b6067;--line:#e2e4e7;--card:#fff;--accent:#1d4ed8;
+--codebg:#f4f5f7;--thbg:#f0f1f3;--mark:#fff8c4}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e6e8ea;--mut:#9aa1a9;--line:#2b2f34;
+--card:#1b1e22;--accent:#7aa2f7;--codebg:#22262b;--thbg:#23272c;--mark:#4a411c}}
+:root[data-theme=dark]{--bg:#15171a;--fg:#e6e8ea;--mut:#9aa1a9;--line:#2b2f34;--card:#1b1e22;
+--accent:#7aa2f7;--codebg:#22262b;--thbg:#23272c;--mark:#4a411c}
+:root[data-theme=light]{--bg:#fbfbfa;--fg:#1a1c1e;--mut:#5b6067;--line:#e2e4e7;--card:#fff;
+--accent:#1d4ed8;--codebg:#f4f5f7;--thbg:#f0f1f3;--mark:#fff8c4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:16px/1.62 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+-webkit-text-size-adjust:100%}
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:44px;max-width:1180px;
+margin:0 auto;padding:40px 28px 96px}
+nav{position:sticky;top:28px;align-self:start;max-height:calc(100vh - 56px);overflow:auto;
+border-right:1px solid var(--line);padding-right:16px;font-size:13.5px;line-height:1.45}
+nav b{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);
+margin:0 0 12px}
+nav a{display:block;color:var(--mut);text-decoration:none;padding:3px 0;border-radius:4px}
+nav a:hover{color:var(--accent)}
+nav a.l1{color:var(--fg);font-weight:640;margin-top:11px}
+nav a.l2{padding-left:12px}
+main{min-width:0}
+h1{font-size:1.62rem;line-height:1.25;letter-spacing:-.015em;margin:2.4em 0 .5em;
+padding-bottom:.32em;border-bottom:2px solid var(--line)}
+main>h1:first-child{margin-top:0;border-bottom:none;font-size:1.95rem}
+h2{font-size:1.16rem;margin:2em 0 .5em;letter-spacing:-.01em}
+h3{font-size:1.02rem;font-weight:650;margin:1.7em 0 .45em}
+p{margin:.85em 0}
+ul,ol{margin:.85em 0;padding-left:1.35em}
+li{margin:.3em 0}
+/* A list with blank lines between its items is "loose", and pandoc wraps each item
+   in a <p> as GitHub does. These pages were set tight before pandoc, so they stay so. */
+li>p{margin:0}
+hr{border:0;border-top:1px solid var(--line);margin:2.6em 0}
+figure{margin:1.6em 0}
+/* A paragraph holding two or more images is a gallery. Left to inline layout they
+   wrap at whatever fits, which put three bells on one row and the fourth alone
+   underneath - directly above the caption, so it read as the caption for that one
+   picture rather than for the set. Flex lets them share the row instead. */
+p:has(img + img){display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;
+justify-content:center}
+p:has(img + img) img{flex:1 1 140px;min-width:0;width:auto;max-width:100%;height:auto;
+border:1px solid var(--line);border-radius:10px}
+figure svg,figure img{display:block;width:100%;max-width:100%;height:auto;
+border:1px solid var(--line);border-radius:10px}
+a{color:var(--accent)}
+code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+background:var(--codebg);padding:.1em .32em;border-radius:4px;
+border:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+pre{background:var(--codebg);border:1px solid var(--line);border-radius:9px;
+padding:14px 16px;overflow-x:auto;margin:1.1em 0}
+pre code{background:none;border:0;padding:0;font-size:12.8px;line-height:1.62;white-space:pre}
+blockquote{margin:1.15em 0;padding:.7em 1.1em;border-left:4px solid var(--accent);
+background:var(--codebg);border-radius:0 7px 7px 0}
+blockquote p{margin:0}
+.tw{overflow-x:auto;margin:1.15em 0;border:1px solid var(--line);border-radius:9px;
+background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+/* honour align="center" on gallery cells: a presentation attribute loses to any
+   CSS rule, so the line above would silently left-align every thumbnail caption */
+td[align=center],th[align=center]{text-align:center}
+th{background:var(--thbg);font-weight:630;white-space:nowrap;font-size:13px;
+letter-spacing:.01em}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:color-mix(in srgb,var(--thbg) 45%,transparent)}
+td code,th code{white-space:nowrap}
+/* A walk inside a link is one token: breaking it mid-walk put "N" at the end of one
+   line and "N5 U" at the start of the next, which reads as two things. */
+a code{white-space:nowrap}
+.tog{position:fixed;top:14px;right:14px;z-index:9;background:var(--card);color:var(--mut);
+border:1px solid var(--line);border-radius:7px;padding:6px 11px;font-size:12.5px;cursor:pointer}
+.tog:hover{color:var(--accent)}
+/* Below 900px the contents list moves to the top of the page, and the fixed theme
+   button sat on top of its first lines. There it scrolls away with the page instead,
+   in a strip of padding kept free for it; fixed, it would ride over the text as the
+   page scrolls, since a narrow screen has no margin for it to sit in. */
+@media (max-width:900px){.wrap{grid-template-columns:1fr;gap:20px;padding:62px 18px 72px}
+.tog{position:absolute}
+nav{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);
+padding:0 0 16px;columns:2;column-gap:20px}}
+@media print{nav,.tog{display:none}.wrap{display:block;max-width:none;padding:0}
+pre,.tw{break-inside:avoid}h1{break-after:avoid}}
+</style>
+</head>
+<body>
+<button class="tog" type="button">theme</button>
+<div class="wrap">
+<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-six-variants">The six variants</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#files">Files</a></nav>
+<main>
+<h1 id="square-bore-flute">Square-bore flute</h1>
+<p><strong><a href="https://gernreich.github.io/square-flute/variants.html">See all six variants, in 3D</a></strong> · <strong><a href="https://gernreich.github.io/square-flute/">Read the writeup</a></strong></p>
+<p>A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm plywood with a square or rectangular bore. It keeps the <strong>bore area of a 7/8in (22.2mm) round-bore flute, 387mm²</strong>, so the air column is the same in a section a laser can build. All closed it sounds A4; opening the holes from the foot up gives C5, D5, E5, G5 and A5.</p>
+<p>Output is millimetre-true — <code>1 user unit = 1 mm</code> with a physical <code>width</code>/<code>height</code> — so it prints and cuts at real size.</p>
+<p><strong>Nothing here has been cut or played yet.</strong> The holes and the foot come from an acoustic model, and the foot is cut long to be trimmed to pitch.</p>
+<table>
+<tr>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate with orange mortice slots along both edges, two side walls with tabs along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs and three bird layers, one with a blue filled rectangle for the flue" width="720"></a></td>
+</tr>
+<tr>
+<td align="center"><sub>box-square-6 · the whole flute on one 586 × 167mm sheet</sub></td>
+</tr>
+</table>
+
+<p>Built for <strong><a href="https://www.youtube.com/@LaserMadeMusic">LaserMadeMusic</a></strong>.</p>
+<p><strong><a href="https://gernreich.github.io/">The rest of the build files</a></strong> — every instrument, generator and tool, indexed.</p>
+<p><strong><a href="https://github.com/Gernreich/square-flute/archive/refs/heads/main.zip">Download everything as a ZIP</a></strong></p>
+<h2 id="the-six-variants">The six variants</h2>
+<p>Three ways to build the bore, each with the finger holes in 3mm or 6mm of wall:</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Construction</th>
+<th>Bore</th>
+<th>Hole wall</th>
+<th>Parts</th>
+<th>Sheets</th>
+<th>Joints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>box-square-3</code></td>
+<td>finger-jointed box</td>
+<td>19.67 × 19.67mm</td>
+<td>3mm</td>
+<td>12</td>
+<td>1</td>
+<td>the bird glued, the rest press-fit</td>
+</tr>
+<tr>
+<td><code>box-square-6</code></td>
+<td>finger-jointed box</td>
+<td>19.67 × 19.67mm</td>
+<td>6mm</td>
+<td>13</td>
+<td>1</td>
+<td>the doubler and the bird glued</td>
+</tr>
+<tr>
+<td><code>box-rect-3</code></td>
+<td>finger-jointed box</td>
+<td>18.43 × 21mm</td>
+<td>3mm</td>
+<td>12</td>
+<td>1</td>
+<td>the bird glued, the rest press-fit</td>
+</tr>
+<tr>
+<td><code>box-rect-6</code></td>
+<td>finger-jointed box</td>
+<td>18.43 × 21mm</td>
+<td>6mm</td>
+<td>13</td>
+<td>1</td>
+<td>the doubler and the bird glued</td>
+</tr>
+<tr>
+<td><code>stack-rect-3</code></td>
+<td>laminated stack</td>
+<td>18.43 × 21mm</td>
+<td>3mm</td>
+<td>13</td>
+<td>2</td>
+<td>every layer glued</td>
+</tr>
+<tr>
+<td><code>stack-rect-6</code></td>
+<td>laminated stack</td>
+<td>18.43 × 21mm</td>
+<td>6mm</td>
+<td>14</td>
+<td>2</td>
+<td>every layer glued</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>The box</strong> is four plates: the two sides are tabbed into the top and the bottom, and the plug is four discs pressed into the bore.</li>
+<li><strong>The stack</strong> is a bottom layer, seven bore layers with the bore cut out of them and the plug left solid, and the top.</li>
+<li><strong>The 6mm variants</strong> glue a 3mm doubler over the run of finger holes, so each hole has a 6mm chimney, as a wooden flute's wall would give it.</li>
+</ul>
+<p>There is no laminated square bore. A stack is a whole number of 3mm layers deep, 18 or 21mm, and 19.67 is neither, so the stack keeps the area and gives up the square. <code>box-rect</code> is the stack's bore built as a box, so the two constructions can be compared at one section.</p>
+<p>Every flute is about 469mm long and fits a 600 × 308mm bed.</p>
+<h2 id="what-the-model-says">What the model says</h2>
+<p><strong>The bore's shape barely matters.</strong> The square and the 18.43 × 21mm rectangle put every hole within 0.1mm of each other. Box or stack is a building choice, not an acoustic one.</p>
+<p><strong>The wall's thickness matters most.</strong> With the holes in 6mm of wall instead of 3mm, every one of them sits 10–16mm nearer the window, because a hole's chimney is part of its length.</p>
+<p><strong>The holes are laid out for the hands.</strong> Five equal 8mm holes land 27, 30, 46 and 12mm apart, and two fingers will not cover holes 12mm apart. So the lower hand takes holes 1–3 and the upper hand 4–5, each hand's holes 25mm apart, and each hole is sized to its note:</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th>Holes in</th>
+<th>Sound chamber</th>
+<th>Hole 1, C5</th>
+<th>Hole 2, D5</th>
+<th>Hole 3, E5</th>
+<th>Hole 4, G5</th>
+<th>Hole 5, A5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3mm of wall</td>
+<td>328.9mm</td>
+<td>229.7 · ø7.7</td>
+<td>204.7 · ø8.0</td>
+<td>179.7 · ø9.2</td>
+<td>129.4 · ø8.0</td>
+<td>104.4 · ø6.2</td>
+</tr>
+<tr>
+<td>6mm of wall</td>
+<td>327.2mm</td>
+<td>219.2 · ø8.1</td>
+<td>194.2 · ø8.0</td>
+<td>169.2 · ø8.7</td>
+<td>113.7 · ø8.0</td>
+<td>88.7 · ø6.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Distances are from the centre of the window, in mm. Hole 1 is nearest the foot.</p>
+<h2 id="before-you-cut">Before you cut</h2>
+<p><strong>The window's end correction is not measured.</strong> It is the one term in the model worked out from physics rather than from a flute, and each 1mm of error in it moves the foot about 5.5mm. So the sound chamber is cut <strong>15mm long</strong>: trim the foot until the flute sounds A4 with every hole closed. The hole positions depend on that term far less.</p>
+<p><strong>7/8in is a large bore for A4.</strong> <a href="https://www.flutopedia.com/bore_diameter.htm">Flutopedia's bore table</a> puts A4 nearer 3/4in. This is the bore that was asked for, but most flutes in this key are narrower.</p>
+<p><strong>The flue is a fill engrave</strong>, 10mm wide, on the underside of the bottom bird layer. It wants to be about 1mm deep. That depth is a power setting, so find it on scrap first.</p>
+<p><strong>File the splitting edge by hand.</strong> The window's far edge, where the air splits, needs a clean bevel of about 30°, and a laser cuts square, charred edges. The top is cut as a short head plate and a long body plate, so a spoilt edge costs only the short one.</p>
+<p><strong>Cut it in 3mm Baltic birch plywood</strong>, at a 0.13mm kerf. The tabs are drawn 0.19mm tight along their length and 0.12mm across the ply, the mallet fit used on the <a href="https://github.com/Gernreich/lyre-harp">lyre-harp</a>. Press-fit, then seal every seam with shellac. The doubler, the bird's layers and every layer of the stack are glued.</p>
+<p>Run the colours <strong>blue, orange, black</strong>: blue engraves the part numbers and the flue, orange cuts the holes, slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic repository uses.</p>
+<h2 id="tuning">Tuning</h2>
+<ol type="1">
+<li>Tie the bird on over the exit hole, its front edge on the window's near edge. It is tied rather than glued, so it can be slid to voice the flute.</li>
+<li>With every hole closed, trim the foot until the flute sounds A4.</li>
+<li>Open hole 1 and tune C5. The holes are cut to the model's size, so if a note is flat, open its hole slightly with a file.</li>
+<li>Work up the flute in order, since each hole nudges the ones above it.</li>
+</ol>
+<h2 id="regenerating-it">Regenerating it</h2>
+<pre class="sh"><code>python3 naf_model.py                          # the holes for every variant, printed
+python3 naf_model.py --mouth=0.8              # with a different window correction
+python3 square_flute.py --no-write            # the generator&#39;s checks, writing nothing
+python3 square_flute.py --out=cut-files       # every variant into cut-files/&lt;variant&gt;/
+python3 compare_page.py --standalone variants.html</code></pre>
+<p><code>naf_model.py</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
+<p><code>square_flute.py</code> builds each variant from what the model asks for and checks it before writing anything:</p>
+<ul>
+<li>every note within a cent of its target</li>
+<li>every part on the bed</li>
+<li>every hole inside the bore</li>
+<li>enough ply between neighbouring holes, and between a hole and a mortice</li>
+<li>the joint in the top clear of the window and the top hole</li>
+<li>every part placed on a sheet</li>
+</ul>
+<p>It borrows the stroke font for its part numbers from <a href="https://github.com/Gernreich/trumpet-elbows-allowed/blob/main/parts/bore/concept/swept-curve/ribbon_bore.py"><code>ribbon_bore.py</code></a> in trumpet-elbows-allowed, so it expects that repository cloned beside this one.</p>
+<p><code>.repro</code> holds the exact command for every file here.</p>
+<h2 id="files">Files</h2>
+<div class="tw">
+<table>
+<tbody>
+<tr>
+<td><code>cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg</code></td>
+<td>box, square bore, 3mm hole wall</td>
+</tr>
+<tr>
+<td><code>cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg</code></td>
+<td>box, square bore, 6mm hole wall</td>
+</tr>
+<tr>
+<td><code>cut-files/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg</code></td>
+<td>box, 18.43 × 21mm bore, 3mm hole wall</td>
+</tr>
+<tr>
+<td><code>cut-files/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg</code></td>
+<td>box, 18.43 × 21mm bore, 6mm hole wall</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg</code></td>
+<td>stack, 3mm hole wall, sheet 1 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg</code></td>
+<td>stack, 3mm hole wall, sheet 2 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg</code></td>
+<td>stack, 6mm hole wall, sheet 1 of 2</td>
+</tr>
+<tr>
+<td><code>cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg</code></td>
+<td>stack, 6mm hole wall, sheet 2 of 2</td>
+</tr>
+<tr>
+<td><code>previews/</code></td>
+<td>display renderings of every sheet — <strong>not</strong> cut files</td>
+</tr>
+<tr>
+<td><code>variants.html</code></td>
+<td>all six side by side, in 3D, with every sheet</td>
+</tr>
+<tr>
+<td><code>naf_model.py</code></td>
+<td>the acoustic model</td>
+</tr>
+<tr>
+<td><code>square_flute.py</code></td>
+<td>the generator</td>
+</tr>
+<tr>
+<td><code>compare_page.py</code></td>
+<td>builds <code>variants.html</code></td>
+</tr>
+<tr>
+<td><code>README.md</code> · <code>index.html</code></td>
+<td>this writeup and its published page; the markdown is the source</td>
+</tr>
+<tr>
+<td><code>.repro</code></td>
+<td>the command that draws each shipped file</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Released under <a href="LICENSE">CC0 1.0</a>.</p>
+</main>
+</div>
+<script>
+var r=document.documentElement,b=document.querySelector('.tog');
+function set(t){r.setAttribute('data-theme',t);try{localStorage.setItem('ctg-theme',t)}catch(e){}
+b.textContent=t==='dark'?'\u2600 light':'\u263e dark';}
+var saved=null;try{saved=localStorage.getItem('ctg-theme')}catch(e){}
+set(saved||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+b.addEventListener('click',function(){set(r.getAttribute('data-theme')==='dark'?'light':'dark')});
+</script>
+</body>
+</html>

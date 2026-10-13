@@ -1,0 +1,6 @@
+# Names doc-audit reads as filenames that are not files here.
+#
+# ribbon_bore.py is in trumpet-elbows-allowed. square_flute.py imports its
+# stroke font from there, and the README links it in that repository.
+
+ribbon_bore.py

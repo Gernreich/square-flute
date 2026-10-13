@@ -1,0 +1,31 @@
+# How every shipped SVG and page in this repository is drawn. Checked by
+# lasermade-tools/repro-svg.py; $OUT is where the file must be written.
+#
+# square_flute.py names its own sheets, so each command writes one variant
+# into $OUT's directory with --flat and the tool compares the file it asked
+# for. It imports the stroke font from trumpet-elbows-allowed's
+# ribbon_bore.py, so these commands expect that checkout beside this one.
+
+# --- the cut files ---
+cut-files/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg :: python3 square_flute.py --only=box-rect-3 --flat --out=$(dirname $OUT)
+cut-files/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg :: python3 square_flute.py --only=box-rect-6 --flat --out=$(dirname $OUT)
+cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3 --flat --out=$(dirname $OUT)
+cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6 --flat --out=$(dirname $OUT)
+cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-3 --flat --out=$(dirname $OUT)
+cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg :: python3 square_flute.py --only=stack-rect-3 --flat --out=$(dirname $OUT)
+cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-6 --flat --out=$(dirname $OUT)
+cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg :: python3 square_flute.py --only=stack-rect-6 --flat --out=$(dirname $OUT)
+
+# --- display renderings, never cut files ---
+previews/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg $OUT
+previews/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg $OUT
+previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg $OUT
+previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg $OUT
+previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg $OUT
+previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg $OUT
+previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg $OUT
+previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg $OUT
+
+# --- the pages ---
+variants.html :: python3 compare_page.py --standalone $OUT
+index.html :: python3 ../lasermade-tools/md2html.py README.md $OUT
