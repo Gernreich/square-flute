@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="483.63mm" height="40.56mm" viewBox="0 0 483.63 40.56">
+<svg xmlns="http://www.w3.org/2000/svg" width="479.50mm" height="40.56mm" viewBox="0 0 479.50 40.56">
 <title>Square-bore flute in A4, stack-rect-3, sheet 2 of 2</title>
-<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-3, sheet 2 of 2: top, body plate, top, head plate. 3mm ply, drawn for a 0.13mm kerf. Finger joints as the trumpet bores cut them: 6mm fingers and spaces, no play, the fit from the kerf. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
+<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-3, sheet 2 of 2: bore layer. 3mm ply, drawn for a 0.13mm kerf. Finger joints as the trumpet bores cut them: 6mm fingers and spaces, no play, the fit from the kerf. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
   <g fill="none" stroke="#0000ff" stroke-width="0.2">
-    <path d="M 264.103,18.881 L 264.723,17.781 L 265.963,17.781 L 266.583,18.881 L 266.583,19.781 L 264.103,22.781 L 266.583,22.781"/>
-    <path d="M 267.693,22.781 L 268.793,22.781"/>
-    <path d="M 383.946,18.881 L 384.628,17.781 L 384.628,22.781"/>
-    <path d="M 383.884,22.781 L 385.434,22.781"/>
-    <path d="M 386.916,22.781 L 388.016,22.781"/>
+    <path d="M 239.155,9.325 L 239.658,9.565 L 240.216,9.115 L 240.402,7.915 L 240.402,7.105 L 240.030,6.565 L 239.527,6.565 L 239.100,7.105 L 239.100,7.705 L 239.527,8.215 L 240.123,8.215 L 240.402,7.915"/>
+    <path d="M 241.161,9.565 L 241.821,9.565"/>
   </g>
   <g fill="none" stroke="#ff8000" stroke-width="0.2">
-    <circle cx="211.250" cy="20.281" r="3.769"/>
-    <circle cx="186.250" cy="20.281" r="3.935"/>
-    <circle cx="161.250" cy="20.281" r="4.517"/>
-    <circle cx="110.923" cy="20.281" r="3.935"/>
-    <circle cx="85.923" cy="20.281" r="3.054"/>
-    <path d="M 433.631,15.346 L 439.501,15.346 L 439.501,25.216 L 433.631,25.216 Z"/>
-    <path d="M 451.631,15.346 L 458.501,15.346 L 458.501,25.216 L 451.631,25.216 Z"/>
   </g>
   <g fill="none" stroke="#000000" stroke-width="0.2">
-    <path d="M 5.000,5.000 L 325.501,5.000 L 325.501,35.562 L 5.000,35.562 Z"/>
-    <path d="M 329.501,5.000 L 478.631,5.000 L 478.631,35.562 L 329.501,35.562 Z"/>
+    <path d="M 5.000,5.000 L 474.501,5.000 L 474.501,11.130 L 127.130,11.130 L 127.130,29.432 L 474.501,29.432 L 474.501,35.562 L 5.000,35.562 L 5.000,29.432 L 115.000,29.432 L 115.000,11.130 L 5.000,11.130 Z"/>
   </g>
 </svg>

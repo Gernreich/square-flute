@@ -53,11 +53,10 @@ THE TWEAKS, each because something asked for it:
      the original's 10mm fingers at a mallet fit.
   4. The rings are the original's own image, each kept in the original's
      proportion to its hole, so they follow the re-solved holes. The ramp is left out, because the engraved bevel did not work.
-  5. So the splitting edge is filed by hand, and the top is cut as a head
-     plate and a body plate butted SPLIT_PAST beyond the window, as
-     square_flute's are: a spoilt edge then costs the short plate. A first
-     redraw kept the top in one piece on the strength of the ramp, before the
-     author said the ramp had failed.
+  5. So the splitting edge is filed by hand, before assembly. The top is one
+     piece: it was a head plate and a body plate for a while, so a spoilt
+     edge would cost only the short one, until the author saw no point in it
+     (2026-10-13). The seam it put 20mm past the window cost more than it saved.
 
 AT ITS OWN SIZE the model reads this flute as a minor pentatonic to within
 40 cents and puts it near B-flat 4. The builds here are not at its own size:
@@ -107,7 +106,6 @@ WC = (WIN[0] + WIN[1]) / 2
 HOLES = [357.315, 329.135, 300.375, 252.975, 221.455]    # from the mouth, foot-most first
 DIAMS = [7.73, 7.87, 7.79, 7.79, 5.47]
 RING = [12.14, 12.14, 12.14, 12.14, 8.56]                # depression image, across
-SPLIT = WIN[1] + 20.0                # the head plate ends here
 CAP = (25.89, 28.89, 9.59)
 NOTCH_IN = F.NOTCH_IN                # the circle's centre, inside the cap's bottom edge
 BIRD = [25.0, 19.8, 15.8, 12.6]
@@ -144,7 +142,6 @@ def scaled(k):
                DIAMS=[x * k for x in b['DIAMS']], RING=[x * k for x in b['RING']],
                TOTAL=wc + (b['TOTAL'] - wc0) * k)
     new['PW'] = new['W'] + 2 * T
-    new['SPLIT'] = win[1] + 20.0
     # the cap keeps the original's allowance over the flute's outside
     new['CAP'] = (new['PW'] + (CAP[0] - (b['W'] + 2 * T)),
                   new['D'] + 2 * T + (CAP[1] - (b['D'] + 2 * T)), CAP[2])
@@ -216,8 +213,8 @@ def a4_factor():
 
 def fingers_x():
     """square_flute's finger layout, the trumpet bores' joint, kept clear of
-    the full-width exit hole and window and of the butt joint in the top."""
-    return F.fingers_x(TOTAL, (EXIT, WIN, (SPLIT, SPLIT)))
+    the full-width exit hole and window."""
+    return F.fingers_x(TOTAL, (EXIT, WIN))
 
 
 def plate_with_notches(name, num, note, x0=0.0, x1=None):
@@ -233,14 +230,14 @@ def build(kind):
     y across."""
     num = iter(range(1, 100))
     parts = []
-    hn = 'exit hole, window and flue; file the far edge of the window to a bevel'
-    bn = 'the finger holes, each in its depression'
+    tn = ('exit hole, window, flue and the finger holes in their depressions; file '
+          'the far edge of the window to a bevel before assembly')
+    # one piece: `head` and `body` are the same plate, named for its two ends
     if kind == 'fingers':
-        head = plate_with_notches('top, head plate', next(num), hn, 0.0, SPLIT)
-        body = plate_with_notches('top, body plate', next(num), bn, SPLIT, TOTAL)
+        head = plate_with_notches('top plate', next(num), tn)
     else:
-        head = Part('top, head plate', next(num), rect(0, 0, SPLIT, PW), hn)
-        body = Part('top, body plate', next(num), rect(SPLIT, 0, TOTAL, PW), bn)
+        head = Part('top plate', next(num), rect(0, 0, TOTAL, PW), tn)
+    body = head
     yc = PW / 2
     head.slot(EXIT[0], yc - W / 2, EXIT[1], yc + W / 2)
     head.slot(WIN[0], yc - W / 2, WIN[1], yc + W / 2)
@@ -248,7 +245,7 @@ def build(kind):
     for x, d in zip(HOLES, DIAMS):
         body.hole(x, yc, d)
     body.images = [('ring.png', x - r / 2, yc - r / 2, r, r) for x, r in zip(HOLES, RING)]
-    parts += [head, body]
+    parts.append(head)
     if kind == 'fingers':
         parts.append(plate_with_notches('bottom plate', next(num), 'plain'))
         for k in range(2):
@@ -371,10 +368,9 @@ def checks(kind, parts, sheets):
           f'{PLUG[1] - PLUG[0]:.2f}mm for 4 x {T:g}')
     note_(PLUG[1] == WIN[0] and EXIT[1] == PLUG[0], 'exit hole, plug and window meet edge to edge',
           f'{EXIT[1]:.2f} / {PLUG[0]:.2f}, {PLUG[1]:.2f} / {WIN[0]:.2f}')
-    note_(SPLIT - WIN[1] >= 10 and min(HOLES) - max(RING) / 2 - SPLIT >= 10,
-          'the butt joint clears the window and the top hole',
-          f'{SPLIT - WIN[1]:.0f}mm past the window, '
-          f'{min(HOLES) - max(RING) / 2 - SPLIT:.0f}mm before the top depression')
+    tops = [p for p in parts if p.name.startswith('top')]
+    note_(len(tops) == 1 and tops[0].w == TOTAL, 'the top is one piece',
+          f'{len(tops)} plate, {tops[0].w:.1f}mm long')
     cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
     cx, cy, r = cap.notch
     into = cy + r - T - (cap.h - (D + 2 * T)) / 2

@@ -46,9 +46,12 @@ one feature here a laser draws better than a saw, since its depth -- about
 1mm -- is a power setting rather than a cut.
 
 THE SPLITTING EDGE is the window's downstream edge, and it wants a clean
-bevel of about 30 degrees that a laser cannot cut. File it by hand. The top
-is cut in two, a head plate and a body plate, butted 20mm below the window,
-so a spoilt edge costs the short plate and not the long one.
+bevel of about 30 degrees that a laser cannot cut. File it by hand, before
+assembly. The top is ONE piece. It was cut as a head plate and a body plate
+until 2026-10-13, so that a spoilt edge cost only the short one; the author
+saw no point in it, and it bought little for what it cost: one strip of ply
+saved, against a seam 20mm past the window to seal and a gap in the finger
+joints at the place the bird is tied on.
 
 Over the mouth end goes the author's 2017 mouthpiece cap, with its half-round
 notch in the bottom edge (CAP_D, NOTCH_IN below).
@@ -83,12 +86,11 @@ INTERF_ACROSS = 0.12
 FINGER = 2 * T       # finger width, and the space between fingers
 FINGER_PLAY = 0.0    # Boxes.py's default; the kerf compensation is the fit
 FINGER_END = 2 * FINGER   # Boxes.py's surroundingspaces: clear of each end
-FINGER_CLEAR = 3.0   # ply between a finger notch and an opening or a butt joint
+FINGER_CLEAR = 3.0   # ply between a finger notch and an opening
 SIDE = 6.0           # the stack's side walls
 
 SAC, EXIT_L, PLUG = 110.0, 6.0, 12.0
 FLUE_W = M.WINDOW_W
-SPLIT_PAST = 20.0    # head plate ends this far past the window
 DOUBLER_PAST = 20.0  # doubler runs this far past the outermost holes
 BIRD_LAYERS, BIRD_UPSTREAM = 3, 6.0
 # The mouthpiece cap, the author's from 2017 (yours/original/Mouthpiece.svg):
@@ -151,9 +153,8 @@ def rect(x0, y0, x1, y1):
 def fingers_x(L, clear=()):
     """Where the side walls' fingers go along a flute L long: FINGER wide,
     FINGER apart, centred, FINGER_END clear of each end, and none within
-    FINGER_CLEAR of an interval in `clear` -- the butt joint in the top,
-    where a finger would straddle two plates, and any opening that runs to
-    the bore's inner face, where a notch would cut straight into it."""
+    FINGER_CLEAR of an interval in `clear`: any opening that runs to the
+    bore's inner face, where a notch would cut straight into it."""
     pitch = 2 * FINGER
     n = int((L - 2 * FINGER_END - FINGER) // pitch) + 1
     span = (n - 1) * pitch
@@ -248,7 +249,6 @@ def build(kind, W, D, wall, L, holes, diams):
     flute from the mouth end, y across it."""
     wc = SAC + PLUG + M.WINDOW_L / 2               # window centre
     total = wc + L + M.FOOT_SPARE
-    split = SAC + PLUG + M.WINDOW_L + SPLIT_PAST
     hx = [wc + h for h in holes]                   # finger holes, foot-most first
     dz0, dz1 = min(hx) - DOUBLER_PAST, max(hx) + DOUBLER_PAST
     PW = W + 2 * T if kind == 'box' else W + 2 * SIDE
@@ -256,25 +256,20 @@ def build(kind, W, D, wall, L, holes, diams):
     parts = []
     num = iter(range(1, 100))
 
-    def top_head():
-        p = Part('top, head plate', next(num), rect(0, 0, split, PW),
-                 'exit hole and window; file the window\'s far edge to a 30 degree bevel')
+    def top_plate():
+        p = Part('top plate', next(num), rect(0, 0, total, PW),
+                 'exit hole, window and the five finger holes; file the window\'s '
+                 'far edge to a 30 degree bevel before assembly')
         p.slot(SAC - EXIT_L, yc - FLUE_W / 2, SAC, yc + FLUE_W / 2)
         p.slot(SAC + PLUG, yc - M.WINDOW_W / 2, SAC + PLUG + M.WINDOW_L,
                yc + M.WINDOW_W / 2)
-        return p
-
-    def top_body():
-        p = Part('top, body plate', next(num), rect(split, 0, total, PW),
-                 'the five finger holes, butted against the head plate')
         for x, d in zip(hx, diams):
             p.hole(x, yc, d)
         return p
 
     if kind == 'box':
-        xs = fingers_x(total, ((split, split),))
-        h = top_head(); h.outline = notched(0, split, PW, xs); parts.append(h)
-        b = top_body(); b.outline = notched(split, total, PW, xs); parts.append(b)
+        xs = fingers_x(total)
+        t = top_plate(); t.outline = notched(0, total, PW, xs); parts.append(t)
         parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
                           'plain'))
         for k in range(2):
@@ -285,8 +280,7 @@ def build(kind, W, D, wall, L, holes, diams):
                               f'{int(PLUG / T)} press-fit into the bore '
                               f'between the exit hole and the window'))
     else:
-        parts.append(top_head())
-        parts.append(top_body())
+        parts.append(top_plate())
         parts.append(Part('bottom layer', next(num), rect(0, 0, total, PW), 'plain'))
         s1, s2 = SIDE, SIDE + W
         bore = [(0, 0), (total, 0), (total, s1), (SAC + PLUG, s1),
@@ -312,7 +306,7 @@ def build(kind, W, D, wall, L, holes, diams):
         parts.append(p)
     # last, so every part number the variants had before it is unchanged
     parts.append(cap_part(next(num), PW, D + 2 * T))
-    return parts, dict(total=total, wc=wc, split=split, PW=PW, hx=hx,
+    return parts, dict(total=total, wc=wc, PW=PW, hx=hx,
                        doubler=(dz0, dz1) if wall > T else None)
 
 
@@ -340,15 +334,15 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
         note(min(p.y0 for p in sides) == -T and max(p.y0 + p.h for p in sides) == D + T,
              'the fingers run to the outside faces',
              f'{T:g}mm proud each way, nothing outboard of them')
-    near = info['split'] - (SAC + PLUG + M.WINDOW_L)
-    note(near >= 10 and min(info['hx']) - info['split'] >= 10,
-         'the butt joint clears the window and the top hole',
-         f'{near:.0f}mm past the window, {min(info["hx"]) - info["split"]:.0f}mm '
-         f'before the top hole')
+    tops = [p for p in parts if p.name.startswith('top')]
+    note(len(tops) == 1 and tops[0].w == info['total'], 'the top is one piece',
+         f'{len(tops)} plate, {tops[0].w:.1f}mm long')
     if info['doubler']:
         z0, z1 = info['doubler']
-        note(z0 >= info['split'] and z1 <= info['total'],
-             'the doubler lies on the body plate', f'{z0:.1f} to {z1:.1f}mm')
+        clear = z0 - (SAC + PLUG + M.WINDOW_L)
+        note(clear >= 10 and z1 <= info['total'],
+             'the doubler stays clear of the window', f'{clear:.0f}mm past it, '
+             f'{z0:.1f} to {z1:.1f}mm')
     note(all(s['w'] <= BED[0] and s['h'] <= BED[1] for s in sheets),
          'every sheet fits the bed',
          f'{len(sheets)} sheet(s), largest '

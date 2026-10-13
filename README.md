@@ -1,7 +1,11 @@
 # Square-bore flute
 
-**[See every variant, in 3D](https://gernreich.github.io/square-flute/variants.html)** ·
+**[See every variant, in 3D](https://gernreich.github.io/square-flute/variants.html)**
+
+<!-- readme-only -->
 **[Read the writeup](https://gernreich.github.io/square-flute/)**
+
+<!-- page-only **[Read the README](https://github.com/Gernreich/square-flute)** -->
 
 A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm
 plywood with a square or rectangular bore. It keeps the **bore area of a 7/8in (22.2mm)
@@ -19,7 +23,7 @@ its ideas.
 
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a body plate notched along both edges for finger joints, two side walls with fingers along both edges, a short head plate with two small rectangular openings, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="100%"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two small rectangular openings near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge" width="100%"></a></td>
 </tr>
 <tr>
 <td align="center"><sub>box-square-6 · the whole flute on one 592 × 155mm sheet</sub></td>
@@ -39,12 +43,12 @@ Three ways to build the bore, each with the finger holes in 3mm or 6mm of wall:
 
 | Variant | Construction | Bore | Hole wall | Parts | Sheets | Joints |
 |---|---|---|---|---|---|---|
-| `box-square-3` | finger-jointed box | 19.67 × 19.67mm | 3mm | 13 | 1 | the bird and the cap glued, the rest press-fit |
-| `box-square-6` | finger-jointed box | 19.67 × 19.67mm | 6mm | 14 | 1 | the doubler, the bird and the cap glued |
-| `box-rect-3` | finger-jointed box | 18.43 × 21mm | 3mm | 13 | 1 | the bird and the cap glued, the rest press-fit |
-| `box-rect-6` | finger-jointed box | 18.43 × 21mm | 6mm | 14 | 1 | the doubler, the bird and the cap glued |
-| `stack-rect-3` | laminated stack | 18.43 × 21mm | 3mm | 14 | 2 | every layer and the cap glued |
-| `stack-rect-6` | laminated stack | 18.43 × 21mm | 6mm | 15 | 2 | every layer and the cap glued |
+| `box-square-3` | finger-jointed box | 19.67 × 19.67mm | 3mm | 12 | 1 | the bird and the cap glued, the rest press-fit |
+| `box-square-6` | finger-jointed box | 19.67 × 19.67mm | 6mm | 13 | 1 | the doubler, the bird and the cap glued |
+| `box-rect-3` | finger-jointed box | 18.43 × 21mm | 3mm | 12 | 1 | the bird and the cap glued, the rest press-fit |
+| `box-rect-6` | finger-jointed box | 18.43 × 21mm | 6mm | 13 | 1 | the doubler, the bird and the cap glued |
+| `stack-rect-3` | laminated stack | 18.43 × 21mm | 3mm | 13 | 2 | every layer and the cap glued |
+| `stack-rect-6` | laminated stack | 18.43 × 21mm | 6mm | 14 | 2 | every layer and the cap glued |
 
 - **The box** is four plates, finger-jointed edge to edge: the sides' fingers fill
   notches in the edges of the top and the bottom and run flush to the outside faces, so
@@ -132,8 +136,9 @@ on the top plate over the plug, the full width of the bore. The depth is a power
 setting, so find it on scrap first.
 
 **File the splitting edge by hand.** The window's far edge, where the air splits, needs
-a clean bevel of about 30°, and a laser cuts square, charred edges. The top is cut as a
-short head plate and a long body plate, so a spoilt edge costs only the short one.
+a clean bevel of about 30°, and a laser cuts square, charred edges. File it before
+assembly, while the top is still a flat plate on the bench; if the edge goes wrong,
+recut the top.
 
 **Cut it in 3mm Baltic birch plywood**, at a 0.13mm kerf. The finger joints are the
 ones on the trumpet bores in
@@ -185,7 +190,7 @@ writing anything:
 - every hole inside the bore
 - enough ply between neighbouring holes, and between a hole and a finger notch
 - the fingers flush with the outside faces
-- the joint in the top clear of the window and the top hole
+- the top in one piece
 - every part placed on a sheet
 
 It borrows the stroke font for its part numbers from
@@ -223,7 +228,7 @@ narrower window.
 In the box, a full-width opening reaches the inner faces of the bore, which is the
 floor of every finger notch, so no finger stands beside the exit hole or the window. The cap and the
 bird's layers are glued, as in the original. Two things are not taken. The engraved
-splitting edge charred, so the edge is still filed by hand and the top still split. And
+splitting edge charred, so the edge is still filed by hand. And
 the original's stepped block was for looks only, so the bird keeps its plain layers.
 
 ## The author's flute
@@ -320,9 +325,8 @@ files are still in `yours/original/`. The tweaks made in redrawing it:
 4. The rings are the original's own image, each kept in the original's proportion to
    its hole, so they grow and shrink with the re-solved holes. The ramp is left out,
    because the engraved bevel did not work.
-5. With the edge filed by hand, the top is cut as a short head plate and a long body
-   plate, butted 20mm past the window, as in the six variants. A spoilt edge then
-   costs only the short plate.
+5. With the edge filed by hand, the top is one piece, as in every variant: file the
+   edge before assembly.
 
 Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's
 layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.

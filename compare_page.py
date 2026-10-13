@@ -496,8 +496,8 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <ol>
     <li><b>Flue.</b> The bottom bird layer carries the flue as a 10mm-wide fill engrave. Set its depth to about 1mm on scrap
     first; it is the one dimension here that is a power setting rather than a cut.</li>
-    <li><b>Splitting edge.</b> File the window's downstream edge to a bevel of about 30°. The top is cut as a short head
-    plate and a long body plate, so a spoilt edge costs the short one.</li>
+    <li><b>Splitting edge.</b> File the window's downstream edge to a bevel of about 30°, before assembly, while the
+    top is still a flat plate. If it goes wrong, recut the top.</li>
     <li><b>Assemble.</b> Box: press-fit, then shellac every seam. Stack: glue the layers in order against a straightedge.
     The doubler and the bird are glued in both.</li>
     <li><b>Tune the fundamental.</b> With every hole closed, trim the foot until it sounds A4.</li>
@@ -523,8 +523,8 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   hole diameters are re-solved instead, until every note lands on equal temperament; holes 2 and 3 come out about 1mm
   smaller than scaling would make them. The builds at the original size were removed at the author's asking.
   Millimetre-true, kerf-compensated, in the house colours and numbered; the plug made
-  four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the top cut as a head plate
-  and a body plate, so a spoilt edge costs the short one; and in the fingers build the top finger-jointed like the bottom,
+  four 3mm discs, 12mm, by moving the exit hole 1mm toward the mouth; the ramp left out and the edge filed by hand;
+  and in the fingers build the top finger-jointed like the bottom,
   so it press-fits.</p>
   <div class="scroll"><table>
     <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th><th>Just ratio</th></tr></thead>

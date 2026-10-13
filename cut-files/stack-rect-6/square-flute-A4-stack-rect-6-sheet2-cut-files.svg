@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="503.47mm" height="75.12mm" viewBox="0 0 503.47 75.12">
+<svg xmlns="http://www.w3.org/2000/svg" width="477.83mm" height="75.12mm" viewBox="0 0 477.83 75.12">
 <title>Square-bore flute in A4, stack-rect-6, sheet 2 of 2</title>
-<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-6, sheet 2 of 2: doubler, top, body plate, top, head plate. 3mm ply, drawn for a 0.13mm kerf. Finger joints as the trumpet bores cut them: 6mm fingers and spaces, no play, the fit from the kerf. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
+<desc>1 user unit = 1mm. Square-bore flute in A4, stack-rect-6, sheet 2 of 2: bore layer, doubler. 3mm ply, drawn for a 0.13mm kerf. Finger joints as the trumpet bores cut them: 6mm fingers and spaces, no play, the fit from the kerf. Blue #0000ff engraves (the part numbers, and the flue as a fill engrave about 1mm deep -- set its depth on scrap first), orange #ff8000 cuts the holes and slots, black #000000 frees the parts.</desc>
   <g fill="none" stroke="#0000ff" stroke-width="0.2">
-    <path d="M 258.045,18.881 L 258.665,17.781 L 259.905,17.781 L 260.525,18.881 L 260.525,19.781 L 258.045,22.781 L 260.525,22.781"/>
-    <path d="M 261.635,22.781 L 262.735,22.781"/>
-    <path d="M 398.029,18.881 L 398.711,17.781 L 398.711,22.781"/>
-    <path d="M 397.967,22.781 L 399.517,22.781"/>
-    <path d="M 402.029,18.881 L 402.711,17.781 L 402.711,22.781"/>
-    <path d="M 401.967,22.781 L 403.517,22.781"/>
-    <path d="M 404.999,22.781 L 406.099,22.781"/>
-    <path d="M 59.445,53.443 L 60.127,52.343 L 60.127,57.343"/>
-    <path d="M 59.383,57.343 L 60.933,57.343"/>
-    <path d="M 62.415,57.343 L 63.515,57.343"/>
+    <path d="M 238.318,9.325 L 238.820,9.565 L 239.378,9.115 L 239.564,7.915 L 239.564,7.105 L 239.192,6.565 L 238.690,6.565 L 238.262,7.105 L 238.262,7.705 L 238.690,8.215 L 239.285,8.215 L 239.564,7.915"/>
+    <path d="M 240.323,9.565 L 240.983,9.565"/>
+    <path d="M 75.202,53.443 L 75.884,52.343 L 75.884,57.343"/>
+    <path d="M 75.140,57.343 L 76.690,57.343"/>
+    <path d="M 79.822,52.343 L 80.907,53.343 L 80.907,56.343 L 79.822,57.343 L 78.737,56.343 L 78.737,53.343 L 79.822,52.343"/>
+    <path d="M 82.172,57.343 L 83.272,57.343"/>
   </g>
   <g fill="none" stroke="#ff8000" stroke-width="0.2">
-    <circle cx="200.809" cy="20.281" r="3.999"/>
-    <circle cx="175.809" cy="20.281" r="3.935"/>
-    <circle cx="150.809" cy="20.281" r="4.300"/>
-    <circle cx="95.295" cy="20.281" r="3.935"/>
-    <circle cx="70.295" cy="20.281" r="3.339"/>
-    <circle cx="478.406" cy="20.281" r="3.999"/>
-    <circle cx="453.406" cy="20.281" r="3.935"/>
-    <circle cx="428.406" cy="20.281" r="4.300"/>
-    <circle cx="372.891" cy="20.281" r="3.935"/>
-    <circle cx="347.891" cy="20.281" r="3.339"/>
-    <path d="M 109.130,49.908 L 115.000,49.908 L 115.000,59.778 L 109.130,59.778 Z"/>
-    <path d="M 127.130,49.908 L 134.000,49.908 L 134.000,59.778 L 127.130,59.778 Z"/>
+    <circle cx="155.580" cy="54.843" r="3.999"/>
+    <circle cx="130.580" cy="54.843" r="3.935"/>
+    <circle cx="105.580" cy="54.843" r="4.300"/>
+    <circle cx="50.065" cy="54.843" r="3.935"/>
+    <circle cx="25.065" cy="54.843" r="3.339"/>
   </g>
   <g fill="none" stroke="#000000" stroke-width="0.2">
-    <path d="M 5.000,5.000 L 323.826,5.000 L 323.826,35.562 L 5.000,35.562 Z"/>
-    <path d="M 327.826,5.000 L 498.471,5.000 L 498.471,35.562 L 327.826,35.562 Z"/>
-    <path d="M 5.000,39.562 L 154.130,39.562 L 154.130,70.124 L 5.000,70.124 Z"/>
+    <path d="M 5.000,5.000 L 472.826,5.000 L 472.826,11.130 L 127.130,11.130 L 127.130,29.432 L 472.826,29.432 L 472.826,35.562 L 5.000,35.562 L 5.000,29.432 L 115.000,29.432 L 115.000,11.130 L 5.000,11.130 Z"/>
+    <path d="M 5.000,39.562 L 175.645,39.562 L 175.645,70.124 L 5.000,70.124 Z"/>
   </g>
 </svg>

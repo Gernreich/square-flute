@@ -17,7 +17,7 @@ WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
      wider window carries a smaller end correction, which moves the foot and
      every hole.
   2. The exit hole runs the whole width too, and the flue is a fill engrave
-     in the NEST -- the top of the head plate over the plug -- rather than in
+     in the NEST -- the top plate's face over the plug -- rather than in
      the bird. The bird is then plain layers, and the flue is on the part that
      stays put.
   3. A mouthpiece cap over the mouth end -- on every variant since, the six
@@ -31,7 +31,7 @@ WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
      hole across.
 
 NOT taken: the original's engraved splitting edge, which charred and did not
-work, so the edge is still filed by hand and the top still split; and its
+work, so the edge is still filed by hand; and its
 stepped block, whose outline was for looks only, the author says. The bird is
 three plain layers as in the six, and with the flue in the nest it carries
 none.
@@ -79,7 +79,6 @@ def design(W, D, wall):
 def build(kind, W, D, wall, L, holes, diams):
     wc = F.SAC + F.PLUG + M.WINDOW_L / 2
     total = wc + L + M.FOOT_SPARE
-    split = F.SAC + F.PLUG + M.WINDOW_L + F.SPLIT_PAST
     hx = [wc + h for h in holes]
     PW = W + 2 * T if kind == 'box' else W + 2 * F.SIDE
     yc = PW / 2
@@ -88,14 +87,16 @@ def build(kind, W, D, wall, L, holes, diams):
     num = iter(range(1, 100))
     parts = []
 
-    head = Part('top, head plate', next(num), rect(0, 0, split, PW),
-                'full-width exit hole and window, the flue engraved between; '
-                'file the window\'s far edge to a bevel')
+    # one piece, as square_flute's top is: `head` and `body` below are the
+    # same plate, the names kept for which end of it each line is about
+    head = Part('top plate', next(num), rect(0, 0, total, PW),
+                'full-width exit hole and window, the flue engraved between, the '
+                'finger holes in their depressions; file the window\'s far edge to '
+                'a bevel before assembly')
     head.slot(exit_[0], yc - W / 2, exit_[1], yc + W / 2)
     head.slot(win[0], yc - W / 2, win[1], yc + W / 2)
     head.fills.append(rect(exit_[1], yc - W / 2, win[0], yc + W / 2))
-    body = Part('top, body plate', next(num), rect(split, 0, total, PW),
-                'the finger holes, each in its depression')
+    body = head
     for x, d in zip(hx, diams):
         body.hole(x, yc, d)
     rings = [d * RING_OF for d in diams]
@@ -104,10 +105,9 @@ def build(kind, W, D, wall, L, holes, diams):
     if kind == 'box':
         # a finger notch beside the exit hole or the window would run straight
         # into it: both reach the bore's inner face, which is the notch's floor
-        xs = F.fingers_x(total, ((split, split), exit_, win))
-        head.outline = F.notched(0, split, PW, xs)
-        body.outline = F.notched(split, total, PW, xs)
-        parts += [head, body]
+        xs = F.fingers_x(total, (exit_, win))
+        head.outline = F.notched(0, total, PW, xs)
+        parts.append(head)
         parts.append(Part('bottom plate', next(num), F.notched(0, total, PW, xs), 'plain'))
         for k in range(2):
             parts.append(F.finger_side(total, D, xs, next(num)))
@@ -117,7 +117,7 @@ def build(kind, W, D, wall, L, holes, diams):
                               f'{int(F.PLUG / T)} press-fit into the bore under the flue'))
         outside = (PW, D + 2 * T)
     else:
-        parts += [head, body]
+        parts.append(head)
         parts.append(Part('bottom layer', next(num), rect(0, 0, total, PW), 'plain'))
         s1, s2 = F.SIDE, F.SIDE + W
         bore = [(0, 0), (total, 0), (total, s1), (F.SAC + F.PLUG, s1),
@@ -144,7 +144,7 @@ def build(kind, W, D, wall, L, holes, diams):
     for p in parts:
         if not hasattr(p, 'images'):
             p.images = []
-    info = dict(total=total, wc=wc, split=split, PW=PW, hx=hx, exit=exit_, win=win,
+    info = dict(total=total, wc=wc, PW=PW, hx=hx, exit=exit_, win=win,
                 fingers=xs if kind == 'box' else [], rings=rings,
                 doubler=(min(hx) - F.DOUBLER_PAST, max(hx) + F.DOUBLER_PAST) if wall > T else None)
     return parts, info
@@ -179,10 +179,9 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
         note(max(info['rings']) / 2 <= info['PW'] / 2 - T,
              'each depression clears the finger notches',
              f'{info["PW"] / 2 - T - max(info["rings"]) / 2:.1f}mm to spare')
-    near = info['split'] - info['win'][1]
-    top_ring = min(info['hx']) - max(info['rings']) / 2 - info['split']
-    note(near >= 10 and top_ring >= 10, 'the butt joint clears the window and the top hole',
-         f'{near:.0f}mm past the window, {top_ring:.0f}mm before the top depression')
+    tops = [p for p in parts if p.name.startswith('top')]
+    note(len(tops) == 1 and tops[0].w == info['total'], 'the top is one piece',
+         f'{len(tops)} plate, {tops[0].w:.1f}mm long')
     note(all(s['w'] <= F.BED[0] and s['h'] <= F.BED[1] for s in sheets),
          'every sheet fits the bed', f'{len(sheets)} sheet(s), largest '
          f'{max(s["w"] for s in sheets):.0f} x {max(s["h"] for s in sheets):.0f}mm')
