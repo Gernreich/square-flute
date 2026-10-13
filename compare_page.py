@@ -31,7 +31,9 @@ def plan(L, holes, diams, wall, label, plus=False):
     s = []
     s.append(f'<rect class="body" x="0" y="{y0}" width="{total:.1f}" height="{W}"/>')
     s.append(f'<rect class="sac" x="0" y="{y0}" width="{F.SAC}" height="{W}"/>')
-    s.append(f'<rect class="plug" x="{F.SAC}" y="{y0}" width="{F.PLUG}" height="{W}"/>')
+    # the plug fills the BORE, inside the walls, so it is drawn inside them
+    # and faint: it is under the top plate, not seen from above
+    s.append(f'<rect class="plug" x="{F.SAC}" y="{y0 + 3}" width="{F.PLUG}" height="{W - 6}"/>')
     s.append(f'<rect class="trim" x="{wc + L:.1f}" y="{y0}" width="{M.FOOT_SPARE}" height="{W}"/>')
     hx = [wc + h for h in holes]
     if wall > F.T:
@@ -39,6 +41,9 @@ def plan(L, holes, diams, wall, label, plus=False):
         s.append(f'<rect class="dbl" x="{z0:.1f}" y="{y0 + 1.5}" width="{z1 - z0:.1f}" '
                  f'height="{W - 3}"/>')
     o = W / 2 - 3 if plus else 5          # -plus: exit hole and window the bore's width
+    # the flue: the shallow channel from the exit hole to the window, over the
+    # plug, exactly as wide as the two openings it joins
+    s.append(f'<rect class="flue" x="{F.SAC}" y="{yc - o}" width="{F.PLUG}" height="{2 * o}"/>')
     s.append(f'<rect class="cut" x="{F.SAC - F.EXIT_L}" y="{yc - o}" width="{F.EXIT_L}" height="{2 * o}"/>')
     s.append(f'<rect class="cut" x="{F.SAC + F.PLUG}" y="{yc - o}" width="{M.WINDOW_L}" height="{2 * o}"/>')
     for x, d, n in zip(hx, diams, range(1, 6)):
@@ -395,7 +400,8 @@ td.n span {{ display: block; color: var(--muted); font-size: 12px; }}
 .plan svg {{ width: 100%; min-width: 760px; display: block; }}
 .plan .body {{ fill: var(--birch); stroke: var(--fg); stroke-width: .4; }}
 .plan .sac {{ fill: var(--panel); opacity: .55; }}
-.plan .plug {{ fill: var(--plug); }}
+.plan .plug {{ fill: none; stroke: var(--plug); stroke-width: .5; stroke-dasharray: 1.5 1; }}
+.plan .flue {{ fill: var(--ink); opacity: .55; }}
 .plan .trim {{ fill: var(--accent); opacity: .25; }}
 .plan .dbl {{ fill: none; stroke: var(--fg); stroke-width: .5; stroke-dasharray: 2 1.5; }}
 .plan .cut {{ fill: var(--bg); stroke: var(--accent); stroke-width: .6; }}
@@ -453,7 +459,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="col">Plan view to scale, mouth on the left. Distances are from the window centre. The shaded end is the
   {spare:.0f}mm cut long to trim to pitch.</p>
   {plans}
-  <div class="key"><span><i style="background:var(--plug)"></i>plug</span><span><i style="background:var(--accent);opacity:.4"></i>trim to pitch</span><span><i style="border-style:dashed;background:none"></i>doubler, 6mm wall</span><span>numbers below: holes from the foot · above: diameter</span></div>
+  <div class="key"><span><i style="background:var(--ink);opacity:.55"></i>flue, over the plug</span><span><i style="border-color:var(--plug);border-style:dashed;background:none"></i>plug, inside the bore</span><span><i style="background:var(--accent);opacity:.4"></i>trim to pitch</span><span><i style="border-style:dashed;background:none"></i>doubler, 6mm wall</span><span>numbers below: holes from the foot · above: diameter</span></div>
   <div class="scroll"><table>
     <thead><tr><th>Note</th><th>Interval from A4</th><th>Ratio from A4</th><th>Step from the note below</th><th>Just, cents</th><th>Tuned to, cents</th></tr></thead>
     <tbody>
