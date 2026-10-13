@@ -262,8 +262,8 @@ def main(out, standalone=False):
             plans.append((wall, L, holes, diams, plus))
         how = {'box': 'Finger-jointed box', 'stack': 'Laminated stack'}[kind]
         if plus:
-            glued = ('doubler, cap and block glued; the rest press-fit' if kind == 'box' and wall > 3
-                     else 'cap and block glued; the rest press-fit' if kind == 'box'
+            glued = ('doubler, cap and bird glued; the rest press-fit' if kind == 'box' and wall > 3
+                     else 'cap and bird glued; the rest press-fit' if kind == 'box'
                      else 'every layer glued')
         else:
             glued = ('doubler and bird glued; the rest press-fit' if kind == 'box' and wall > 3
@@ -455,11 +455,11 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
 
 <section class="col" style="max-width:none">
   <h2>All twelve variants</h2>
-  <p class="col">Each <code>-plus</code> variant is the one above it with five ideas from the 2017 flute: a window and
-  an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, the stepped block, a
-  mouthpiece cap with a 9.6mm breath hole, and a soft depression round every finger hole. The wider window has the
+  <p class="col">Each <code>-plus</code> variant is the one above it with four ideas from the 2017 flute: a window and
+  an exit hole the whole width of the bore, the flue engraved in the nest rather than the bird, a mouthpiece cap with
+  a 9.6mm breath hole, and a soft depression round every finger hole. The wider window has the
   smaller end correction, so the model puts the foot about 18mm further down. The 2017 flute's engraved splitting edge
-  is not among them: it charred.</p>
+  is not among them, since it charred, and nor is its stepped block, which was for looks only.</p>
   <div class="scroll"><table>
     <thead><tr><th>Variant</th><th>Construction</th><th>Bore, mm</th><th>Hole wall</th><th>Sound chamber</th><th>Flute, mm</th><th>Parts</th><th>Sheets</th><th>Joints</th></tr></thead>
     <tbody>{rows}</tbody>

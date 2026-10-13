@@ -20,16 +20,17 @@ WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
      in the NEST -- the top of the head plate over the plug -- rather than in
      the bird. The bird is then plain layers, and the flue is on the part that
      stays put.
-  3. The bird is the original's stepped block: four layers, 25, 19.8, 15.8
-     and 12.6mm long, front edges together on the window.
-  4. A mouthpiece cap over the mouth end, the size of the flute's outside,
-     with the original's 9.59mm breath hole. Glued, like the block's layers.
-  5. A soft engraved depression round every finger hole: the original's own
+  3. A mouthpiece cap over the mouth end, the size of the flute's outside,
+     with the original's 9.59mm breath hole. Glued, like the bird's layers.
+  4. A soft engraved depression round every finger hole: the original's own
      ring.png, scaled to each hole as the original scaled it, 1.57 times the
      hole across.
 
-NOT taken: the original's engraved splitting edge. It charred at the edge and
-did not work, so the edge is still filed by hand and the top still split.
+NOT taken: the original's engraved splitting edge, which charred and did not
+work, so the edge is still filed by hand and the top still split; and its
+stepped block, whose outline was for looks only, the author says. The bird is
+three plain layers as in the six, and with the flue in the nest it carries
+none.
 
 A full-width window or exit hole reaches the bore's inner faces, which in the
 box is exactly where the mortices are. So no side-wall tab may stand beside
@@ -46,7 +47,6 @@ from square_flute import Part, rect, pack                      # noqa: E402
 M = F.M
 
 T = F.T
-BIRD = Y.BIRD                         # 25, 19.8, 15.8, 12.6
 CAP_HOLE = Y.CAP[2]                   # 9.59
 RING_OF = 12.14 / 7.75                # the original's depression across its hole
 TAB_CLEAR = 3.0                       # tab edge to a full-width opening
@@ -142,9 +142,10 @@ def build(kind, W, D, wall, L, holes, diams):
                'glued over the mouth end')
     cap.hole(outside[0] / 2, outside[1] / 2, CAP_HOLE)
     parts.append(cap)
-    for L_ in BIRD:
-        parts.append(Part('block layer', next(num), rect(win[0] - L_, 0, win[0], PW),
-                          'stepped, front edges together on the window'))
+    b0 = exit_[0] - F.BIRD_UPSTREAM
+    for k in range(F.BIRD_LAYERS):
+        parts.append(Part('bird layer', next(num), rect(b0, 0, win[0], PW),
+                          'plain: the flue is in the nest' if k == 0 else 'glued on the one below'))
     for p in parts:
         if not hasattr(p, 'images'):
             p.images = []

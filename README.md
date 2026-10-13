@@ -152,15 +152,13 @@ in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
 
 ## The -plus variants
 
-Each of the six again, with five ideas from the author's flute below:
+Each of the six again, with four ideas from the author's flute below:
 
 1. A window **the whole width of the bore**, rather than 10mm of it.
 2. An exit hole the whole width too, with **the flue engraved in the nest**, over the
-   plug, rather than in the bird.
-3. **The stepped block**: four layers 25, 19.8, 15.8 and 12.6mm long, front edges
-   together on the window.
-4. **A mouthpiece cap** over the mouth end, with a 9.6mm breath hole.
-5. **A soft engraved depression** round every finger hole, the original's own image,
+   plug, rather than in the bird. The bird is then three plain layers.
+3. **A mouthpiece cap** over the mouth end, with a 9.6mm breath hole.
+4. **A soft engraved depression** round every finger hole, the original's own image,
    1.57 times the hole across. On a 6mm variant it is on the doubler, where the finger
    lands.
 
@@ -180,8 +178,9 @@ narrower window.
 
 In the box, a full-width opening reaches the inner faces of the bore, which is where the
 mortices are, so no tab stands beside the exit hole or the window. The cap and the
-block's layers are glued, as in the original. The engraved splitting edge is the one
-idea not taken: it charred, so the edge is still filed by hand and the top still split.
+bird's layers are glued, as in the original. Two things are not taken. The engraved
+splitting edge charred, so the edge is still filed by hand and the top still split. And
+the original's stepped block was for looks only, so the bird keeps its plain layers.
 
 ## The author's flute
 

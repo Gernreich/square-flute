@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="583.67mm" height="282.50mm" viewBox="0 0 583.67 282.50">
+<svg xmlns="http://www.w3.org/2000/svg" width="586.87mm" height="282.50mm" viewBox="0 0 586.87 282.50">
 <!-- DISPLAY ONLY - not a cut file.
      The stroke is thickened, a light ground painted in, and the lightest inks
      darkened: green, cyan and orange sit below the 3:1 graphics minimum against any
@@ -7,10 +7,10 @@
      and sequence are unchanged. Geometry and sheet position are untouched, and the
      CUT FILE keeps the exact values your laser keys on.
      Cut the file in the repository root, not this one. -->
-  <rect x="0.0" y="0.0" width="583.67" height="282.5" fill="#ffffff"/>
+  <rect x="0.0" y="0.0" width="586.87" height="282.5" fill="#ffffff"/>
 <title>Square-bore flute in A4, stack-rect-3-plus, sheet 1 of 2</title>
-<desc>1 user unit = 1mm. Square-bore flute in A4 with the 2017 flute's ideas: stack-rect-3-plus, sheet 1 of 2: block layer, bore layer, bottom layer, mouthpiece cap. 3mm ply, drawn for a 0.13mm kerf. Blue #0000ff engraves: the part numbers, the flue as a fill engrave about 1mm deep over the plug, and the depression round each finger hole, a greyscale image engrave to set to depth on scrap. File the window's far edge to a bevel by hand. Orange #ff8000 cuts the holes and the window, black #000000 frees the parts.</desc>
-  <g fill="none" stroke="#0000ff" stroke-width="1.167">
+<desc>1 user unit = 1mm. Square-bore flute in A4 with the 2017 flute's ideas: stack-rect-3-plus, sheet 1 of 2: bird layer, bore layer, bottom layer, mouthpiece cap. 3mm ply, drawn for a 0.13mm kerf. Blue #0000ff engraves: the part numbers, the flue as a fill engrave about 1mm deep over the plug, and the depression round each finger hole, a greyscale image engrave to set to depth on scrap. File the window's far edge to a bevel by hand. Orange #ff8000 cuts the holes and the window, black #000000 frees the parts.</desc>
+  <g fill="none" stroke="#0000ff" stroke-width="1.174">
     <path d="M 246.782,17.781 L 249.262,17.781 L 247.867,20.031"/>
     <path d="M 247.867,20.031 L 249.262,20.031 L 249.262,21.981 L 248.704,22.781 L 247.340,22.781 L 246.782,21.981"/>
     <path d="M 250.372,22.781 L 251.472,22.781"/>
@@ -19,25 +19,21 @@
     <path d="M 500.937,8.225 L 501.347,7.565 L 501.347,10.565"/>
     <path d="M 500.900,10.565 L 501.830,10.565"/>
     <path d="M 502.719,10.565 L 503.379,10.565"/>
-    <path d="M 539.552,18.881 L 540.234,17.781 L 540.234,22.781"/>
-    <path d="M 539.490,22.781 L 541.040,22.781"/>
-    <path d="M 542.932,18.881 L 543.552,17.781 L 544.792,17.781 L 545.412,18.881 L 545.412,19.781 L 542.932,22.781 L 545.412,22.781"/>
-    <path d="M 546.522,22.781 L 547.622,22.781"/>
-    <path d="M 566.082,18.881 L 566.764,17.781 L 566.764,22.781"/>
-    <path d="M 566.020,22.781 L 567.570,22.781"/>
-    <path d="M 569.462,17.781 L 571.942,17.781 L 570.547,20.031"/>
-    <path d="M 570.547,20.031 L 571.942,20.031 L 571.942,21.981 L 571.384,22.781 L 570.020,22.781 L 569.462,21.981"/>
-    <path d="M 573.052,22.781 L 574.152,22.781"/>
+    <path d="M 539.052,18.881 L 539.734,17.781 L 539.734,22.781"/>
+    <path d="M 538.990,22.781 L 540.540,22.781"/>
+    <path d="M 542.432,18.881 L 543.052,17.781 L 544.292,17.781 L 544.912,18.881 L 544.912,19.781 L 542.432,22.781 L 544.912,22.781"/>
+    <path d="M 546.022,22.781 L 547.122,22.781"/>
+    <path d="M 567.182,18.881 L 567.864,17.781 L 567.864,22.781"/>
+    <path d="M 567.120,22.781 L 568.670,22.781"/>
+    <path d="M 570.562,17.781 L 573.042,17.781 L 571.647,20.031"/>
+    <path d="M 571.647,20.031 L 573.042,20.031 L 573.042,21.981 L 572.484,22.781 L 571.120,22.781 L 570.562,21.981"/>
+    <path d="M 574.152,22.781 L 575.252,22.781"/>
     <path d="M 248.642,57.343 L 248.642,52.343 L 246.844,55.743 L 249.324,55.743"/>
     <path d="M 250.372,57.343 L 251.472,57.343"/>
-    <path d="M 500.389,53.443 L 501.071,52.343 L 501.071,57.343"/>
-    <path d="M 500.327,57.343 L 501.877,57.343"/>
-    <path d="M 505.629,57.343 L 505.629,52.343 L 503.831,55.743 L 506.311,55.743"/>
-    <path d="M 507.359,57.343 L 508.459,57.343"/>
-    <path d="M 518.719,53.443 L 519.401,52.343 L 519.401,57.343"/>
-    <path d="M 518.657,57.343 L 520.207,57.343"/>
-    <path d="M 524.424,52.343 L 522.409,52.343 L 522.254,54.593 L 523.339,54.243 L 524.269,54.843 L 524.517,55.943 L 524.114,57.043 L 523.029,57.343 L 522.254,56.743"/>
-    <path d="M 525.689,57.343 L 526.789,57.343"/>
+    <path d="M 504.489,53.443 L 505.171,52.343 L 505.171,57.343"/>
+    <path d="M 504.427,57.343 L 505.977,57.343"/>
+    <path d="M 509.729,57.343 L 509.729,52.343 L 507.931,55.743 L 510.411,55.743"/>
+    <path d="M 511.459,57.343 L 512.559,57.343"/>
     <path d="M 249.107,86.905 L 247.092,86.905 L 246.937,89.155 L 248.022,88.805 L 248.952,89.405 L 249.200,90.505 L 248.797,91.605 L 247.712,91.905 L 246.937,91.305"/>
     <path d="M 250.372,91.905 L 251.472,91.905"/>
     <path d="M 249.014,121.868 L 248.177,121.468 L 247.247,122.218 L 246.937,124.218 L 246.937,125.568 L 247.557,126.468 L 248.394,126.468 L 249.107,125.568 L 249.107,124.568 L 248.394,123.718 L 247.402,123.718 L 246.937,124.218"/>
@@ -53,17 +49,16 @@
     <path d="M 250.022,259.716 L 251.107,260.716 L 251.107,263.716 L 250.022,264.716 L 248.937,263.716 L 248.937,260.716 L 250.022,259.716"/>
     <path d="M 252.372,264.716 L 253.472,264.716"/>
   </g>
-  <g fill="none" stroke="#a85800" stroke-width="1.167">
+  <g fill="none" stroke="#a85800" stroke-width="1.174">
     <circle cx="510.326" cy="18.565" r="4.730"/>
   </g>
-  <g fill="none" stroke="#000000" stroke-width="1.167">
+  <g fill="none" stroke="#000000" stroke-width="1.174">
     <path d="M 5.000,5.000 L 491.044,5.000 L 491.044,35.562 L 5.000,35.562 Z"/>
     <path d="M 495.044,5.000 L 525.607,5.000 L 525.607,32.130 L 495.044,32.130 Z"/>
-    <path d="M 529.607,5.000 L 554.737,5.000 L 554.737,35.562 L 529.607,35.562 Z"/>
-    <path d="M 558.737,5.000 L 578.667,5.000 L 578.667,35.562 L 558.737,35.562 Z"/>
+    <path d="M 529.607,5.000 L 553.737,5.000 L 553.737,35.562 L 529.607,35.562 Z"/>
+    <path d="M 557.737,5.000 L 581.867,5.000 L 581.867,35.562 L 557.737,35.562 Z"/>
     <path d="M 5.000,39.562 L 491.044,39.562 L 491.044,45.692 L 127.130,45.692 L 127.130,63.994 L 491.044,63.994 L 491.044,70.124 L 5.000,70.124 L 5.000,63.994 L 115.000,63.994 L 115.000,45.692 L 5.000,45.692 Z"/>
-    <path d="M 495.044,39.562 L 510.974,39.562 L 510.974,70.124 L 495.044,70.124 Z"/>
-    <path d="M 514.974,39.562 L 527.704,39.562 L 527.704,70.124 L 514.974,70.124 Z"/>
+    <path d="M 495.044,39.562 L 519.174,39.562 L 519.174,70.124 L 495.044,70.124 Z"/>
     <path d="M 5.000,74.124 L 491.044,74.124 L 491.044,80.254 L 127.130,80.254 L 127.130,98.557 L 491.044,98.557 L 491.044,104.687 L 5.000,104.687 L 5.000,98.557 L 115.000,98.557 L 115.000,80.254 L 5.000,80.254 Z"/>
     <path d="M 5.000,108.687 L 491.044,108.687 L 491.044,114.817 L 127.130,114.817 L 127.130,133.119 L 491.044,133.119 L 491.044,139.249 L 5.000,139.249 L 5.000,133.119 L 115.000,133.119 L 115.000,114.817 L 5.000,114.817 Z"/>
     <path d="M 5.000,143.249 L 491.044,143.249 L 491.044,149.379 L 127.130,149.379 L 127.130,167.681 L 491.044,167.681 L 491.044,173.811 L 5.000,173.811 L 5.000,167.681 L 115.000,167.681 L 115.000,149.379 L 5.000,149.379 Z"/>
