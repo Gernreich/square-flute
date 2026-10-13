@@ -286,13 +286,26 @@ the slow air chamber, the exit hole, the cap's notch and the stepped block.
 | Sound chamber | 313.3mm | 335.3mm |
 | Overall length | 456.7mm | 479.0mm |
 | Finger holes, from the window | 213.9, 185.7, 156.9, 109.5, 78.0mm | 228.9, 198.8, 168.0, 117.2, 83.5mm |
-| Hole diameters | 7.73, 7.87, 7.79, 7.79, 5.47mm | 8.27, 8.42, 8.34, 8.34, 5.86mm |
+| Hole diameters | 7.73, 7.87, 7.79, 7.79, 5.47mm | 8.10, 7.35, 7.26, 7.76, 6.35mm |
 
-The scale's shape does not come through exactly. The wall stays 3mm while the holes
-grow, so each hole acts a little larger, and the intervals widen by 4 to 12 cents. The
-model puts the notes at C5 +4, D5 +27, E5 +39, G5 +47 and A5 +29 cents. A hole that
-plays sharp cannot be filed back, so tune these with tape over part of the hole, or
-have the holes re-solved to equal temperament at this size.
+The hole diameters are re-solved rather than scaled. Scaling them too would leave the
+scale's shape behind: the wall stays 3mm while the holes grow, so each hole acts a
+little larger, and the model put the notes 4 to 47 cents sharp. So each hole keeps its
+scaled position and its diameter is solved, bottom hole first, until its note lands
+on equal temperament against A4 = 440Hz:
+
+| Hole | Note | Scaled from the original | Solved | Change |
+|---|---|---|---|---|
+| 1 | C5 | 8.27mm | 8.10mm | −0.17mm, 2% smaller |
+| 2 | D5 | 8.42mm | 7.35mm | −1.07mm, 13% smaller |
+| 3 | E5 | 8.34mm | 7.26mm | −1.08mm, 13% smaller |
+| 4 | G5 | 8.34mm | 7.76mm | −0.58mm, 7% smaller |
+| 5 | A5 | 5.86mm | 6.35mm | +0.49mm, 8% larger |
+
+Holes 2 and 3 depart most from the original pattern. In it they were the size of holes
+1 and 4, and now they are the two smallest of the four large holes. Every note lands
+within 0.01 cents of equal temperament, and the fundamental, with every hole closed,
+sits 0.8 cents above 440Hz.
 
 The builds at the original size were removed at the author's asking; the original's own
 files are still in `yours/original/`. The tweaks made in redrawing it:

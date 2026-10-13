@@ -490,12 +490,63 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <tr>
 <td>Hole diameters</td>
 <td>7.73, 7.87, 7.79, 7.79, 5.47mm</td>
-<td>8.27, 8.42, 8.34, 8.34, 5.86mm</td>
+<td>8.10, 7.35, 7.26, 7.76, 6.35mm</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>The scale's shape does not come through exactly. The wall stays 3mm while the holes grow, so each hole acts a little larger, and the intervals widen by 4 to 12 cents. The model puts the notes at C5 +4, D5 +27, E5 +39, G5 +47 and A5 +29 cents. A hole that plays sharp cannot be filed back, so tune these with tape over part of the hole, or have the holes re-solved to equal temperament at this size.</p>
+<p>The hole diameters are re-solved rather than scaled. Scaling them too would leave the scale's shape behind: the wall stays 3mm while the holes grow, so each hole acts a little larger, and the model put the notes 4 to 47 cents sharp. So each hole keeps its scaled position and its diameter is solved, bottom hole first, until its note lands on equal temperament against A4 = 440Hz:</p>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th>Hole</th>
+<th>Note</th>
+<th>Scaled from the original</th>
+<th>Solved</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>C5</td>
+<td>8.27mm</td>
+<td>8.10mm</td>
+<td>−0.17mm, 2% smaller</td>
+</tr>
+<tr>
+<td>2</td>
+<td>D5</td>
+<td>8.42mm</td>
+<td>7.35mm</td>
+<td>−1.07mm, 13% smaller</td>
+</tr>
+<tr>
+<td>3</td>
+<td>E5</td>
+<td>8.34mm</td>
+<td>7.26mm</td>
+<td>−1.08mm, 13% smaller</td>
+</tr>
+<tr>
+<td>4</td>
+<td>G5</td>
+<td>8.34mm</td>
+<td>7.76mm</td>
+<td>−0.58mm, 7% smaller</td>
+</tr>
+<tr>
+<td>5</td>
+<td>A5</td>
+<td>5.86mm</td>
+<td>6.35mm</td>
+<td>+0.49mm, 8% larger</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Holes 2 and 3 depart most from the original pattern. In it they were the size of holes 1 and 4, and now they are the two smallest of the four large holes. Every note lands within 0.01 cents of equal temperament, and the fundamental, with every hole closed, sits 0.8 cents above 440Hz.</p>
 <p>The builds at the original size were removed at the author's asking; the original's own files are still in <code>yours/original/</code>. The tweaks made in redrawing it:</p>
 <ol type="1">
 <li>Millimetre-true, in the house cut-order colours, kerf-compensated, with every part numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.</li>

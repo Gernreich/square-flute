@@ -74,6 +74,14 @@ and the stepped block. So the intervals are NOT kept exactly: with the wall
 relatively thinner each hole acts a little larger, and they widen 4 to 12
 cents -- 300, 522, 733, 1038, 1217 at the original size become 304, 527, 739,
 1047, 1229.
+
+SO THE HOLE SIZES ARE RE-SOLVED (et_diams, the author's answer, 2026-10-13):
+the positions stay scaled, and each diameter is bisected, foot-most first,
+until its note lands on equal temperament against A4 = 440Hz. Holes 2 and 3
+come out about 1mm smaller than plain scaling makes them, hole 4 0.6mm
+smaller, hole 1 0.2mm smaller and hole 5 0.5mm larger. The fundamental, with
+every hole closed, then sits 0.8 cents above 440, within the 1-cent check, so
+the 1.0705 scale is kept.
 """
 import contextlib
 import base64
@@ -146,6 +154,50 @@ def scaled(k):
         yield
     finally:
         g.update(saved)
+
+
+def et_diams():
+    """At the current scale, the hole diameters that put C5, D5, E5, G5 and A5
+    on equal temperament against A4_HZ, the positions held where they are.
+    Foot-most first, four passes, since a closed hole above still nudges the
+    note below."""
+    tg = [A4_HZ * 2 ** (s / 12) for s in M.SEMIS]
+    saved = M.WINDOW_W, M.WINDOW_L
+    M.WINDOW_W, M.WINDOW_L = W, WIN[1] - WIN[0]
+    try:
+        b = M.Bore(W, D)
+        L = TOTAL - WC
+        holes = [h - WC for h in HOLES]
+        d = list(DIAMS)
+        for _ in range(4):
+            for n in range(1, 6):
+                def f(x, i=n - 1, n=n):
+                    ds = d[:]
+                    ds[i] = x
+                    return M.sounding(b, L, holes, n, T, tg[n], ds)
+                d[n - 1] = M.bisect(f, tg[n], 2.0, W - 3.0, rising=True)
+        cents = [1200 * math.log2(M.sounding(b, L, holes, n, T, tg[n], d) / tg[n])
+                 for n in range(6)]
+    finally:
+        M.WINDOW_W, M.WINDOW_L = saved
+    return d, cents
+
+
+@contextlib.contextmanager
+def at_a4(k):
+    """scaled(k), with the hole diameters re-solved for equal temperament and
+    each depression kept in the original's proportion to its hole."""
+    with scaled(k):
+        g = globals()
+        saved = DIAMS, RING
+        d, cents = et_diams()
+        g['DIAMS'] = d
+        g['RING'] = [x * r0 / d0 for x, r0, d0 in zip(d, _BASE['RING'], _BASE['DIAMS'])]
+        g['ET_CENTS'] = cents
+        try:
+            yield
+        finally:
+            g['DIAMS'], g['RING'] = saved
 
 
 def a4_factor():
@@ -380,14 +432,18 @@ def main():
         if kind.endswith('-A4'):
             if K is None:
                 K = a4_factor()
-                with scaled(K):
+                with at_a4(K):
                     L4, _, f4 = predict()
                     print(f'\nscaled x{K:.4f} to A4: bore {W:.2f} x {D:.2f}mm, sound chamber '
-                          f'{L4:.1f}mm, fundamental {f4[0]:.2f}Hz, intervals '
-                          + ', '.join(f'{1200 * math.log2(f / f4[0]):.0f}' for f in f4[1:]))
-                    bad += abs(1200 * math.log2(f4[0] / A4_HZ)) > 1
+                          f'{L4:.1f}mm, holes re-solved to ' + ', '.join(f'{x:.2f}' for x in DIAMS)
+                          + 'mm; off equal temperament by ' + ', '.join(f'{c:+.2f}' for c in ET_CENTS)
+                          + ' cents')
+                    worst = max(abs(c) for c in ET_CENTS)
+                    print(f'  {"pass" if worst < 1 else "FAIL"}  every note within a cent of equal '
+                          f'temperament   worst {worst:.2f} cents')
+                    bad += worst >= 1
             k_ = K
-        with scaled(k_):
+        with (at_a4(k_) if kind.endswith('-A4') else scaled(k_)):
             parts = build(kind.split('-')[0])
             sheets = pack(parts)
             print(f'\n{kind}: {len(parts)} parts')
