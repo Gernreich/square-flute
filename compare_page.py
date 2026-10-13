@@ -434,7 +434,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
   <p class="lede">A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm ply with
   the bore area of a 7/8in round-bore flute: {area:.0f}mm², the same air column in a section a laser can build.
   Six variants from one acoustic model, the same six again with the ideas of the 2017 flute folded in, and that flute
-  itself, redrawn.</p>
+  itself, redrawn at A4.</p>
 </header>
 
 <section class="findings" aria-label="What the model says">
@@ -530,7 +530,7 @@ ol, ul {{ margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }}
     <thead><tr><th>Holes open</th><th>Model</th><th>Note</th><th>Above the fundamental</th><th>Minor pentatonic</th><th>Just ratio</th></tr></thead>
     <tbody>{yrows}</tbody>
   </table></div>
-  <p class="note">What the model hears in it, sound chamber {yL:.1f}mm. The shape of the scale agrees to within 40 cents
+  <p class="note">What the model hears in the original, at its own size before any scaling, sound chamber {yL:.1f}mm. The shape of the scale agrees to within 40 cents
   at every hole. The pitch, near B♭4, uses the same uncalibrated window term as everything else here. The 2017 flutes have
   all been given away, so none can be measured: the first of these builds to be cut and played will set that term.</p>
   {ysheets}

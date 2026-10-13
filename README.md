@@ -167,7 +167,7 @@ python3 naf_model.py --mouth=0.8              # with a different window correcti
 python3 square_flute.py --no-write            # the generator's checks, writing nothing
 python3 square_flute.py --out=cut-files       # every variant into cut-files/<variant>/
 python3 plus_flute.py --out=cut-files         # the -plus variants
-python3 your_flute.py --out=yours/cut-files   # the 2017 flute, redrawn
+python3 your_flute.py --out=yours/cut-files   # the 2017 flute, at A4
 python3 compare_page.py --standalone variants.html
 ```
 
@@ -273,7 +273,7 @@ nest rather than in the bird.
 - `yours-flat-A4`: the sides butted between the top and the bottom, and glued.
 - `yours-fingers-A4`: finger-jointed top and bottom, with the trumpet bores' joint.
 
-The model hears the original near B♭4, below. To put it on A4, every dimension that sets
+The model hears the original near B♭4, as the last table below shows. To put it on A4, every dimension that sets
 the pitch is multiplied by one factor, **1.0705**, solved so the model gives 440.00Hz:
 the bore, the window, each hole's diameter, depression and distance from the window, and
 the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs,
@@ -317,8 +317,9 @@ files are still in `yours/original/`. The tweaks made in redrawing it:
 3. In the fingers build the top is finger-jointed to the sides, like the bottom, so it
    press-fits instead of being glued. Its joint is the trumpet bores' one, 6mm
    fingers with no play, instead of the original's 10mm fingers.
-4. The rings are the original's own image, embedded at its original size. The ramp
-   is left out, because the engraved bevel did not work.
+4. The rings are the original's own image, each kept in the original's proportion to
+   its hole, so they grow and shrink with the re-solved holes. The ramp is left out,
+   because the engraved bevel did not work.
 5. With the edge filed by hand, the top is cut as a short head plate and a long body
    plate, butted 20mm past the window, as in the six variants. A spoilt edge then
    costs only the short plate.
@@ -326,7 +327,9 @@ files are still in `yours/original/`. The tweaks made in redrawing it:
 Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's
 layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.
 
-### What the model hears in it
+### What the model hears in the original
+
+At its own size, before any scaling, and with the holes as the author cut them:
 
 | Holes open | Model | Above the fundamental | Minor pentatonic | Just ratio |
 |---|---|---|---|---|

@@ -51,21 +51,21 @@ THE TWEAKS, each because something asked for it:
      was, so it press-fits instead of being glued. Since 2026-10-13 the joint
      is the trumpet bores' -- 6mm fingers and spaces, no play -- in place of
      the original's 10mm fingers at a mallet fit.
-  4. The rings are the original's own image, re-embedded at its original
-     size. The ramp is left out, because the engraved bevel did not work.
+  4. The rings are the original's own image, each kept in the original's
+     proportion to its hole, so they follow the re-solved holes. The ramp is left out, because the engraved bevel did not work.
   5. So the splitting edge is filed by hand, and the top is cut as a head
      plate and a body plate butted SPLIT_PAST beyond the window, as
      square_flute's are: a spoilt edge then costs the short plate. A first
      redraw kept the top in one piece on the strength of the ramp, before the
      author said the ramp had failed.
 
-NOTHING ACOUSTIC IS TWEAKED. The model reads this flute as a minor pentatonic
-to within 40 cents and puts it near B-flat 4; the author has played it and
-the model has not, so the holes stay where the author put them.
+AT ITS OWN SIZE the model reads this flute as a minor pentatonic to within
+40 cents and puts it near B-flat 4. The builds here are not at its own size:
 
 SCALED TO A4 (flat-A4 and fingers-A4, 2026-10-13, at the author's asking,
 and in place of the two builds at the original size, which the author asked
-to be removed; the original's own files stay in yours/original/): every dimension that sets the pitch is multiplied by one
+to be removed; the original's own files stay in yours/original/): every
+dimension that sets the pitch is multiplied by one
 factor, solved so the model puts the fundamental on 440Hz -- 1.0705. That is
 the bore, the window, each hole's diameter, depression and distance from the
 window, and the sound chamber. What ply fixes does not scale: the 3mm wall,

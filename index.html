@@ -322,7 +322,7 @@ python3 naf_model.py --mouth=0.8              # with a different window correcti
 python3 square_flute.py --no-write            # the generator&#39;s checks, writing nothing
 python3 square_flute.py --out=cut-files       # every variant into cut-files/&lt;variant&gt;/
 python3 plus_flute.py --out=cut-files         # the -plus variants
-python3 your_flute.py --out=yours/cut-files   # the 2017 flute, redrawn
+python3 your_flute.py --out=yours/cut-files   # the 2017 flute, at A4
 python3 compare_page.py --standalone variants.html</code></pre>
 <p><code>naf_model.py</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
 <p><code>square_flute.py</code> builds each variant from what the model asks for and checks it before writing anything:</p>
@@ -451,7 +451,7 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <li><code>yours-flat-A4</code>: the sides butted between the top and the bottom, and glued.</li>
 <li><code>yours-fingers-A4</code>: finger-jointed top and bottom, with the trumpet bores' joint.</li>
 </ul>
-<p>The model hears the original near B♭4, below. To put it on A4, every dimension that sets the pitch is multiplied by one factor, <strong>1.0705</strong>, solved so the model gives 440.00Hz: the bore, the window, each hole's diameter, depression and distance from the window, and the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs, the slow air chamber, the exit hole, the cap's notch and the stepped block.</p>
+<p>The model hears the original near B♭4, as the last table below shows. To put it on A4, every dimension that sets the pitch is multiplied by one factor, <strong>1.0705</strong>, solved so the model gives 440.00Hz: the bore, the window, each hole's diameter, depression and distance from the window, and the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs, the slow air chamber, the exit hole, the cap's notch and the stepped block.</p>
 <div class="tw">
 <table>
 <thead>
@@ -552,11 +552,12 @@ python3 compare_page.py --standalone variants.html</code></pre>
 <li>Millimetre-true, in the house cut-order colours, kerf-compensated, with every part numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.</li>
 <li>The plug is four 3mm discs, 12mm instead of 11. The exit hole moves 1mm toward the mouth to make room.</li>
 <li>In the fingers build the top is finger-jointed to the sides, like the bottom, so it press-fits instead of being glued. Its joint is the trumpet bores' one, 6mm fingers with no play, instead of the original's 10mm fingers.</li>
-<li>The rings are the original's own image, embedded at its original size. The ramp is left out, because the engraved bevel did not work.</li>
+<li>The rings are the original's own image, each kept in the original's proportion to its hole, so they grow and shrink with the re-solved holes. The ramp is left out, because the engraved bevel did not work.</li>
 <li>With the edge filed by hand, the top is cut as a short head plate and a long body plate, butted 20mm past the window, as in the six variants. A spoilt edge then costs only the short plate.</li>
 </ol>
 <p>Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.</p>
-<h3 id="what-the-model-hears-in-it">What the model hears in it</h3>
+<h3 id="what-the-model-hears-in-the-original">What the model hears in the original</h3>
+<p>At its own size, before any scaling, and with the holes as the author cut them:</p>
 <div class="tw">
 <table>
 <thead>
