@@ -68,9 +68,9 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'trumpet-elbows-allowed', 'parts',
                                 'bore', 'concept', 'swept-curve'))
 import naf_model as M                                          # noqa: E402
-# the stroke font and the path writer, imported and not copied: the same
-# numbers every other LaserMadeMusic part engraves
-from ribbon_bore import label, path                            # noqa: E402
+# the path writer, imported and not copied: the same one every other
+# LaserMadeMusic part is written with
+from ribbon_bore import path                                   # noqa: E402
 
 T = 3.0              # ply
 KERF = 0.13          # measured, ribbon_bore's and lyre_harp's figure
@@ -110,9 +110,8 @@ MARGIN, GAP = 5.0, 4.0
 MIN_WEB = 1.5        # thinnest ply left between two cuts
 
 BLUE, ORANGE, BLACK = '#0000ff', '#ff8000', '#000000'
-# the part numbers, on their own ink so they can be scored light while the
-# flue is engraved deep (the author, 2026-10-13); run with blue, before any cut
-RED = '#ff0000'
+# no part numbers: the 3D view shows where every part goes (the author,
+# 2026-10-13), so nothing but the flue and the depressions is engraved
 
 SQ = math.sqrt(M.AREA)
 RW = M.AREA / 18.0
@@ -487,7 +486,7 @@ def ring_data():
 
 
 def svg_sheet(variant, k, n, s, info, what):
-    numbers, orange, black = [], [], []
+    orange, black = [], []
     fills, imgs = [], []
     for p, sx, sy in s['parts']:
         dx, dy = sx - p.x0 + KERF / 2, sy - p.y0 + KERF / 2
@@ -510,28 +509,10 @@ def svg_sheet(variant, k, n, s, info, what):
         for name, x, y, w, h in p.images:
             imgs.append(f'<image x="{x + dx:.3f}" y="{y + dy:.3f}" width="{w:.3f}" '
                         f'height="{h:.3f}" preserveAspectRatio="none" href="{ring_data()}"/>')
-        # the part number, engraved where nothing is cut: past the bore on a
-        # plate, in the middle of a disc
-        h = min(5.0, p.h * 0.3)
-        # the middle of the widest stretch along the part with no inner cut
-        # in it: on a plate with holes that is between the hands
-        xs = sorted([p.x0 + 6] + [p.x0 + p.w - 6]
-                    + [c[1] for c in p.cuts if c[0] == 'circle']
-                    + [x for c in p.cuts if c[0] == 'rect' for x, _ in c[1]])
-        g0, g1 = max(zip(xs, xs[1:]), key=lambda g: g[1] - g[0])
-        lx = (g0 + g1) / 2
-        ly = p.y0 + p.h / 2
-        if p.name in ('bore layer',):
-            ly = p.y0 + SIDE / 2
-            h = 3.0
-        if p.name == 'bird layer':
-            lx, ly = p.x0 + 4, p.y0 + 4
-            h = 3.0
-        numbers += [d for d in label(str(p.num), lx + dx, ly + dy, h)]
     desc = (f'1 user unit = 1mm. Square-bore flute in A4, {variant}, sheet {k} of {n}: '
             f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf. Finger joints as the trumpet '
             f'bores cut them: {FINGER:g}mm fingers and spaces, no play, the fit from the '
-            f'kerf. Red {RED} scores the part numbers, lightly. Blue {BLUE} engraves '
+            f'kerf. Blue {BLUE} engraves '
             f'(the flue as a fill engrave about 1mm deep; and the '
             f'depression round each finger hole, a greyscale image engrave, Grayscale '
             f'mode in xTool Creative Space -- set both depths on scrap first), orange '
@@ -548,7 +529,6 @@ def svg_sheet(variant, k, n, s, info, what):
             f'<desc>{desc}</desc>\n'
             + (f'  <g id="images">\n' + ''.join(f'    {i}\n' for i in imgs) + '  </g>\n'
                if imgs else '')
-            + g(RED, numbers)
             + (f'  <g fill="{BLUE}" stroke="none">\n'
                + ''.join(f'    <path d="{d}"/>\n' for d in fills) + '  </g>\n'
                if fills else '')

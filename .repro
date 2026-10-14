@@ -3,7 +3,7 @@
 #
 # square_flute.py names its own sheets, so each command writes one variant
 # into $OUT's directory with --flat and the tool compares the file it asked
-# for. It imports the stroke font from trumpet-elbows-allowed's
+# for. It imports the path writer from trumpet-elbows-allowed's
 # ribbon_bore.py, so these commands expect that checkout beside this one.
 
 # --- the cut files: -bird-flue from square_flute.py, -nest-flue from plus_flute.py ---
