@@ -121,6 +121,10 @@ RW = M.AREA / 18.0
 VARIANTS = {
     'box-square-3-bird-flue': ('box', SQ, SQ, 3.0),
     'box-square-6-bird-flue': ('box', SQ, SQ, 6.0),
+    # the same boxes butt-jointed: plain plates, the sides glued between the
+    # top and the bottom, as the author's 2017 flute was built
+    'box-square-3-bird-flue-flat': ('flat', SQ, SQ, 3.0),
+    'box-square-6-bird-flue-flat': ('flat', SQ, SQ, 6.0),
     'stack-rect-3-bird-flue': ('stack', RW, 18.0, 3.0),
     'stack-rect-6-bird-flue': ('stack', RW, 18.0, 6.0),
 }
@@ -268,7 +272,7 @@ def build(kind, W, D, wall, L, holes, diams):
     total = wc + L + M.FOOT_SPARE
     hx = [wc + h for h in holes]                   # finger holes, foot-most first
     dz0, dz1 = min(hx) - DOUBLER_PAST, max(hx) + DOUBLER_PAST
-    PW = W + 2 * T if kind == 'box' else W + 2 * SIDE
+    PW = W + 2 * T if kind in ('box', 'flat') else W + 2 * SIDE
     yc = PW / 2
     parts = []
     num = iter(range(1, 100))
@@ -286,16 +290,23 @@ def build(kind, W, D, wall, L, holes, diams):
             p.images.append(('ring.png', x - r / 2, yc - r / 2, r, r))
         return p
 
-    if kind == 'box':
-        # both full-width openings reach the bore's inner face, the floor of
-        # every finger notch, so no finger may stand beside either
-        xs = fingers_x(total, ((SAC - EXIT_L, SAC), (SAC + PLUG, SAC + PLUG + M.WINDOW_L)))
-        t = top_plate(); t.outline = notched(0, total, PW, xs); parts.append(t)
-        top = t
-        parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
-                          'plain'))
-        for k in range(2):
-            parts.append(finger_side(total, D, xs, next(num)))
+    if kind in ('box', 'flat'):
+        top = top_plate()
+        parts.append(top)
+        if kind == 'box':
+            # both full-width openings reach the bore's inner face, the floor of
+            # every finger notch, so no finger may stand beside either
+            xs = fingers_x(total, ((SAC - EXIT_L, SAC), (SAC + PLUG, SAC + PLUG + M.WINDOW_L)))
+            top.outline = notched(0, total, PW, xs)
+            parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
+                              'plain'))
+            for k in range(2):
+                parts.append(finger_side(total, D, xs, next(num)))
+        else:
+            parts.append(Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain'))
+            for k in range(2):
+                parts.append(Part('side wall', next(num), rect(0, 0, total, D),
+                                  'glued between the top and the bottom'))
         for k in range(int(PLUG / T)):
             parts.append(Part('plug disc', next(num),
                               rect(0, 0, W + INTERF_ACROSS, D + INTERF_ACROSS),
@@ -362,7 +373,7 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
     gaps = [holes[i] - holes[i + 1] - (rings[i] + rings[i + 1]) / 2 for i in range(4)]
     note(min(gaps) >= 0, 'the depressions do not run into each other',
          f'closest {min(gaps):.1f}mm apart')
-    edge = T if kind == 'box' else 1.0
+    edge = T if kind in ('box', 'flat') else 1.0
     note(max(rings) / 2 <= info['PW'] / 2 - edge, 'each depression clears the plate\'s edge joints',
          f'{info["PW"] / 2 - edge - max(rings) / 2:.1f}mm to spare')
     tops = [p for p in parts if p.name.startswith('top')]

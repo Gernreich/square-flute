@@ -8,9 +8,13 @@
 
 # --- the cut files: -bird-flue from square_flute.py, -nest-flue from plus_flute.py ---
 cut-files/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3-bird-flue --flat --out=$(dirname $OUT)
+cut-files/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3-bird-flue-flat --flat --out=$(dirname $OUT)
 cut-files/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=box-square-3-nest-flue --flat --out=$(dirname $OUT)
+cut-files/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg :: python3 plus_flute.py --only=box-square-3-nest-flue-flat --flat --out=$(dirname $OUT)
 cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6-bird-flue --flat --out=$(dirname $OUT)
+cut-files/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6-bird-flue-flat --flat --out=$(dirname $OUT)
 cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=box-square-6-nest-flue --flat --out=$(dirname $OUT)
+cut-files/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg :: python3 plus_flute.py --only=box-square-6-nest-flue-flat --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-3-bird-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=stack-rect-3-nest-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-6-bird-flue --flat --out=$(dirname $OUT)
@@ -18,9 +22,13 @@ cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-c
 
 # --- display renderings of them, never cut files ---
 previews/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg $OUT
+previews/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg $OUT
 previews/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg $OUT
+previews/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg $OUT
 previews/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg $OUT
+previews/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg $OUT
 previews/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg $OUT
+previews/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg $OUT
 previews/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg $OUT
 previews/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg $OUT
 previews/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg $OUT
@@ -32,12 +40,8 @@ plans/square-flute-A4-holes-3mm-wall.svg :: python3 page_assets.py --plans-to=$(
 plans/square-flute-A4-holes-6mm-wall.svg :: python3 page_assets.py --plans-to=$(dirname $OUT)
 index.html :: python3 ../lasermade-tools/md2html.py README.md $OUT
 
-# --- the author's flute, scaled to A4 and redrawn by your_flute.py ---
-yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg :: python3 your_flute.py --only=flat-A4 --flat --out=$(dirname $OUT)
-yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg :: python3 your_flute.py --only=fingers-A4 --flat --out=$(dirname $OUT)
-yours/cut-files/your-flute-leather-tie-cut-files.svg :: python3 your_flute.py --only=leather --out=$(dirname $OUT)
-yours/previews/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg $OUT
-yours/previews/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg $OUT
+# --- the author's flute: only its leather tie is drawn, by your_flute.py ---
+yours/cut-files/your-flute-leather-tie-cut-files.svg :: python3 your_flute.py --out=$(dirname $OUT)
 yours/previews/your-flute-leather-tie-cut-files.svg :: python3 ../lasermade-tools/make-preview.py yours/cut-files/your-flute-leather-tie-cut-files.svg $OUT
 
 # --- the author's originals, from 2017, as they were given: drawn by hand in

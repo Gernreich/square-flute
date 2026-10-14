@@ -50,7 +50,7 @@ def build(kind, W, D, wall, L, holes, diams):
     wc = F.SAC + F.PLUG + M.WINDOW_L / 2
     total = wc + L + M.FOOT_SPARE
     hx = [wc + h for h in holes]
-    PW = W + 2 * T if kind == 'box' else W + 2 * F.SIDE
+    PW = W + 2 * T if kind in ('box', 'flat') else W + 2 * F.SIDE
     yc = PW / 2
     exit_ = (F.SAC - F.EXIT_L, F.SAC)
     win = (F.SAC + F.PLUG, F.SAC + F.PLUG + M.WINDOW_L)
@@ -72,15 +72,21 @@ def build(kind, W, D, wall, L, holes, diams):
     rings = [d * RING_OF for d in diams]
     body.images = [('ring.png', x - r / 2, yc - r / 2, r, r) for x, r in zip(hx, rings)]
 
-    if kind == 'box':
+    if kind in ('box', 'flat'):
         # a finger notch beside the exit hole or the window would run straight
         # into it: both reach the bore's inner face, which is the notch's floor
-        xs = F.fingers_x(total, (exit_, win))
-        head.outline = F.notched(0, total, PW, xs)
+        xs = F.fingers_x(total, (exit_, win)) if kind == 'box' else []
         parts.append(head)
-        parts.append(Part('bottom plate', next(num), F.notched(0, total, PW, xs), 'plain'))
-        for k in range(2):
-            parts.append(F.finger_side(total, D, xs, next(num)))
+        if xs:
+            head.outline = F.notched(0, total, PW, xs)
+            parts.append(Part('bottom plate', next(num), F.notched(0, total, PW, xs), 'plain'))
+            for k in range(2):
+                parts.append(F.finger_side(total, D, xs, next(num)))
+        else:
+            parts.append(Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain'))
+            for k in range(2):
+                parts.append(Part('side wall', next(num), rect(0, 0, total, D),
+                                  'glued between the top and the bottom'))
         for k in range(int(F.PLUG / T)):
             parts.append(Part('plug disc', next(num),
                               rect(0, 0, W + F.INTERF_ACROSS, D + F.INTERF_ACROSS),
@@ -106,7 +112,7 @@ def build(kind, W, D, wall, L, holes, diams):
         # the finger meets the doubler, not the plate, so the depressions go here
         p.images, body.images = body.images, []
         parts.append(p)
-    parts.append(Y.cap_part(next(num), outside[0], outside[1]))
+    parts.append(F.cap_part(next(num), outside[0], outside[1]))
     b0 = exit_[0] - F.BIRD_UPSTREAM
     for k in range(F.BIRD_LAYERS):
         parts.append(Part('bird layer', next(num), rect(b0, 0, win[0], PW),
