@@ -230,8 +230,8 @@ writing anything:
 - every part placed on a sheet
 
 It borrows its SVG path writer from
-[`ribbon_bore.py`](https://github.com/Gernreich/trumpet-elbows-allowed/blob/main/parts/bore/concept/swept-curve/ribbon_bore.py)
-in trumpet-elbows-allowed, so it expects that repository cloned beside this one.
+[`ribbon_bore.py`](https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.py)
+in swept-curve, so it expects that repository cloned beside this one.
 
 `.repro` holds the exact command for every generated file here, and lists the 2017
 originals as shipped without one.

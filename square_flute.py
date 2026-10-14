@@ -71,8 +71,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(HERE, '..', 'trumpet-elbows-allowed', 'parts',
-                                'bore', 'concept', 'swept-curve'))
+sys.path.insert(0, os.path.join(HERE, '..', 'swept-curve'))
 import naf_model as M                                          # noqa: E402
 # the path writer, imported and not copied: the same one every other
 # LaserMadeMusic part is written with
