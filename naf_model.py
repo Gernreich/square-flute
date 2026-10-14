@@ -10,9 +10,8 @@ given bore section and hole-wall thickness.
 The reference is a round-bore flute in A4: 3/4in (19.05mm) bore, A4 = 440Hz
 with every hole closed, and the minor pentatonic above it -- C5, D5, E5, G5 and
 A5 as the holes open from the foot up. Each variant keeps that bore's AREA,
-285mm^2, in a section the plywood can build. The bore was 7/8in until
-2026-10-13, when the author moved it to the 3/4in Flutopedia's bore table
-gives for A4.
+285mm^2, in a section the plywood can build. 3/4in is the bore Flutopedia's
+bore table gives for A4.
 
 The model, from the foot up:
 

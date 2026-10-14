@@ -86,6 +86,8 @@ def svg(kind, k, n, sheet, what, leather=False):
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
         if getattr(p, 'notch', None):
             black.append(cap_path(p, dx, dy, F.KERF / 2))
+        elif getattr(p, 'end_notch', None):
+            black.append(F.end_notch_path(p, dx, dy, F.KERF / 2))
         else:
             black.append(path(mv(offset(p.outline, F.KERF / 2))))
         for c in p.cuts:

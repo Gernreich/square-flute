@@ -79,11 +79,13 @@ def build(kind, W, D, wall, L, holes, diams):
         parts.append(head)
         if xs:
             head.outline = F.notched(0, total, PW, xs)
-            parts.append(Part('bottom plate', next(num), F.notched(0, total, PW, xs), 'plain'))
+            parts.append(F.end_notch(Part('bottom plate', next(num), F.notched(0, total, PW, xs),
+                                          'a half-round notch in the mouth end')))
             for k in range(2):
                 parts.append(F.finger_side(total, D, xs, next(num)))
         else:
-            parts.append(Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain'))
+            parts.append(F.end_notch(Part('bottom plate', next(num), rect(0, 0, total, PW),
+                                          'a half-round notch in the mouth end')))
             for k in range(2):
                 parts.append(Part('side wall', next(num), rect(0, 0, total, D),
                                   'glued between the top and the bottom'))
@@ -94,7 +96,8 @@ def build(kind, W, D, wall, L, holes, diams):
         outside = (PW, D + 2 * T)
     else:
         parts.append(head)
-        parts.append(Part('bottom layer', next(num), rect(0, 0, total, PW), 'plain'))
+        parts.append(F.end_notch(Part('bottom layer', next(num), rect(0, 0, total, PW),
+                                      'a half-round notch in the mouth end')))
         s1, s2 = F.SIDE, F.SIDE + W
         bore = [(0, 0), (total, 0), (total, s1), (F.SAC + F.PLUG, s1),
                 (F.SAC + F.PLUG, s2), (total, s2), (total, PW), (0, PW),
@@ -135,6 +138,11 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
          f'{info["total"]:.1f}mm')
     note(max(diams) <= W - 2 * F.MIN_WEB, 'every finger hole opens inside the bore',
          f'largest {max(diams):.2f}mm')
+    bots = [p for p in parts if getattr(p, 'end_notch', None)]
+    yc_, rn = bots[0].end_notch if bots else (0, 99)
+    note(len(bots) == 1 and rn <= W / 2 - 1.0,
+         'the bottom\'s end notch opens into the bore, clear of its walls',
+         f'{2 * rn:.2f}mm across in a {W:.2f}mm bore')
     cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
     cx, cy, r = cap.notch
     into = cy + r - T - (cap.h - (D + 2 * T)) / 2

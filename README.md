@@ -65,7 +65,10 @@ The 3D view below has a toggle for each.
 Every build carries the author's mouthpiece cap from the 2017 flute below: a plate
 glued over the mouth end, with a half-round notch in its bottom edge, away from the
 finger holes. The notch is a 9.59mm circle centred 0.33mm inside the edge, 5.1mm
-deep, so it opens through the bottom wall into the slow air chamber.
+deep, so it opens through the bottom wall into the slow air chamber. The bottom plate has
+a second half-round notch, the same 9.59mm circle, cut into its mouth end midway
+across. It is at right angles to the cap's, so the two meet at the bottom corner as
+one rounded opening into the slow air chamber.
 
 Every build has the 2017 flute's window and exit hole too: both run **the whole width
 of the bore**, with the flue joining them across that same width. And every finger hole
@@ -156,8 +159,7 @@ leaves the holes where the model put them, so expect to tune each one. A hole th
 plays flat can be opened with a file. A hole that plays sharp cannot be closed up.
 
 **The bore is 3/4in, the size for A4.** [Flutopedia's bore table](https://www.flutopedia.com/bore_diameter.htm)
-puts A4 near 3/4in. The design started at 7/8in, which was what was asked for, and moved
-to 3/4in so that it sits with most flutes in this key.
+puts A4 near 3/4in, so these sit with most flutes in this key.
 
 **The flue is a fill engrave**, about 1mm deep and the full width of the bore. In the
 `-bird-flue` builds it is on the underside of the bottom bird layer, woodland style. In

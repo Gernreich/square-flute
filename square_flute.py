@@ -225,6 +225,41 @@ def cap_path(p, dx, dy, e):
             f'L {X(w + e)},{Yy(-e)} L {X(w + e)},{Yy(h + e)} L {X(-e)},{Yy(h + e)} Z')
 
 
+def end_notch(p):
+    """Give a bottom plate the half-round notch in its mouth end: the cap's
+    circle, CAP_D across, centred on the end edge midway across, so with the
+    cap's own notch, at right angles to it in the end face, it makes one
+    rounded opening at the bottom corner (the author, 2026-10-13). Kept off
+    the outline, which offset() can grow only while it is rectilinear; the
+    sheet writers and the 3D view put the arc in."""
+    p.end_notch = (p.h / 2, CAP_D / 2)
+    return p
+
+
+def end_notch_outline(p, n=24):
+    """The outline with the notch's arc in it, before the kerf: for the 3D
+    view. The outline closes along its mouth end, x = 0."""
+    yc, r = p.end_notch
+    o = p.outline
+    assert o[0][0] == 0 and o[-1][0] == 0, 'the outline must close along x = 0'
+    arc = [(r * math.sin(math.pi * i / n), yc + r * math.cos(math.pi * i / n))
+           for i in range(n + 1)]
+    return o + arc
+
+
+def end_notch_path(p, dx, dy, e):
+    """The outline grown by the kerf with the notch's arc, which bounds
+    material outside it, in by e: the circle about (0, yc) of radius r - e,
+    met where the grown end edge, x = -e, crosses it."""
+    yc, r = p.end_notch
+    o = offset(p.outline, e)
+    r2 = r - e
+    h = math.sqrt(r2 * r2 - e * e)
+    pts = ' L '.join(f'{x + dx:.3f},{y + dy:.3f}' for x, y in o)
+    return (f'M {pts} L {-e + dx:.3f},{yc + h + dy:.3f} '
+            f'A {r2:.3f} {r2:.3f} 0 1 0 {-e + dx:.3f},{yc - h + dy:.3f} Z')
+
+
 def finger_side(L, D, xs, n):
     """A side wall D tall whose fingers stand T proud, up into the top and
     down into the bottom, flush with their outside faces."""
@@ -298,12 +333,13 @@ def build(kind, W, D, wall, L, holes, diams):
             # every finger notch, so no finger may stand beside either
             xs = fingers_x(total, ((SAC - EXIT_L, SAC), (SAC + PLUG, SAC + PLUG + M.WINDOW_L)))
             top.outline = notched(0, total, PW, xs)
-            parts.append(Part('bottom plate', next(num), notched(0, total, PW, xs),
-                              'plain'))
+            parts.append(end_notch(Part('bottom plate', next(num), notched(0, total, PW, xs),
+                                        'a half-round notch in the mouth end')))
             for k in range(2):
                 parts.append(finger_side(total, D, xs, next(num)))
         else:
-            parts.append(Part('bottom plate', next(num), rect(0, 0, total, PW), 'plain'))
+            parts.append(end_notch(Part('bottom plate', next(num), rect(0, 0, total, PW),
+                                        'a half-round notch in the mouth end')))
             for k in range(2):
                 parts.append(Part('side wall', next(num), rect(0, 0, total, D),
                                   'glued between the top and the bottom'))
@@ -315,7 +351,8 @@ def build(kind, W, D, wall, L, holes, diams):
     else:
         top = top_plate()
         parts.append(top)
-        parts.append(Part('bottom layer', next(num), rect(0, 0, total, PW), 'plain'))
+        parts.append(end_notch(Part('bottom layer', next(num), rect(0, 0, total, PW),
+                                    'a half-round notch in the mouth end')))
         s1, s2 = SIDE, SIDE + W
         bore = [(0, 0), (total, 0), (total, s1), (SAC + PLUG, s1),
                 (SAC + PLUG, s2), (total, s2), (total, PW), (0, PW),
@@ -369,6 +406,11 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
         note(min(p.y0 for p in sides) == -T and max(p.y0 + p.h for p in sides) == D + T,
              'the fingers run to the outside faces',
              f'{T:g}mm proud each way, nothing outboard of them')
+    bots = [p for p in parts if getattr(p, 'end_notch', None)]
+    yc_, rn = bots[0].end_notch if bots else (0, 99)
+    note(len(bots) == 1 and rn <= W / 2 - 1.0,
+         'the bottom\'s end notch opens into the bore, clear of its walls',
+         f'{2 * rn:.2f}mm across in a {W:.2f}mm bore')
     rings = [d * RING_OF for d in diams]
     gaps = [holes[i] - holes[i + 1] - (rings[i] + rings[i + 1]) / 2 for i in range(4)]
     note(min(gaps) >= 0, 'the depressions do not run into each other',
@@ -449,6 +491,8 @@ def svg_sheet(variant, k, n, s, info, what):
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
         if getattr(p, 'notch', None):
             black.append(cap_path(p, dx, dy, KERF / 2))
+        elif getattr(p, 'end_notch', None):
+            black.append(end_notch_path(p, dx, dy, KERF / 2))
         else:
             black.append(path(mv(offset(p.outline, KERF / 2))))
         for c in p.cuts:
