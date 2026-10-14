@@ -188,37 +188,6 @@ repository uses. The parts are not numbered: the 3D view shows where each one go
 image round each finger hole, the depression. It needs an image
 engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.
 
-## Assembly
-
-The 3D view shows where every part goes; pull it apart with **Explode** to see the
-order. The mouth end is the end with the two full-width openings in the top and the
-half-round notch in the bottom plate. The top's engraved face, its depressions and, in a nest or
-savanna build, its flue, always faces out.
-
-1. **File the splitting edge first**, while the top is a flat plate: the far edge of the
-   window, the one toward the foot, to a clean bevel of about 30°.
-2. **On a 6mm build, glue the doubler onto the top's outside face**, its holes over the
-   top's finger holes and its engraved depressions facing out. A drill bit or dowel
-   through each pair keeps them in line while it sets.
-3. **Build the body.**
-   - **Box, finger-jointed:** press the two side walls' fingers into the bottom plate's
-     notches. Stand the four plug discs upright across the bore, 110–122mm from the
-     mouth end: the 12mm that will sit between the exit hole and the window. Press the
-     top on over them, engraved face out. Nothing is glued.
-   - **Box, `-flat`:** the same, but glue the side walls onto the bottom plate, flush with
-     its long edges, set the plug discs, and glue the top on.
-   - **Stack:** glue the bottom layer, the six bore layers and the top into one block,
-     edges flush, the top's engraved face out. The plug is the land left solid in the
-     bore layers; there are no discs.
-4. **Glue the mouthpiece cap over the mouth end**, its notched edge at the bottom, so its
-   notch meets the bottom plate's notch at the corner.
-5. **Seal every seam with shellac**, and round the plug discs through the exit hole and
-   the window, so the air goes only through the flue.
-6. **Glue the three bird layers into one block**, edges flush. In a `-bird-flue` or
-   `-savanna-flue` build the engraved layer goes at the bottom, engraving down.
-
-Then tune it, below: the bird is tied on, not glued, so it can still be slid.
-
 ## Tuning
 
 1. Tie the bird on over the exit hole, its front edge on the window's near edge. It is
