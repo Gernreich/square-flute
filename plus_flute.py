@@ -13,6 +13,12 @@ square_flute.py. What this file changes is only the flue: a fill engrave in
 the NEST, the top plate's face over the plug, the plains style, rather than
 the bird's underside, the woodland style. The bird is then three plain layers.
 
+THE SAVANNA BUILDS, -savanna-flue (2026-10-13, the author: "where the
+woodlands meet the prairie"), split the flue between the two: half its depth
+engraved in the nest and half in the bird's underside, about 0.5mm each, so
+the airstream runs between the heights a bird flue and a nest flue give it.
+The two engraves must line up when the bird goes on.
+
 These were the "-plus" variants until 2026-10-13. They began with five of the
 2017 flute's ideas; one by one, at the author's asking, the rest went onto
 every build, until the flue was the only difference left, and the author
@@ -39,14 +45,16 @@ M = F.M
 T = F.T
 RING_OF = F.RING_OF                   # the original's depression across its hole
 
-VARIANTS = {k.replace('-bird-flue', '-nest-flue'): v for k, v in F.VARIANTS.items()}
+NEST = {k.replace('-bird-flue', '-nest-flue'): v for k, v in F.VARIANTS.items()}
+SAVANNA = {k.replace('-bird-flue', '-savanna-flue'): v for k, v in F.VARIANTS.items()}
+VARIANTS = {**NEST, **SAVANNA}
 
 
 def design(W, D, wall):
     return F.design(W, D, wall)
 
 
-def build(kind, W, D, wall, L, holes, diams):
+def build(kind, W, D, wall, L, holes, diams, savanna=False):
     wc = F.SAC + F.PLUG + M.WINDOW_L / 2
     total = wc + L + M.FOOT_SPARE
     hx = [wc + h for h in holes]
@@ -118,8 +126,14 @@ def build(kind, W, D, wall, L, holes, diams):
     parts.append(F.cap_part(next(num), outside[0], outside[1]))
     b0 = exit_[0] - F.BIRD_UPSTREAM
     for k in range(F.BIRD_LAYERS):
-        parts.append(Part('bird layer', next(num), rect(b0, 0, win[0], PW),
-                          'plain: the flue is in the nest' if k == 0 else 'glued on the one below'))
+        p = Part('bird layer', next(num), rect(b0, 0, win[0], PW),
+                 ('the other half of the flue fill-engraved, about 0.5mm deep' if savanna
+                  else 'plain: the flue is in the nest') if k == 0 else 'glued on the one below')
+        if k == 0 and savanna:
+            # the bird flue's own span, as square_flute draws it: from the
+            # exit hole's upstream edge to the window
+            p.fills.append(rect(exit_[0], yc - W / 2, win[0], yc + W / 2))
+        parts.append(p)
     for p in parts:
         if not hasattr(p, 'images'):
             p.images = []
@@ -143,6 +157,14 @@ def checks(kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
     note(len(bots) == 1 and rn <= W / 2 - 1.0,
          'the bottom\'s end notch opens into the bore, clear of its walls',
          f'{2 * rn:.2f}mm across in a {W:.2f}mm bore')
+    birds = [p for p in parts if p.name == 'bird layer' and p.fills]
+    if birds:       # a savanna build: the two halves of its flue must line up
+        tf = [p for p in parts if p.name.startswith('top')][0].fills[0]
+        bf = birds[0].fills[0]
+        x0, x1 = max(tf[0][0], bf[0][0]), min(tf[1][0], bf[1][0])
+        note(x1 - x0 >= info['win'][0] - info['exit'][1] - 0.01 and tf[0][1] == bf[0][1],
+             'both halves of the flue cover the plug, in line',
+             f'{x1 - x0:.1f}mm in common, {len(birds)} bird layer engraved')
     cap = [p for p in parts if p.name == 'mouthpiece cap'][0]
     cx, cy, r = cap.notch
     into = cy + r - T - (cap.h - (D + 2 * T)) / 2
@@ -201,7 +223,7 @@ def main():
         if key not in designs:
             designs[key] = design(W, D, wall)
         L, holes, diams, cents = designs[key]
-        parts, info = build(kind, W, D, wall, L, holes, diams)
+        parts, info = build(kind, W, D, wall, L, holes, diams, savanna=name in SAVANNA)
         sheets = pack(parts)
         print(f'\n{name}: {kind}, bore {W:.2f} x {D:.2f}mm, {wall:g}mm hole wall, '
               f'window {W:.2f} x {M.WINDOW_L:g}mm')
@@ -221,7 +243,12 @@ def main():
                                    .replace("The author's 2017 flute, redrawn",
                                             "Square-bore flute in A4 with the 2017 flute's ideas")
                                    .replace("The author's flute,",
-                                            "Square-bore flute in A4,"))
+                                            "Square-bore flute in A4,")
+                                   .replace('the flue as a fill engrave about 1mm deep over the plug',
+                                            'the flue as a fill engrave about 0.5mm deep over the plug '
+                                            'and 0.5mm in the bird\'s underside, to line up'
+                                            if name in SAVANNA else
+                                            'the flue as a fill engrave about 1mm deep over the plug'))
                 print(f'  wrote {os.path.basename(f)}  {s["w"]:.0f} x {s["h"]:.0f}mm, '
                       f'{len(s["parts"])} parts')
     if bad:

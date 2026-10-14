@@ -110,6 +110,9 @@ MARGIN, GAP = 5.0, 4.0
 MIN_WEB = 1.5        # thinnest ply left between two cuts
 
 BLUE, ORANGE, BLACK = '#0000ff', '#ff8000', '#000000'
+# the part numbers, on their own ink so they can be scored light while the
+# flue is engraved deep (the author, 2026-10-13); run with blue, before any cut
+RED = '#ff0000'
 
 SQ = math.sqrt(M.AREA)
 RW = M.AREA / 18.0
@@ -484,7 +487,7 @@ def ring_data():
 
 
 def svg_sheet(variant, k, n, s, info, what):
-    blue, orange, black = [], [], []
+    numbers, orange, black = [], [], []
     fills, imgs = [], []
     for p, sx, sy in s['parts']:
         dx, dy = sx - p.x0 + KERF / 2, sy - p.y0 + KERF / 2
@@ -524,12 +527,12 @@ def svg_sheet(variant, k, n, s, info, what):
         if p.name == 'bird layer':
             lx, ly = p.x0 + 4, p.y0 + 4
             h = 3.0
-        blue += [d for d in label(str(p.num), lx + dx, ly + dy, h)]
+        numbers += [d for d in label(str(p.num), lx + dx, ly + dy, h)]
     desc = (f'1 user unit = 1mm. Square-bore flute in A4, {variant}, sheet {k} of {n}: '
             f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf. Finger joints as the trumpet '
             f'bores cut them: {FINGER:g}mm fingers and spaces, no play, the fit from the '
-            f'kerf. Blue {BLUE} engraves '
-            f'(the part numbers; the flue as a fill engrave about 1mm deep; and the '
+            f'kerf. Red {RED} scores the part numbers, lightly. Blue {BLUE} engraves '
+            f'(the flue as a fill engrave about 1mm deep; and the '
             f'depression round each finger hole, a greyscale image engrave, Grayscale '
             f'mode in xTool Creative Space -- set both depths on scrap first), orange '
             f'{ORANGE} cuts the holes and slots, '
@@ -545,7 +548,7 @@ def svg_sheet(variant, k, n, s, info, what):
             f'<desc>{desc}</desc>\n'
             + (f'  <g id="images">\n' + ''.join(f'    {i}\n' for i in imgs) + '  </g>\n'
                if imgs else '')
-            + g(BLUE, blue)
+            + g(RED, numbers)
             + (f'  <g fill="{BLUE}" stroke="none">\n'
                + ''.join(f'    <path d="{d}"/>\n' for d in fills) + '  </g>\n'
                if fills else '')

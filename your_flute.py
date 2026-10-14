@@ -79,7 +79,7 @@ def strip_part():
 
 
 def svg(kind, k, n, sheet, what, leather=False):
-    blue, orange, black, fills, imgs = [], [], [], [], []
+    numbers, orange, black, fills, imgs = [], [], [], [], []
     cache = {}
     for p, sx, sy in sheet['parts']:
         dx, dy = sx - p.x0 + F.KERF / 2, sy - p.y0 + F.KERF / 2
@@ -113,10 +113,10 @@ def svg(kind, k, n, sheet, what, leather=False):
             lx, ly = (g0 + g1) / 2, p.y0 + p.h / 2
             if p.name == 'mouthpiece cap':      # clear of the notch, in a top corner
                 lx, ly, h = p.x0 + 5, p.y0 + p.h - 4, 3.0
-            blue += label(str(p.num), lx + dx, ly + dy, h)
+            numbers += label(str(p.num), lx + dx, ly + dy, h)
     desc = (f'1 user unit = 1mm. The author\'s 2017 flute, redrawn: {kind}, sheet {k} of {n}: '
             f'{what}. ' + ('Cut from leather, not ply; black cuts. ' if leather else
-            f'3mm ply, drawn for a {F.KERF:g}mm kerf. Blue {F.BLUE} engraves: the part numbers, '
+            f'3mm ply, drawn for a {F.KERF:g}mm kerf. Red {F.RED} scores the part numbers, lightly. Blue {F.BLUE} engraves: '
             f'the flue as a fill engrave about 1mm deep over the plug, and the depression round '
             f'each finger hole, a greyscale image engrave to set to depth on scrap. File the '
             f'window\'s far edge to a bevel by hand. Orange {F.ORANGE} '
@@ -129,7 +129,7 @@ def svg(kind, k, n, sheet, what, leather=False):
             f'height="{sheet["h"]:.2f}mm" viewBox="0 0 {sheet["w"]:.2f} {sheet["h"]:.2f}">\n'
             f'<title>The author\'s flute, {kind}, sheet {k} of {n}</title>\n<desc>{desc}</desc>\n'
             + (f'  <g id="images">\n' + ''.join(f'    {i}\n' for i in imgs) + '  </g>\n' if imgs else '')
-            + (g(F.BLUE, blue) if blue else '')
+            + (g(F.RED, numbers) if numbers else '')
             + (f'  <g fill="{F.BLUE}" stroke="none">\n'
                + ''.join(f'    <path d="{d}"/>\n' for d in fills) + '  </g>\n' if fills else '')
             + (g(F.ORANGE, orange) if orange else '') + g(F.BLACK, black) + '</svg>\n')
