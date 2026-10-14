@@ -115,13 +115,18 @@ BLUE, ORANGE, BLACK = '#0000ff', '#ff8000', '#000000'
 
 SQ = math.sqrt(M.AREA)
 RW = M.AREA / 21.0
+# Named for where the flue is carved, since that is the one thing a build and
+# its counterpart in plus_flute.py differ in: -bird-flue here (the woodland
+# style), -nest-flue there (the plains style). Until 2026-10-13 these were
+# box-square-3 ... and their -plus versions, and there was a box-rect pair as
+# well -- the stack's rectangle built as a box, to compare box against stack at
+# one section. It answered that (they are acoustically the same), so the author
+# asked for it to go: a box is square, a stack is as square as layers allow.
 VARIANTS = {
-    'box-square-3': ('box', SQ, SQ, 3.0),
-    'box-square-6': ('box', SQ, SQ, 6.0),
-    'box-rect-3': ('box', RW, 21.0, 3.0),
-    'box-rect-6': ('box', RW, 21.0, 6.0),
-    'stack-rect-3': ('stack', RW, 21.0, 3.0),
-    'stack-rect-6': ('stack', RW, 21.0, 6.0),
+    'box-square-3-bird-flue': ('box', SQ, SQ, 3.0),
+    'box-square-6-bird-flue': ('box', SQ, SQ, 6.0),
+    'stack-rect-3-bird-flue': ('stack', RW, 21.0, 3.0),
+    'stack-rect-6-bird-flue': ('stack', RW, 21.0, 6.0),
 }
 
 

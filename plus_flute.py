@@ -1,40 +1,26 @@
 #!/usr/bin/env python3
-"""The six variants again, each with the author's ideas folded in: the
-"-plus" variants.
+"""The nest-flue builds: square_flute's bird-flue builds, with the flue
+carved in the nest instead of the bird.
 
     python3 plus_flute.py --no-write              # the checks, write nothing
-    python3 plus_flute.py --out=cut-files         # into cut-files/<variant>-plus/
-    python3 plus_flute.py --only=box-square-3-plus --flat --out=DIR
+    python3 plus_flute.py --out=cut-files         # into cut-files/<build>/
+    python3 plus_flute.py --only=box-square-3-nest-flue --flat --out=DIR
 
-square_flute.py is not edited by this file, and its six variants cannot move:
-the author asked that they stay as they were. This builds its own parts from
-square_flute's helpers and the model's own design().
+Every build here shares its bird-flue counterpart's bore, holes, foot,
+full-width window and exit hole, mouthpiece cap and finger-hole depressions,
+all of which came from the author's 2017 flute (yours/) and now sit in
+square_flute.py. What this file changes is only the flue: a fill engrave in
+the NEST, the top plate's face over the plug, the plains style, rather than
+the bird's underside, the woodland style. The bird is then three plain layers.
 
-WHAT EACH -plus VARIANT TAKES FROM THE AUTHOR'S 2017 FLUTE (yours/):
+These were the "-plus" variants until 2026-10-13. They began with five of the
+2017 flute's ideas; one by one, at the author's asking, the rest went onto
+every build, until the flue was the only difference left, and the author
+named them for it.
 
-  1. The window runs the whole width of the bore, as the original's does,
-     rather than 10mm of it. The model is rerun at that window, because a
-     wider window carries a smaller end correction, which moves the foot and
-     every hole.
-  2. The exit hole runs the whole width too, and the flue is a fill engrave
-     in the NEST -- the top plate's face over the plug -- rather than in
-     the bird. The bird is then plain layers, and the flue is on the part that
-     stays put.
-  3. A mouthpiece cap over the mouth end -- on every variant since, the six
-     included, through square_flute.cap_part -- the size of the flute's outside,
-     with the original's half-round notch in its bottom edge: a 9.59mm circle
-     centred 0.33mm inside the edge, so the notch opens through the bottom
-     wall into the bore, away from the finger holes. Glued, like the bird's
-     layers.
-  4. A soft engraved depression round every finger hole: the original's own
-     ring.png, scaled to each hole as the original scaled it, 1.57 times the
-     hole across.
-
-NOT taken: the original's engraved splitting edge, which charred and did not
-work, so the edge is still filed by hand; and its
-stepped block, whose outline was for looks only, the author says. The bird is
-three plain layers as in the six, and with the flue in the nest it carries
-none.
+NOT taken from the original: its engraved splitting edge, which charred and
+did not work, so the edge is filed by hand; and its stepped block, whose
+outline was for looks only.
 
 A full-width window or exit hole reaches the bore's inner faces, which in the
 box is the floor of every finger notch. So no finger may stand beside either;
@@ -53,7 +39,7 @@ M = F.M
 T = F.T
 RING_OF = F.RING_OF                   # the original's depression across its hole
 
-VARIANTS = {k + '-plus': v for k, v in F.VARIANTS.items()}
+VARIANTS = {k.replace('-bird-flue', '-nest-flue'): v for k, v in F.VARIANTS.items()}
 
 
 def design(W, D, wall):

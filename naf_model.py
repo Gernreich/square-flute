@@ -71,8 +71,6 @@ VARIANTS = [
     ('round reference', None, None, 5.0, 'turned wood, for comparison'),
     ('box-square-3', math.sqrt(AREA), math.sqrt(AREA), 3.0, 'finger-jointed box'),
     ('box-square-6', math.sqrt(AREA), math.sqrt(AREA), 6.0, 'finger-jointed box, doubled top'),
-    ('box-rect-3', AREA / 21.0, 21.0, 3.0, 'finger-jointed box'),
-    ('box-rect-6', AREA / 21.0, 21.0, 6.0, 'finger-jointed box, doubled top'),
     ('stack-rect-3', AREA / 21.0, 21.0, 3.0, 'laminated stack, 7 bore layers'),
     ('stack-rect-6', AREA / 21.0, 21.0, 6.0, 'laminated stack, two top layers'),
 ]
