@@ -14,17 +14,17 @@ file only builds what that asks for, in 3mm ply.
 THE FOUR BUILDS here are two bores and two hole walls (plus_flute.py makes
 the same four with the flue in the nest):
 
-  box-square    a finger-jointed box, 19.67 x 19.67mm bore: four plates,
+  box-square    a finger-jointed box, 16.88 x 16.88mm bore: four plates,
                 the sides tabbed into the top and bottom
-  stack-rect    a laminated stack, 18.43 x 21mm: a bottom layer, seven bore
+  stack-rect    a laminated stack, 15.83 x 18mm: a bottom layer, six bore
                 layers with the bore cut out of them, and the top
      -3         the finger holes go through the 3mm top plate alone
      -6         a 3mm doubler is glued over the finger-hole run, so each hole
                 has a 6mm chimney, as a wooden flute's wall gives
 
 The stack cannot have a square bore at the reference's area: its depth is a
-whole number of layers, 18 or 21mm, and 19.67 is neither. Acoustically the
-bore SHAPE hardly matters -- the model puts the square and the 18.43 x 21
+whole number of layers, 15 or 18mm, and 16.88 is neither. Acoustically the
+bore SHAPE hardly matters -- the model puts the square and the 15.83 x 18
 holes within 0.1mm of each other -- so the stack keeps the area and gives up
 the square.
 
@@ -112,7 +112,7 @@ MIN_WEB = 1.5        # thinnest ply left between two cuts
 BLUE, ORANGE, BLACK = '#0000ff', '#ff8000', '#000000'
 
 SQ = math.sqrt(M.AREA)
-RW = M.AREA / 21.0
+RW = M.AREA / 18.0
 # Named for where the flue is carved, since that is the one thing a build and
 # its counterpart in plus_flute.py differ in: -bird-flue here (the woodland
 # style), -nest-flue there (the plains style). Until 2026-10-13 these were
@@ -121,8 +121,8 @@ RW = M.AREA / 21.0
 VARIANTS = {
     'box-square-3-bird-flue': ('box', SQ, SQ, 3.0),
     'box-square-6-bird-flue': ('box', SQ, SQ, 6.0),
-    'stack-rect-3-bird-flue': ('stack', RW, 21.0, 3.0),
-    'stack-rect-6-bird-flue': ('stack', RW, 21.0, 6.0),
+    'stack-rect-3-bird-flue': ('stack', RW, 18.0, 3.0),
+    'stack-rect-6-bird-flue': ('stack', RW, 18.0, 6.0),
 }
 
 

@@ -12,13 +12,9 @@ cut-files/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-c
 cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6-bird-flue --flat --out=$(dirname $OUT)
 cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=box-square-6-nest-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-3-bird-flue --flat --out=$(dirname $OUT)
-cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet2-cut-files.svg :: python3 square_flute.py --only=stack-rect-3-bird-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=stack-rect-3-nest-flue --flat --out=$(dirname $OUT)
-cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet2-cut-files.svg :: python3 plus_flute.py --only=stack-rect-3-nest-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-6-bird-flue --flat --out=$(dirname $OUT)
-cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet2-cut-files.svg :: python3 square_flute.py --only=stack-rect-6-bird-flue --flat --out=$(dirname $OUT)
 cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg :: python3 plus_flute.py --only=stack-rect-6-nest-flue --flat --out=$(dirname $OUT)
-cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet2-cut-files.svg :: python3 plus_flute.py --only=stack-rect-6-nest-flue --flat --out=$(dirname $OUT)
 
 # --- display renderings of them, never cut files ---
 previews/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg $OUT
@@ -26,13 +22,9 @@ previews/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cu
 previews/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg $OUT
 previews/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg $OUT
 previews/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg $OUT
-previews/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet2-cut-files.svg $OUT
 previews/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg $OUT
-previews/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet2-cut-files.svg $OUT
 previews/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg $OUT
-previews/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet2-cut-files.svg $OUT
 previews/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg $OUT
-previews/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet2-cut-files.svg $OUT
 
 # --- the pages ---
 viewer.js :: python3 page_assets.py --viewer-to=$OUT

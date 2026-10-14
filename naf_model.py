@@ -7,17 +7,19 @@ given bore section and hole-wall thickness.
     python3 naf_model.py --hole=7.5      # another finger-hole diameter
     python3 naf_model.py --mouth=1.0     # scale the window's end correction
 
-The reference is a round-bore flute in A4: 7/8in (22.2mm) bore, A4 = 440Hz
+The reference is a round-bore flute in A4: 3/4in (19.05mm) bore, A4 = 440Hz
 with every hole closed, and the minor pentatonic above it -- C5, D5, E5, G5 and
 A5 as the holes open from the foot up. Each variant keeps that bore's AREA,
-387mm^2, in a section the plywood can build.
+285mm^2, in a section the plywood can build. The bore was 7/8in until
+2026-10-13, when the author moved it to the 3/4in Flutopedia's bore table
+gives for A4.
 
 The model, from the foot up:
 
   * the bore is a lossy tube. Its wave impedance comes from its area; its
     viscothermal loss from its hydraulic radius 2A/P, which is what a square
-    or a rectangle changes even at the same area (the square's is 9.83mm
-    against the round bore's 11.1, so it loses a little more);
+    or a rectangle changes even at the same area (the square's is 8.44mm
+    against the round bore's 9.53, so it loses a little more);
   * the foot radiates as an unflanged open end of the same area;
   * each finger hole is Keefe's (1990) tone hole -- a shunt and two series
     halves -- open or closed. Its chimney is the WALL THICKNESS, 3 or 6mm,
@@ -30,11 +32,11 @@ The model, from the foot up:
 
 THE WINDOW IS THE UNCALIBRATED PART. Its end correction is physics-based but
 not measured, and it moves the foot by more than any other term: each 1mm of
-window correction is about 4.5mm of sound chamber at the 10mm window, 2.6mm at
+window correction is about 3.7mm of sound chamber at the 10mm window, 2.3mm at
 a full-width one. So the foot is cut LONG (FOOT_SPARE) and trimmed to pitch,
 and --mouth= is the knob to set once a real flute has been measured. The holes
-move with it ALMOST AS FAR -- a 10% error moves the foot 3.5mm and the holes
-2.3 to 3.0mm -- so trimming the foot does not put them right: each is tuned.
+move with it ALMOST AS FAR -- a 10% error moves the foot 2.3 to 2.9mm and the
+holes 2.1 to 2.7mm -- so trimming the foot does not put them right: each is tuned.
 (This said 5.5mm and "the holes depend on it far less" until 2026-10-13,
 from an area ratio never run through the model. Both were wrong.)
 """
@@ -63,7 +65,7 @@ SPACING = 25.0                     # centre to centre within a hand
 ANCHOR_D = 8.0                     # holes 2 and 4, whose positions are solved
 D_MIN, D_MAX = 4.0, 11.0           # what a finger and the bore allow
 
-REF_BORE = 22.2                    # 7/8in
+REF_BORE = 19.05                   # 3/4in
 AREA = math.pi * (REF_BORE / 2) ** 2
 
 # name, bore across, bore deep, hole wall, how it is built
@@ -71,8 +73,8 @@ VARIANTS = [
     ('round reference', None, None, 5.0, 'turned wood, for comparison'),
     ('box-square-3', math.sqrt(AREA), math.sqrt(AREA), 3.0, 'finger-jointed box'),
     ('box-square-6', math.sqrt(AREA), math.sqrt(AREA), 6.0, 'finger-jointed box, doubled top'),
-    ('stack-rect-3', AREA / 21.0, 21.0, 3.0, 'laminated stack, 7 bore layers'),
-    ('stack-rect-6', AREA / 21.0, 21.0, 6.0, 'laminated stack, two top layers'),
+    ('stack-rect-3', AREA / 18.0, 18.0, 3.0, 'laminated stack, 6 bore layers'),
+    ('stack-rect-6', AREA / 18.0, 18.0, 6.0, 'laminated stack, two top layers'),
 ]
 
 
@@ -260,11 +262,19 @@ def design(b, wall, even=False):
     # a start near where these flutes land, as fractions of the chamber; the
     # solver keeps the holes in order, so a start that is far off can trap a
     # hole between two neighbours that cannot reach its note
-    holes = [L * r for r in (0.69, 0.61, 0.52, 0.37, 0.33)]
+    FRAC = (0.69, 0.61, 0.52, 0.37, 0.33)
+    holes = [L * r for r in FRAC]
     diams = [ANCHOR_D if even else HOLE_D] * 5
     for it in range(6):
         L = bisect(lambda x: sounding(b, x, holes, 0, wall, A4, diams),
                    A4, 250, 420)
+        if it == 0:
+            # the start again, at the chamber's real length: left at 330mm,
+            # a 3/4in bore's 357mm chamber had hole 1 so high that it shrank
+            # to 4.3mm to reach C5, and hole 2 could not get below it
+            holes = [L * r for r in FRAC]
+            L = bisect(lambda x: sounding(b, x, holes, 0, wall, A4, diams),
+                       A4, 250, 420)
         for n in range(1, 6):
             i = n - 1
             def f_pos(x, i=i, n=n):
@@ -344,7 +354,7 @@ def main():
                         seen[key] = design(b, wall, even)
                 except ValueError as e:
                     seen[key] = str(e)
-            sec = 'ø22.20' if w is None else f'{w:.2f}x{d:.2f}'
+            sec = f'ø{REF_BORE:.2f}' if w is None else f'{w:.2f}x{d:.2f}'
             if isinstance(seen[key], str):
                 print(f'{name:16} {sec:>12} {wall:4g}   no layout: {seen[key]}')
                 continue

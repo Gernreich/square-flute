@@ -64,23 +64,21 @@ AT ITS OWN SIZE the model reads this flute as a minor pentatonic to within
 MATCHED TO box-square-3 (flat-A4 and fingers-A4, matched(), 2026-10-13, at
 the author's asking: "the bore length to be the same and the cross section
 area the same"). Until then they were the original scaled by 1.0705 to A4,
-which left them a bigger bore than every other build here (498mm^2 against
-387) and shorter (479.0mm against 484-487). Now:
+which left them a bigger bore than every other build here and shorter. Now:
 
-  area      the 7/8in round bore's, 387.1mm^2, as every build here has, in the
-            original's own proportion: 18.28 wide x 21.18mm deep
-  length    box-square-3's, end to end: its 346.9mm sound chamber, its window
-            centre, and its 15mm to trim at the foot, so 487.4mm overall. The
-            slow air chamber comes out 103.9mm, the original's 123.5 shortened
+  area      the round reference bore's, 285.0mm^2 at 3/4in, as every build here
+            has, in the original's own proportion: 15.69 wide x 18.17mm deep
+  length    box-square-3's, end to end: its 354.3mm sound chamber, its window
+            centre, and its 15mm to trim at the foot, so 494.8mm overall. The
+            slow air chamber comes out 104.0mm, the original's 123.5 shortened
             so the window lands where box-square-3's does
   holes     kept where the original had them, as fractions of the sound
-            chamber, so each moves along by 346.9 / 313.25
+            chamber, so each moves along by 354.3 / 313.25
 
-The narrower bore and longer chamber would put the flute 4 cents flat with
-box-square-3's 7mm window, and the length may not move, so solve() sets the
-WINDOW LENGTH, 7.31mm, for A4 = 440Hz with every hole closed, and bisects each
+The length may not move, so solve() sets the WINDOW LENGTH, 7.01mm against
+box-square-3's 7.0, for A4 = 440Hz with every hole closed, and bisects each
 hole diameter, foot-most first, until its note lands on equal temperament.
-They come out 6.59, 5.89, 5.79, 6.37 and 5.67mm, smaller than the original's
+They come out 5.24, 4.66, 4.56, 5.11 and 4.87mm, smaller than the original's
 7.7s, since a narrower bore needs a smaller hole for the same step. Each
 depression keeps the original's proportion to its hole.
 """
@@ -171,7 +169,7 @@ def solve(W, D, L, holes, d, wl):
 @contextlib.contextmanager
 def matched():
     """The flute redrawn at the bore of square_flute's box-square-3 builds:
-    the same cross-section area, the 7/8in round bore's, in the original's
+    the same cross-section area, the 3/4in round bore's, in the original's
     own proportion of width to depth; and the same length end to end -- the
     same sound chamber, window centre and foot spare, so the same overall
     length. The holes keep their places as fractions of the sound chamber.
