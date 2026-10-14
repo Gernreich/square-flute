@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 """Cut files for a five-hole minor-pentatonic flute in A4, square or
-rectangular bore, in four builds with the flue in the bird.
+rectangular bore: the six builds with the flue in the bird.
 
     python3 square_flute.py --no-write        # the checks, write nothing
     python3 square_flute.py --out=DIR         # every variant into DIR/<variant>/
-    python3 square_flute.py --only=box-square-3 --out=DIR
-    python3 square_flute.py --only=box-square-3 --flat --out=DIR   # no subfolder
+    python3 square_flute.py --only=box-square-3-bird-flue --out=DIR
+    python3 square_flute.py --only=box-square-3-bird-flue --flat --out=DIR   # no subfolder
 
 The acoustics are naf_model.py's: the sound-chamber length and where each
 finger hole goes, and how big, for the bore section and the hole wall. This
 file only builds what that asks for, in 3mm ply.
 
-THE FOUR BUILDS here are two bores and two hole walls (plus_flute.py makes
-the same four with the flue in the nest):
+THE SIX BUILDS here are two constructions and two hole walls, the boxes
+finger-jointed or flat (plus_flute.py makes the same six with the flue in
+the nest, and six more with it split, the savanna builds):
 
   box-square    a finger-jointed box, 16.88 x 16.88mm bore: four plates,
-                the sides tabbed into the top and bottom
+                the sides' fingers in notches in the top and bottom, flush
+                with the outside faces
+     -flat      the same box butt-jointed: plain plates, the sides glued
+                between the top and the bottom
   stack-rect    a laminated stack, 15.83 x 18mm: a bottom layer, six bore
                 layers with the bore cut out of them, and the top
      -3         the finger holes go through the 3mm top plate alone
@@ -24,8 +28,9 @@ the same four with the flue in the nest):
 
 The stack cannot have a square bore at the reference's area: its depth is a
 whole number of layers, 15 or 18mm, and 16.88 is neither. Acoustically the
-bore SHAPE hardly matters -- the model puts the square and the 15.83 x 18
-holes within 0.1mm of each other -- so the stack keeps the area and gives up
+bore SHAPE hardly matters -- at one window width the model puts the square's
+and the 15.83 x 18's holes within 0.1mm of each other; with each one's own
+full-width window, within 1.2mm -- so the stack keeps the area and gives up
 the square.
 
 FROM THE MOUTH END, the same in every variant:
@@ -52,7 +57,8 @@ saved, against a seam 20mm past the window to seal and a gap in the finger
 joints at the place the bird is tied on.
 
 Over the mouth end goes the author's 2017 mouthpiece cap, with its half-round
-notch in the bottom edge (CAP_D, NOTCH_IN below).
+notch in the bottom edge (CAP_D, NOTCH_IN below), and the bottom plate has the
+same circle cut half-round into its mouth end (end_notch), at right angles.
 
 Press-fit throughout, sealed with shellac, except what is laminated or cannot
 be press-fit: the doubler, the bird's layers, every layer of the stack and the

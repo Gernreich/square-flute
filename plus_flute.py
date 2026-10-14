@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""The nest-flue builds: square_flute's bird-flue builds, with the flue
-carved in the nest instead of the bird.
+"""The nest-flue and savanna-flue builds: square_flute's bird-flue builds,
+with the flue carved in the nest instead of the bird, or split between them.
 
     python3 plus_flute.py --no-write              # the checks, write nothing
     python3 plus_flute.py --out=cut-files         # into cut-files/<build>/
