@@ -206,7 +206,7 @@ python3 square_flute.py --no-write            # the generator's checks, writing 
 python3 square_flute.py --out=cut-files       # the bird-flue builds
 python3 plus_flute.py --out=cut-files         # the nest- and savanna-flue builds
 python3 your_flute.py --out=yours/cut-files   # the 2017 flute's prediction, and its leather tie
-python3 page_assets.py                        # viewer.js and the two plans
+python3 page_assets.py                        # viewer.js, turn.html and the two plans
 ```
 
 `naf_model.py` is a transmission-matrix model, the standard way woodwind calculators
@@ -441,11 +441,12 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `cut-files/stack-rect-6-savanna-flue/square-flute-A4-stack-rect-6-savanna-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall, savanna flue |
 | `previews/` | display renderings of every sheet — **not** cut files |
 | `viewer.js` | the 3D view of every build, loaded by the published page |
+| `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
 | `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
 | `plus_flute.py` | the nest- and savanna-flue builds |
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator, and the bird-flue builds |
-| `page_assets.py` | builds `viewer.js` and the plans |
+| `page_assets.py` | builds `viewer.js`, `turn.html` and the plans |
 | `yours/original/` | the author's 2017 files, unchanged: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | the 2017 flute's leather tie |
 | `yours/previews/` | a display rendering of it — **not** a cut file |

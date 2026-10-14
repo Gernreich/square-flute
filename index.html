@@ -392,7 +392,7 @@ python3 square_flute.py --no-write            # the generator&#39;s checks, writ
 python3 square_flute.py --out=cut-files       # the bird-flue builds
 python3 plus_flute.py --out=cut-files         # the nest- and savanna-flue builds
 python3 your_flute.py --out=yours/cut-files   # the 2017 flute&#39;s prediction, and its leather tie
-python3 page_assets.py                        # viewer.js and the two plans</code></pre>
+python3 page_assets.py                        # viewer.js, turn.html and the two plans</code></pre>
 <p><code>naf_model.py</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
 <p><code>square_flute.py</code> builds each bird-flue build from what the model asks for and checks it before writing anything:</p>
 <ul>
@@ -675,6 +675,10 @@ python3 page_assets.py                        # viewer.js and the two plans</cod
 <td>the 3D view of every build, loaded by the published page</td>
 </tr>
 <tr>
+<td><code>turn.html</code></td>
+<td>the same 3D view on a page of its own, for framing elsewhere</td>
+</tr>
+<tr>
 <td><code>plans/square-flute-A4-holes-3mm-wall.svg</code> · <code>plans/square-flute-A4-holes-6mm-wall.svg</code></td>
 <td>the two hole layouts, to scale — display drawings, <strong>not</strong> cut files</td>
 </tr>
@@ -692,7 +696,7 @@ python3 page_assets.py                        # viewer.js and the two plans</cod
 </tr>
 <tr>
 <td><code>page_assets.py</code></td>
-<td>builds <code>viewer.js</code> and the plans</td>
+<td>builds <code>viewer.js</code>, <code>turn.html</code> and the plans</td>
 </tr>
 <tr>
 <td><code>yours/original/</code></td>

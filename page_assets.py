@@ -4,12 +4,15 @@ so the page cannot disagree with the cut files. The writeup itself is
 README.md, built into index.html by md2html.py like every page here; this
 adds what markdown cannot carry.
 
-    python3 page_assets.py                     # viewer.js and plans/*.svg
+    python3 page_assets.py                     # viewer.js, turn.html and plans/*.svg
     python3 page_assets.py --artifact OUT.html # the whole page, one file
 
   viewer.js    the 3D view of every build. README.md loads it on the page
                through a page-only line, so GitHub, which runs no script,
                shows a link to the page in its place.
+  turn.html    viewer.js on a page of its own, nothing else on it, so the
+               hub at gernreich.github.io can frame the 3D view the way it
+               frames the bores' and the lyre-harp's.
   plans/       the two hole layouts drawn to scale, as plain SVG, so they
                read on GitHub as well as on the page.
 
@@ -226,6 +229,29 @@ def artifact(out):
     print(f'  wrote {out}: {len(page) // 1024}KB')
 
 
+TURN_PAGE = '''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Square-bore flute in 3D</title>
+<!-- Written by page_assets.py: do not edit by hand. -->
+<style>
+:root{--bg:#fbfbfa;--fg:#1a1c1e;--mut:#5b6067;--line:#e2e4e7;--card:#fff;--accent:#1d4ed8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15171a;--fg:#e6e8ea;--mut:#9aa1a9;
+--line:#2b2f34;--card:#1b1e22;--accent:#7aa2f7}}
+:root[data-theme=dark]{--bg:#15171a;--fg:#e6e8ea;--mut:#9aa1a9;--line:#2b2f34;--card:#1b1e22;--accent:#7aa2f7}
+body{margin:0;padding:12px 14px;background:var(--bg);color:var(--fg);
+font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+</style>
+</head>
+<body>
+<div id="turn3d"></div><script src="viewer.js"></script>
+</body>
+</html>
+'''
+
+
 def main():
     a = sys.argv[1:]
     if a[:1] == ['--artifact'] and len(a) == 2:
@@ -234,9 +260,14 @@ def main():
     # so the reproduction gate compares them like any other shipped file
     vt = [x.split('=', 1)[1] for x in a if x.startswith('--viewer-to=')]
     pt = [x.split('=', 1)[1] for x in a if x.startswith('--plans-to=')]
-    if len(vt) + len(pt) != len(a):
+    tt = [x.split('=', 1)[1] for x in a if x.startswith('--turn-to=')]
+    if len(vt) + len(pt) + len(tt) != len(a):
         raise SystemExit('usage: page_assets.py [--viewer-to=FILE] [--plans-to=DIR] '
-                         '| --artifact OUT.html')
+                         '[--turn-to=FILE] | --artifact OUT.html')
+    if tt or not a:
+        open(tt[0] if tt else os.path.join(HERE, 'turn.html'), 'w').write(TURN_PAGE)
+    if tt and len(tt) == len(a):
+        return 0
     three, plans = build_all()
     if vt or not a:
         open(vt[0] if vt else os.path.join(HERE, 'viewer.js'), 'w').write(viewer_js(three))
