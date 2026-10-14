@@ -447,7 +447,7 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator, and the bird-flue builds |
 | `page_assets.py` | builds `viewer.js`, `turn.html` and the plans |
-| `yours/original/` | the author's 2017 files, unchanged: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
+| `yours/original/` | the author's 2017 files, unchanged but for the metadata stripped from the two PNGs: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | the 2017 flute's leather tie |
 | `yours/previews/` | a display rendering of it — **not** a cut file |
 | `your_flute.py` | measures the original, says what the model hears in it, and draws the tie |
