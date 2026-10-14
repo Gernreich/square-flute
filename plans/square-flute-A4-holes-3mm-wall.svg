@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 523 54.0">
+<title>Holes in 3mm of wall, sound chamber 346.9mm</title>
+<desc>Display drawing, not a cut file. Plan view to scale, mouth on the left: the slow air chamber, the exit hole, the flue over the plug (blue) and the window, the finger holes with their diameters above and their numbers below, and the 15mm trimmed to pitch at the foot.</desc>
+<rect x="-2" y="0" width="523.4" height="54.0" fill="#ffffff"/>
+<rect x="0" y="14.0" width="487.4" height="26.0" fill="#e7dcc4" stroke="#1d232b" stroke-width=".4"/>
+<rect x="0" y="14.0" width="110.0" height="26.0" fill="#f4eee0"/>
+<rect x="110.0" y="17.0" width="12.0" height="20.0" fill="none" stroke="#8a7350" stroke-width=".5" stroke-dasharray="1.5 1"/>
+<rect x="472.4" y="14.0" width="15.0" height="26.0" fill="#a85800" fill-opacity=".25"/>
+<rect x="110.0" y="17.0" width="12.0" height="20.0" fill="#0000ff" fill-opacity=".45"/>
+<rect x="104.0" y="17.0" width="6.0" height="20.0" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<rect x="122.0" y="17.0" width="7.0" height="20.0" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<circle cx="371.4" cy="27.0" r="3.79" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<text x="371.4" y="49.0" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">1</text>
+<text x="371.4" y="10.0" font-size="5" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">ø7.6</text>
+<circle cx="346.4" cy="27.0" r="4.00" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<text x="346.4" y="49.0" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">2</text>
+<text x="346.4" y="10.0" font-size="5" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">ø8.0</text>
+<circle cx="321.4" cy="27.0" r="4.69" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<text x="321.4" y="49.0" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">3</text>
+<text x="321.4" y="10.0" font-size="5" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">ø9.4</text>
+<circle cx="268.5" cy="27.0" r="4.00" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<text x="268.5" y="49.0" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">4</text>
+<text x="268.5" y="10.0" font-size="5" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">ø8.0</text>
+<circle cx="243.5" cy="27.0" r="3.21" fill="#ffffff" stroke="#a85800" stroke-width=".6"/>
+<text x="243.5" y="49.0" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">5</text>
+<text x="243.5" y="10.0" font-size="5" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">ø6.4</text>
+<text x="55.0" y="29.5" font-size="6" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">slow air chamber</text>
+<text x="421.9" y="29.5" font-size="6" fill="#5a636d" font-family="Helvetica, Arial, sans-serif" text-anchor="middle">sound chamber</text>
+<text x="491.4" y="29.5" font-size="6" fill="#1d232b" font-family="Helvetica, Arial, sans-serif">487</text>
+</svg>

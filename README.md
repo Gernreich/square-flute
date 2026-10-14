@@ -1,9 +1,8 @@
 # Square-bore flute
 
-**[See every variant, in 3D](https://gernreich.github.io/square-flute/variants.html)**
-
 <!-- readme-only -->
-**[Read the writeup](https://gernreich.github.io/square-flute/)**
+**[Read the writeup](https://gernreich.github.io/square-flute/)** ·
+**[Turn every build in 3D](https://gernreich.github.io/square-flute/#turn-it-in-3d)**
 
 <!-- page-only **[Read the README](https://github.com/Gernreich/square-flute)** -->
 
@@ -79,6 +78,15 @@ at one section.
 Each of the six, and each `-plus` variant, is 484–487mm long, and all of them fit a
 600 × 308mm bed.
 
+## Turn it in 3D
+
+<!-- readme-only -->
+Every build turns in 3D on the [published page](https://gernreich.github.io/square-flute/#turn-it-in-3d),
+which GitHub does not run: drag to turn it, pull it apart into its parts, or see
+through the walls to the plug and the bird.
+
+<!-- page-only <div id="turn3d"></div><script src="viewer.js"></script> -->
+
 ## What the model says
 
 **The bore's shape barely matters.** The square and the 18.43 × 21mm rectangle put
@@ -104,7 +112,12 @@ note. The `-plus` variants share these layouts:
 | `box-rect-3`, `stack-rect-3` | 345.4mm | 244.5 · ø7.6 | 219.5 · ø8.0 | 194.5 · ø9.4 | 141.8 · ø8.0 | 116.8 · ø6.4 |
 | `box-rect-6`, `stack-rect-6` | 343.7mm | 233.9 · ø8.1 | 208.9 · ø8.0 | 183.9 · ø8.9 | 125.3 · ø8.0 | 100.3 · ø7.0 |
 
-Distances are from the centre of the window, in mm. Hole 1 is nearest the foot.
+Distances are from the centre of the window, in mm. Hole 1 is nearest the foot. Drawn
+to scale at the square bore, mouth on the left:
+
+![The 3mm-wall layout from above, to scale: the slow air chamber on the left, then a full-width exit hole, the flue over the plug in blue and a full-width window, then the long sound chamber with five finger holes in two groups, three for the lower hand and two for the upper, and the 15mm to trim at the foot shaded](plans/square-flute-A4-holes-3mm-wall.svg)
+
+![The 6mm-wall layout, drawn the same way: the five holes sit nearer the window than in 3mm of wall, inside a dashed outline that is the doubler glued over them](plans/square-flute-A4-holes-6mm-wall.svg)
 
 ### The scale as ratios
 
@@ -186,7 +199,7 @@ python3 square_flute.py --no-write            # the generator's checks, writing 
 python3 square_flute.py --out=cut-files       # every variant into cut-files/<variant>/
 python3 plus_flute.py --out=cut-files         # the -plus variants
 python3 your_flute.py --out=yours/cut-files   # the 2017 flute, at A4
-python3 compare_page.py --standalone variants.html
+python3 page_assets.py                        # viewer.js and the two plans
 ```
 
 `naf_model.py` is a transmission-matrix model, the standard way woodwind calculators
@@ -370,6 +383,74 @@ everything else here. The 2017 flutes have all been given away, so that term can
 measured from one. **The first of these builds to be cut and played will set it**, and
 with it the foot of every build here.
 
+## Every cut sheet
+
+Every build, every sheet. Each picture is a display rendering; click it for the cut file.
+
+**`box-square-3`** · finger-jointed box, bore 19.67 × 19.67mm, holes in 3mm of wall, woodland: the flue under the bird · 12 parts on 1 sheet
+
+[![box-square-3, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)](cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)
+
+**`box-square-6`** · finger-jointed box, bore 19.67 × 19.67mm, holes in 6mm of wall, woodland: the flue under the bird · 13 parts on 1 sheet
+
+[![box-square-6, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)](cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)
+
+**`box-rect-3`** · finger-jointed box, bore 18.43 × 21.00mm, holes in 3mm of wall, woodland: the flue under the bird · 12 parts on 1 sheet
+
+[![box-rect-3, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg)](cut-files/box-rect-3/square-flute-A4-box-rect-3-sheet1-cut-files.svg)
+
+**`box-rect-6`** · finger-jointed box, bore 18.43 × 21.00mm, holes in 6mm of wall, woodland: the flue under the bird · 13 parts on 1 sheet
+
+[![box-rect-6, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg)](cut-files/box-rect-6/square-flute-A4-box-rect-6-sheet1-cut-files.svg)
+
+**`stack-rect-3`** · laminated stack, bore 18.43 × 21.00mm, holes in 3mm of wall, woodland: the flue under the bird · 13 parts on 2 sheets
+
+[![stack-rect-3, sheet 1 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)](cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)
+
+[![stack-rect-3, sheet 2 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg)](cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet2-cut-files.svg)
+
+**`stack-rect-6`** · laminated stack, bore 18.43 × 21.00mm, holes in 6mm of wall, woodland: the flue under the bird · 14 parts on 2 sheets
+
+[![stack-rect-6, sheet 1 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)](cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)
+
+[![stack-rect-6, sheet 2 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg)](cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg)
+
+**`box-square-3-plus`** · finger-jointed box, bore 19.67 × 19.67mm, holes in 3mm of wall, plains: the flue in the nest · 12 parts on 1 sheet
+
+[![box-square-3-plus, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-square-3-plus/square-flute-A4-box-square-3-plus-sheet1-cut-files.svg)](cut-files/box-square-3-plus/square-flute-A4-box-square-3-plus-sheet1-cut-files.svg)
+
+**`box-square-6-plus`** · finger-jointed box, bore 19.67 × 19.67mm, holes in 6mm of wall, plains: the flue in the nest · 13 parts on 1 sheet
+
+[![box-square-6-plus, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-square-6-plus/square-flute-A4-box-square-6-plus-sheet1-cut-files.svg)](cut-files/box-square-6-plus/square-flute-A4-box-square-6-plus-sheet1-cut-files.svg)
+
+**`box-rect-3-plus`** · finger-jointed box, bore 18.43 × 21.00mm, holes in 3mm of wall, plains: the flue in the nest · 12 parts on 1 sheet
+
+[![box-rect-3-plus, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-rect-3-plus/square-flute-A4-box-rect-3-plus-sheet1-cut-files.svg)](cut-files/box-rect-3-plus/square-flute-A4-box-rect-3-plus-sheet1-cut-files.svg)
+
+**`box-rect-6-plus`** · finger-jointed box, bore 18.43 × 21.00mm, holes in 6mm of wall, plains: the flue in the nest · 13 parts on 1 sheet
+
+[![box-rect-6-plus, sheet 1 of 1: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/box-rect-6-plus/square-flute-A4-box-rect-6-plus-sheet1-cut-files.svg)](cut-files/box-rect-6-plus/square-flute-A4-box-rect-6-plus-sheet1-cut-files.svg)
+
+**`stack-rect-3-plus`** · laminated stack, bore 18.43 × 21.00mm, holes in 3mm of wall, plains: the flue in the nest · 13 parts on 2 sheets
+
+[![stack-rect-3-plus, sheet 1 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet1-cut-files.svg)](cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet1-cut-files.svg)
+
+[![stack-rect-3-plus, sheet 2 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet2-cut-files.svg)](cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet2-cut-files.svg)
+
+**`stack-rect-6-plus`** · laminated stack, bore 18.43 × 21.00mm, holes in 6mm of wall, plains: the flue in the nest · 14 parts on 2 sheets
+
+[![stack-rect-6-plus, sheet 1 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet1-cut-files.svg)](cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet1-cut-files.svg)
+
+[![stack-rect-6-plus, sheet 2 of 2: the parts laid out for the laser, part numbers in blue, holes and slots in orange, outlines in black](previews/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet2-cut-files.svg)](cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet2-cut-files.svg)
+
+**`yours-flat-A4`** · the 2017 flute at A4, butt-jointed and glued · 13 parts on 1 sheet
+
+[![yours-flat-A4: the 2017 flute's parts at A4, laid out for the laser](yours/previews/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg)](yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg)
+
+**`yours-fingers-A4`** · the 2017 flute at A4, finger-jointed · 13 parts on 1 sheet
+
+[![yours-fingers-A4: the 2017 flute's parts at A4, laid out for the laser](yours/previews/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg)](yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg)
+
 ## Files
 
 | | |
@@ -391,11 +472,12 @@ with it the foot of every build here.
 | `cut-files/stack-rect-3-plus/square-flute-A4-stack-rect-3-plus-sheet2-cut-files.svg` | `stack-rect-3` with the 2017 ideas, sheet 2 of 2 |
 | `cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet1-cut-files.svg` | `stack-rect-6` with the 2017 ideas, sheet 1 of 2 |
 | `cut-files/stack-rect-6-plus/square-flute-A4-stack-rect-6-plus-sheet2-cut-files.svg` | `stack-rect-6` with the 2017 ideas, sheet 2 of 2 |
-| `variants.html` | every variant side by side, in 3D, with every sheet |
+| `viewer.js` | the 3D view of every build, loaded by the published page |
+| `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
 | `plus_flute.py` | the six again with the 2017 flute's ideas |
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator |
-| `compare_page.py` | builds `variants.html` |
+| `page_assets.py` | builds `viewer.js` and the plans |
 | `yours/original/` | the author's 2017 files, unchanged: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/flat-A4/your-flute-flat-A4-sheet1-cut-files.svg` | the author's flute at A4, butt-jointed |
 | `yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg` | the author's flute at A4, finger-jointed |

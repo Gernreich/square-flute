@@ -27,7 +27,9 @@ previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: pytho
 previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet2-cut-files.svg $OUT
 
 # --- the pages ---
-variants.html :: python3 compare_page.py --standalone $OUT
+viewer.js :: python3 page_assets.py --viewer-to=$OUT
+plans/square-flute-A4-holes-3mm-wall.svg :: python3 page_assets.py --plans-to=$(dirname $OUT)
+plans/square-flute-A4-holes-6mm-wall.svg :: python3 page_assets.py --plans-to=$(dirname $OUT)
 index.html :: python3 ../lasermade-tools/md2html.py README.md $OUT
 
 # --- the author's flute, scaled to A4 and redrawn by your_flute.py ---
