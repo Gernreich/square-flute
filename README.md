@@ -17,8 +17,8 @@ it prints and cuts at real size.
 
 **None of these builds has been cut or played yet.** The holes and the foot come from
 an acoustic model, and the foot is cut long to be trimmed to pitch. The author's own
-flute of 2017, which has been, is here too, scaled to A4, and most of its ideas are in
-every build.
+flute of 2017, which has been, is here too, redrawn in A4 at the same bore area and
+length as `box-square-3`, and most of its ideas are in every build.
 
 <table>
 <tr>
@@ -38,19 +38,18 @@ generator and tool, indexed.
 
 ## The builds
 
-The box and the stack each come with the finger holes in 3mm or 6mm of wall, and with
-the flue carved in the bird or in the nest:
+The box and the stack each come with the finger holes in 3mm or 6mm of wall. Each of
+those four comes as a pair, the same in every part but the one the flue is carved in:
+`-bird-flue` (the woodland style) or `-nest-flue` (the plains style), as in
+`box-square-3-bird-flue` and `box-square-3-nest-flue`. The 3D view below has a toggle
+for it.
 
-| Build | Construction | Bore | Hole wall | Flue | Parts | Sheets | Joints |
-|---|---|---|---|---|---|---|---|
-| `box-square-3-bird-flue` | finger-jointed box | 19.67 × 19.67mm | 3mm | in the bird | 12 | 1 | the bird and the cap glued, the rest press-fit |
-| `box-square-3-nest-flue` | finger-jointed box | 19.67 × 19.67mm | 3mm | in the nest | 12 | 1 | the bird and the cap glued, the rest press-fit |
-| `box-square-6-bird-flue` | finger-jointed box | 19.67 × 19.67mm | 6mm | in the bird | 13 | 1 | the doubler, the bird and the cap glued |
-| `box-square-6-nest-flue` | finger-jointed box | 19.67 × 19.67mm | 6mm | in the nest | 13 | 1 | the doubler, the bird and the cap glued |
-| `stack-rect-3-bird-flue` | laminated stack | 18.43 × 21mm | 3mm | in the bird | 13 | 2 | every layer and the cap glued |
-| `stack-rect-3-nest-flue` | laminated stack | 18.43 × 21mm | 3mm | in the nest | 13 | 2 | every layer and the cap glued |
-| `stack-rect-6-bird-flue` | laminated stack | 18.43 × 21mm | 6mm | in the bird | 14 | 2 | every layer and the cap glued |
-| `stack-rect-6-nest-flue` | laminated stack | 18.43 × 21mm | 6mm | in the nest | 14 | 2 | every layer and the cap glued |
+| Build | Construction | Bore | Hole wall | Parts | Sheets | Joints |
+|---|---|---|---|---|---|---|
+| `box-square-3` | finger-jointed box | 19.67 × 19.67mm | 3mm | 12 | 1 | the bird and the cap glued, the rest press-fit |
+| `box-square-6` | finger-jointed box | 19.67 × 19.67mm | 6mm | 13 | 1 | the doubler, the bird and the cap glued |
+| `stack-rect-3` | laminated stack | 18.43 × 21mm | 3mm | 13 | 2 | every layer and the cap glued |
+| `stack-rect-6` | laminated stack | 18.43 × 21mm | 6mm | 14 | 2 | every layer and the cap glued |
 
 - **The box** is four plates, finger-jointed edge to edge: the sides' fingers fill
   notches in the edges of the top and the bottom and run flush to the outside faces, so
@@ -75,11 +74,9 @@ bore, which is the floor of every finger notch.
 
 The box is square, the bore that was asked for. The stack cannot be: it is a whole
 number of 3mm layers deep, 18 or 21mm, and 19.67 is neither, so it keeps the area and
-gives up the square. There was a third bore, `box-rect`, the stack's rectangle built
-as a box to compare the two constructions at one section; they came out acoustically
-the same, so it went.
+gives up the square.
 
-Every build is 484–487mm long, and all of them fit a 600 × 308mm bed.
+Every build is 484–487mm long, the author's two 487.4mm, and all of them fit a 600 × 308mm bed.
 
 ## Turn it in 3D
 
@@ -308,67 +305,62 @@ Its flue is in the nest, an engrave over the plug, as in the `-nest-flue` builds
 
 ### Redrawn at A4
 
-`your_flute.py` scales it to A4 and redraws it in two builds:
+`your_flute.py` redraws it in A4, in two builds:
 
 - `yours-flat-A4`: the sides butted between the top and the bottom, and glued.
 - `yours-fingers-A4`: finger-jointed top and bottom, with the trumpet bores' joint.
 
-The model hears the original near B♭4, as the last table below shows. To put it on A4, every dimension that sets
-the pitch is multiplied by one factor, **1.0705**, solved so the model gives 440.00Hz:
-the bore, the window, each hole's diameter, depression and distance from the window, and
-the sound chamber. What ply fixes does not scale: the 3mm wall, the plug's four discs,
-the slow air chamber, the exit hole, the cap's notch and the stepped block.
+The model hears the original near B♭4, as the last table below shows. The two builds
+put it on A4 at the bore of `box-square-3`, the build that shares its 3mm wall and its
+finger joints:
 
-| | Original | At A4 |
-|---|---|---|
-| Bore | 19.37 × 22.44mm, 435mm² | 20.74 × 24.02mm, 498mm² |
-| Window | 19.37 × 6.0mm | 20.74 × 6.4mm |
-| Sound chamber | 313.3mm | 335.3mm |
-| Overall length | 456.7mm | 479.0mm |
-| Finger holes, from the window | 213.9, 185.7, 156.9, 109.5, 78.0mm | 228.9, 198.8, 168.0, 117.2, 83.5mm |
-| Hole diameters | 7.73, 7.87, 7.79, 7.79, 5.47mm | 8.10, 7.35, 7.26, 7.76, 6.35mm |
+- **The same cross-section area**, 387.1mm², the 7/8in round bore's, which every build
+  has. The original's proportion of width to depth is kept, so the bore is 18.28 wide
+  by 21.18mm deep, not square.
+- **The same length, end to end**: the same 346.9mm sound chamber, the window centre in
+  the same place, and the same 15mm to trim at the foot, so 487.4mm overall. The slow air
+  chamber is 103.9mm instead of the original's 123.5.
+- **The holes stay where the original had them**, as fractions of the sound chamber, so
+  each moves along by 346.9 / 313.25.
 
-The hole diameters are re-solved rather than scaled. Scaling them too would leave the
-scale's shape behind: the wall stays 3mm while the holes grow, so each hole acts a
-little larger, and the model put the notes 4 to 47 cents sharp. So each hole keeps its
-scaled position and its diameter is solved, bottom hole first, until its note lands
-on equal temperament against A4 = 440Hz:
+| | Original | Redrawn in A4 | `box-square-3` |
+|---|---|---|---|
+| Bore | 19.37 × 22.44mm, 435mm² | 18.28 × 21.18mm, 387mm² | 19.67 × 19.67mm, 387mm² |
+| Window | 19.37 × 6.0mm | 18.28 × 7.31mm | 19.67 × 7.0mm |
+| Sound chamber | 313.3mm | 346.9mm | 346.9mm |
+| Overall length | 456.7mm | 487.4mm | 487.4mm |
+| Finger holes, from the window | 213.9, 185.7, 156.9, 109.5, 78.0mm | 236.8, 205.6, 173.8, 121.3, 86.4mm | 245.9, 220.9, 195.9, 143.0, 118.0mm |
+| Hole diameters | 7.73, 7.87, 7.79, 7.79, 5.47mm | 6.59, 5.89, 5.79, 6.37, 5.67mm | 7.57, 8.00, 9.39, 8.00, 6.42mm |
 
-| Hole | Note | Scaled from the original | Solved | Change |
-|---|---|---|---|---|
-| 1 | C5 | 8.27mm | 8.10mm | −0.17mm, 2% smaller |
-| 2 | D5 | 8.42mm | 7.35mm | −1.07mm, 13% smaller |
-| 3 | E5 | 8.34mm | 7.26mm | −1.08mm, 13% smaller |
-| 4 | G5 | 8.34mm | 7.76mm | −0.58mm, 7% smaller |
-| 5 | A5 | 5.86mm | 6.35mm | +0.49mm, 8% larger |
-
-Holes 2 and 3 depart most from the original pattern. In it they were the size of holes
-1 and 4, and now they are the two smallest of the four large holes. Every note lands
-within 0.01 cents of equal temperament, and the fundamental, with every hole closed,
-sits 0.8 cents above 440Hz.
+With the length held, only the window is left to set the fundamental. At
+`box-square-3`'s 7mm window the narrower bore and the original's hole pattern would put
+the flute 4 cents flat, so the window is solved to 7.31mm for 440Hz with every hole
+closed. Then each hole is held where it is and its diameter solved, bottom hole first,
+until its note lands on equal temperament against A4 = 440Hz. Every note lands within
+0.01 cents. The holes come out smaller than the original's: a narrower bore needs a
+smaller hole for the same step.
 
 The builds at the original size were removed at the author's asking; the original's own
 files are still in `yours/original/`. The tweaks made in redrawing it:
 
 1. Millimetre-true, in the house cut-order colours, kerf-compensated, with every part
    numbered. The originals are drawn in Inkscape's 1/90in units with no kerf.
-2. The plug is four 3mm discs, 12mm instead of 11. The exit hole moves 1mm toward the
-   mouth to make room.
+2. The plug is four 3mm discs, 12mm instead of 11, as in every build.
 3. In the fingers build the top is finger-jointed to the sides, like the bottom, so it
    press-fits instead of being glued. Its joint is the trumpet bores' one, 6mm
    fingers with no play, instead of the original's 10mm fingers.
 4. The rings are the original's own image, each kept in the original's proportion to
-   its hole, so they grow and shrink with the re-solved holes. The ramp is left out,
+   its hole, so they shrink with the re-solved holes. The ramp is left out,
    because the engraved bevel did not work.
 5. With the edge filed by hand, the top is one piece, as in every build: file the
    edge before assembly.
 
-Beyond the scaling, nothing acoustic is changed. The mouthpiece cap and the block's
+Beyond the bore, the window and the holes, nothing acoustic is changed. The mouthpiece cap and the block's
 layers are glued, as they were. The leather tie is its own file: cut it from leather, not ply.
 
 ### What the model hears in the original
 
-At its own size, before any scaling, and with the holes as the author cut them:
+At its own size, before any redrawing, and with the holes as the author cut them:
 
 | Holes open | Model | Above the fundamental | Minor pentatonic | Just ratio |
 |---|---|---|---|---|
@@ -465,7 +457,7 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `yours/cut-files/fingers-A4/your-flute-fingers-A4-sheet1-cut-files.svg` | the author's flute at A4, finger-jointed |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | its leather tie |
 | `yours/previews/` | display renderings of those three — **not** cut files |
-| `your_flute.py` | measures the original, scales it to A4 and redraws it |
+| `your_flute.py` | measures the original and redraws it in A4 at `box-square-3`'s bore |
 | `README.md` · `index.html` | this writeup and its published page; the markdown is the source |
 | `.repro` | the command that draws each shipped file |
 

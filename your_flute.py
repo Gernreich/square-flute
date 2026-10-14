@@ -7,8 +7,8 @@ asked for it.
     python3 your_flute.py --out=yours/cut-files
     python3 your_flute.py --only=flat --flat --out=DIR
 
-square_flute.py is not touched by any of this, so its six variants cannot
-move: this file imports its helpers and builds its own parts.
+square_flute.py is not touched by any of this, so its builds cannot move:
+this file imports its helpers and builds its own parts.
 
 WHAT WAS MEASURED, from yours/original/NAF_flatjoints.svg (Inkscape's 90 units
 to the inch, 0.28222mm a unit), along the flute from the mouth end:
@@ -59,28 +59,30 @@ THE TWEAKS, each because something asked for it:
      (2026-10-13). The seam it put 20mm past the window cost more than it saved.
 
 AT ITS OWN SIZE the model reads this flute as a minor pentatonic to within
-40 cents and puts it near B-flat 4. The builds here are not at its own size:
+40 cents and puts it near B-flat 4. The builds here are not at its own size.
 
-SCALED TO A4 (flat-A4 and fingers-A4, 2026-10-13, at the author's asking,
-and in place of the two builds at the original size, which the author asked
-to be removed; the original's own files stay in yours/original/): every
-dimension that sets the pitch is multiplied by one
-factor, solved so the model puts the fundamental on 440Hz -- 1.0705. That is
-the bore, the window, each hole's diameter, depression and distance from the
-window, and the sound chamber. What ply fixes does not scale: the 3mm wall,
-the plug's four discs, the slow air chamber, the exit hole, the cap's notch
-and the stepped block. So the intervals are NOT kept exactly: with the wall
-relatively thinner each hole acts a little larger, and they widen 4 to 12
-cents -- 300, 522, 733, 1038, 1217 at the original size become 304, 527, 739,
-1047, 1229.
+MATCHED TO box-square-3 (flat-A4 and fingers-A4, matched(), 2026-10-13, at
+the author's asking: "the bore length to be the same and the cross section
+area the same"). Until then they were the original scaled by 1.0705 to A4,
+which left them a bigger bore than every other build here (498mm^2 against
+387) and shorter (479.0mm against 484-487). Now:
 
-SO THE HOLE SIZES ARE RE-SOLVED (et_diams, the author's answer, 2026-10-13):
-the positions stay scaled, and each diameter is bisected, foot-most first,
-until its note lands on equal temperament against A4 = 440Hz. Holes 2 and 3
-come out about 1mm smaller than plain scaling makes them, hole 4 0.6mm
-smaller, hole 1 0.2mm smaller and hole 5 0.5mm larger. The fundamental, with
-every hole closed, then sits 0.8 cents above 440, within the 1-cent check, so
-the 1.0705 scale is kept.
+  area      the 7/8in round bore's, 387.1mm^2, as every build here has, in the
+            original's own proportion: 18.28 wide x 21.18mm deep
+  length    box-square-3's, end to end: its 346.9mm sound chamber, its window
+            centre, and its 15mm to trim at the foot, so 487.4mm overall. The
+            slow air chamber comes out 103.9mm, the original's 123.5 shortened
+            so the window lands where box-square-3's does
+  holes     kept where the original had them, as fractions of the sound
+            chamber, so each moves along by 346.9 / 313.25
+
+The narrower bore and longer chamber would put the flute 4 cents flat with
+box-square-3's 7mm window, and the length may not move, so solve() sets the
+WINDOW LENGTH, 7.31mm, for A4 = 440Hz with every hole closed, and bisects each
+hole diameter, foot-most first, until its note lands on equal temperament.
+They come out 6.59, 5.89, 5.79, 6.37 and 5.67mm, smaller than the original's
+7.7s, since a narrower bore needs a smaller hole for the same step. Each
+depression keeps the original's proportion to its hole.
 """
 import contextlib
 import base64
@@ -120,53 +122,39 @@ def png(name):
 
 
 A4_HZ = 440.0
+SPARE = 0.0                          # cut this much long at the foot; the original had none
 _BASE = dict(W=W, D=D, WIN=WIN, HOLES=HOLES, DIAMS=DIAMS, RING=RING, TOTAL=TOTAL)
 
 
-@contextlib.contextmanager
-def scaled(k):
-    """The flute with every pitch-setting dimension multiplied by k, for the
-    length of a with block: the bore, the window, the holes and their
-    depressions and distances from the window, and the sound chamber. At
-    k == 1 nothing is touched, so the faithful builds cannot move."""
-    g = globals()
-    if k == 1:
-        yield
-        return
-    b = _BASE
-    wc0 = (b['WIN'][0] + b['WIN'][1]) / 2
-    win = (b['WIN'][0], b['WIN'][0] + (b['WIN'][1] - b['WIN'][0]) * k)
-    wc = (win[0] + win[1]) / 2
-    new = dict(W=b['W'] * k, D=b['D'] * k, WIN=win, WC=wc,
-               HOLES=[wc + (h - wc0) * k for h in b['HOLES']],
-               DIAMS=[x * k for x in b['DIAMS']], RING=[x * k for x in b['RING']],
-               TOTAL=wc + (b['TOTAL'] - wc0) * k)
-    new['PW'] = new['W'] + 2 * T
-    # the cap keeps the original's allowance over the flute's outside
-    new['CAP'] = (new['PW'] + (CAP[0] - (b['W'] + 2 * T)),
-                  new['D'] + 2 * T + (CAP[1] - (b['D'] + 2 * T)), CAP[2])
-    saved = {n: g[n] for n in new}
-    g.update(new)
-    try:
-        yield
-    finally:
-        g.update(saved)
+def twin():
+    """The build of square_flute's this one is matched to: the box, square
+    bore, 3mm hole wall -- the same wall and joint as the original. Its
+    sound chamber, its window centre and its overall length, foot spare
+    included."""
+    L, _, _, _ = F.design(F.SQ, F.SQ, T)
+    wc = F.SAC + F.PLUG + M.WINDOW_L / 2
+    return L, wc, wc + L + M.FOOT_SPARE
 
 
-def et_diams():
-    """At the current scale, the hole diameters that put C5, D5, E5, G5 and A5
-    on equal temperament against A4_HZ, the positions held where they are.
-    Foot-most first, four passes, since a closed hole above still nudges the
-    note below."""
+def solve(W, D, L, holes, d, wl):
+    """The window length and the five hole diameters that put the flute on
+    A4 = 440Hz all closed and on C5, D5, E5, G5 and A5 in equal temperament,
+    the bore, the sound chamber and the hole positions held. The window sets
+    the fundamental, since the length may not move; each hole is bisected
+    foot-most first. Five passes, because a closed hole still nudges every
+    note below it and the window every note."""
     tg = [A4_HZ * 2 ** (s / 12) for s in M.SEMIS]
     saved = M.WINDOW_W, M.WINDOW_L
-    M.WINDOW_W, M.WINDOW_L = W, WIN[1] - WIN[0]
+    M.WINDOW_W = W
+    b = M.Bore(W, D)
+    d = list(d)
     try:
-        b = M.Bore(W, D)
-        L = TOTAL - WC
-        holes = [h - WC for h in HOLES]
-        d = list(DIAMS)
-        for _ in range(4):
+        for _ in range(5):
+            def g(x):
+                M.WINDOW_L = x
+                return M.sounding(b, L, holes, 0, T, A4_HZ, d)
+            wl = M.bisect(g, A4_HZ, 4.0, 12.0, rising=True)
+            M.WINDOW_L = wl
             for n in range(1, 6):
                 def f(x, i=n - 1, n=n):
                     ds = d[:]
@@ -177,38 +165,48 @@ def et_diams():
                  for n in range(6)]
     finally:
         M.WINDOW_W, M.WINDOW_L = saved
-    return d, cents
+    return wl, d, cents
 
 
 @contextlib.contextmanager
-def at_a4(k):
-    """scaled(k), with the hole diameters re-solved for equal temperament and
-    each depression kept in the original's proportion to its hole."""
-    with scaled(k):
-        g = globals()
-        saved = DIAMS, RING
-        d, cents = et_diams()
-        g['DIAMS'] = d
-        g['RING'] = [x * r0 / d0 for x, r0, d0 in zip(d, _BASE['RING'], _BASE['DIAMS'])]
-        g['ET_CENTS'] = cents
-        try:
-            yield
-        finally:
-            g['DIAMS'], g['RING'] = saved
-
-
-def a4_factor():
-    """The k at which the model puts the fundamental on A4_HZ, bisected."""
-    lo, hi = 1.0, 1.2
-    for _ in range(30):
-        mid = (lo + hi) / 2
-        with scaled(mid):
-            f = predict()[2][0]
-        if f > A4_HZ:
-            lo = mid
-        else:
-            hi = mid
-    return (lo + hi) / 2
+def matched():
+    """The flute redrawn at the bore of square_flute's box-square-3 builds:
+    the same cross-section area, the 7/8in round bore's, in the original's
+    own proportion of width to depth; and the same length end to end -- the
+    same sound chamber, window centre and foot spare, so the same overall
+    length. The holes keep their places as fractions of the sound chamber.
+    Then the window length and the hole diameters are solved for A4 in equal
+    temperament (solve), and each depression kept in the original's
+    proportion to its hole. Outside the with block the original stands."""
+    g = globals()
+    b = _BASE
+    wc0 = (b['WIN'][0] + b['WIN'][1]) / 2
+    L, wc, total = twin()
+    w = math.sqrt(M.AREA * b['W'] / b['D'])
+    d_ = M.AREA / w
+    s = L / (b['TOTAL'] - wc0)
+    holes = [(h - wc0) * s for h in b['HOLES']]
+    wl, diams, cents = solve(w, d_, L, holes, b['DIAMS'], M.WINDOW_L)
+    win = (wc - wl / 2, wc + wl / 2)
+    plug = (win[0] - 4 * T, win[0])
+    new = dict(W=w, D=d_, WIN=win, WC=wc, PLUG=plug, EXIT=(plug[0] - F.EXIT_L, plug[0]),
+               HOLES=[wc + h for h in holes], DIAMS=diams,
+               RING=[x * r0 / d0 for x, r0, d0 in zip(diams, b['RING'], b['DIAMS'])],
+               TOTAL=total, SPARE=M.FOOT_SPARE, ET_CENTS=cents, STRETCH=s)
+    new['PW'] = new['W'] + 2 * T
+    # the cap keeps the original's allowance over the flute's outside
+    new['CAP'] = (new['PW'] + (CAP[0] - (b['W'] + 2 * T)),
+                  new['D'] + 2 * T + (CAP[1] - (b['D'] + 2 * T)), CAP[2])
+    saved = {n: g[n] for n in new if n in g}
+    g.update(new)
+    try:
+        yield
+    finally:
+        for n in new:
+            if n in saved:
+                g[n] = saved[n]
+            else:
+                del g[n]
 
 
 def fingers_x():
@@ -334,12 +332,12 @@ def predict():
     """What the model hears in the original, at its own window and bore.
 
     The window is the module's global; it is put back afterwards, because
-    compare_page.py runs this in the same process as square_flute's six."""
+    page_assets.py runs this in the same process as square_flute's builds."""
     saved = M.WINDOW_W, M.WINDOW_L
     M.WINDOW_W, M.WINDOW_L = W, WIN[1] - WIN[0]
     try:
         b = M.Bore(W, D)
-        L = TOTAL - WC
+        L = TOTAL - WC - SPARE
         holes = [h - WC for h in HOLES]
         fs, near = [], 440.0
         for n in range(6):
@@ -420,26 +418,26 @@ def main():
         print(f'  {n} open  {f:6.1f}Hz  {nm:3} {c:+4.0f}c   {1200 * math.log2(f / fs[0]):5.0f}c '
               f'above the fundamental (a minor pentatonic wants {[0, 300, 500, 700, 1000, 1200][n]})')
     bad = 0
-    K = None
+    with matched():
+        L4, _, f4 = predict()
+        tL, _, tT = twin()
+        print(f'\nmatched to box-square-3: bore {W:.2f} x {D:.2f}mm, {W * D:.1f}mm^2 against '
+              f'{M.AREA:.1f}; sound chamber {L4:.1f}mm against {tL:.1f}; {TOTAL:.1f}mm long '
+              f'against {tT:.1f}, {SPARE:g} of it to trim at the foot')
+        print(f'  holes moved along by {STRETCH:.4f}, window solved to {WIN[1] - WIN[0]:.2f}mm, '
+              f'holes to ' + ', '.join(f'{x:.2f}' for x in DIAMS)
+              + 'mm; off equal temperament by ' + ', '.join(f'{c:+.2f}' for c in ET_CENTS)
+              + ' cents')
+        same = abs(W * D - M.AREA) < 0.01 and abs(L4 - tL) < 0.01 and abs(TOTAL - tT) < 0.01
+        print(f'  {"pass" if same else "FAIL"}  the same bore area and length as box-square-3')
+        worst = max(abs(c) for c in ET_CENTS)
+        print(f'  {"pass" if worst < 1 else "FAIL"}  every note within a cent of equal '
+              f'temperament   worst {worst:.2f} cents')
+        bad += (worst >= 1) + (not same)
     for kind in ('flat-A4', 'fingers-A4'):
         if only and only != kind:
             continue
-        k_ = 1.0
-        if kind.endswith('-A4'):
-            if K is None:
-                K = a4_factor()
-                with at_a4(K):
-                    L4, _, f4 = predict()
-                    print(f'\nscaled x{K:.4f} to A4: bore {W:.2f} x {D:.2f}mm, sound chamber '
-                          f'{L4:.1f}mm, holes re-solved to ' + ', '.join(f'{x:.2f}' for x in DIAMS)
-                          + 'mm; off equal temperament by ' + ', '.join(f'{c:+.2f}' for c in ET_CENTS)
-                          + ' cents')
-                    worst = max(abs(c) for c in ET_CENTS)
-                    print(f'  {"pass" if worst < 1 else "FAIL"}  every note within a cent of equal '
-                          f'temperament   worst {worst:.2f} cents')
-                    bad += worst >= 1
-            k_ = K
-        with (at_a4(k_) if kind.endswith('-A4') else scaled(k_)):
+        with matched():
             parts = build(kind.split('-')[0])
             sheets = pack(parts)
             print(f'\n{kind}: {len(parts)} parts')

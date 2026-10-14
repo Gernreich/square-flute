@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Cut files for a five-hole minor-pentatonic flute in A4, square or
-rectangular bore, in six variants.
+rectangular bore, in four builds with the flue in the bird.
 
     python3 square_flute.py --no-write        # the checks, write nothing
     python3 square_flute.py --out=DIR         # every variant into DIR/<variant>/
@@ -11,13 +11,11 @@ The acoustics are naf_model.py's: the sound-chamber length and where each
 finger hole goes, and how big, for the bore section and the hole wall. This
 file only builds what that asks for, in 3mm ply.
 
-THE SIX VARIANTS are every combination of three bores and two hole walls:
+THE FOUR BUILDS here are two bores and two hole walls (plus_flute.py makes
+the same four with the flue in the nest):
 
   box-square    a finger-jointed box, 19.67 x 19.67mm bore: four plates,
                 the sides tabbed into the top and bottom
-  box-rect      the same box, 18.43 wide x 21mm deep -- the stack's section,
-                built the box's way, so the two constructions can be compared
-                at one bore
   stack-rect    a laminated stack, 18.43 x 21mm: a bottom layer, seven bore
                 layers with the bore cut out of them, and the top
      -3         the finger holes go through the 3mm top plate alone
@@ -118,10 +116,8 @@ RW = M.AREA / 21.0
 # Named for where the flue is carved, since that is the one thing a build and
 # its counterpart in plus_flute.py differ in: -bird-flue here (the woodland
 # style), -nest-flue there (the plains style). Until 2026-10-13 these were
-# box-square-3 ... and their -plus versions, and there was a box-rect pair as
-# well -- the stack's rectangle built as a box, to compare box against stack at
-# one section. It answered that (they are acoustically the same), so the author
-# asked for it to go: a box is square, a stack is as square as layers allow.
+# box-square-3 ... and their -plus versions. A box is square; a stack is as
+# square as 3mm layers allow.
 VARIANTS = {
     'box-square-3-bird-flue': ('box', SQ, SQ, 3.0),
     'box-square-6-bird-flue': ('box', SQ, SQ, 6.0),
