@@ -51,6 +51,10 @@ p:has(img + img) img{flex:1 1 140px;min-width:0;width:auto;max-width:100%;height
 border:1px solid var(--line);border-radius:10px}
 figure svg,figure img{display:block;width:100%;max-width:100%;height:auto;
 border:1px solid var(--line);border-radius:10px}
+/* Any other image -- one inside a link, which is not a figure -- is held to the
+   column too. A cut-sheet preview linked to its cut file drew at its own size,
+   595mm wide, and ran off the page (square-flute, 2026-10-13). */
+img{max-width:100%;height:auto}
 a{color:var(--accent)}
 code{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 background:var(--codebg);padding:.1em .32em;border-radius:4px;
