@@ -8,16 +8,16 @@
 
 # --- the cut files, six builds, each with both halves of the flue ---
 cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3 --flat --out=$(dirname $OUT)
-cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3-flat --flat --out=$(dirname $OUT)
 cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6 --flat --out=$(dirname $OUT)
+cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-3-flat --flat --out=$(dirname $OUT)
 cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg :: python3 square_flute.py --only=box-square-6-flat --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-3 --flat --out=$(dirname $OUT)
 cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: python3 square_flute.py --only=stack-rect-6 --flat --out=$(dirname $OUT)
 
 # --- display renderings of them, never cut files ---
 previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg $OUT
-previews/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg $OUT
 previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg $OUT
+previews/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg $OUT
 previews/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg $OUT
 previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg $OUT
 previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: python3 ../lasermade-tools/make-preview.py cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg $OUT
