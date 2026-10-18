@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """Cut files for a five-hole minor-pentatonic flute in A4, square or
-rectangular bore: the six builds with the flue in the bird.
+rectangular bore: six builds, each with a savanna flue in two inks.
 
     python3 square_flute.py --no-write        # the checks, write nothing
     python3 square_flute.py --out=DIR         # every variant into DIR/<variant>/
-    python3 square_flute.py --only=box-square-3-bird-flue --out=DIR
-    python3 square_flute.py --only=box-square-3-bird-flue --flat --out=DIR   # no subfolder
+    python3 square_flute.py --only=box-square-3 --out=DIR
+    python3 square_flute.py --only=box-square-3 --flat --out=DIR   # no subfolder
 
 The acoustics are naf_model.py's: the sound-chamber length and where each
 finger hole goes, and how big, for the bore section and the hole wall. This
 file only builds what that asks for, in 3mm ply.
 
 THE SIX BUILDS here are two constructions and two hole walls, the boxes
-finger-jointed or flat (plus_flute.py makes the same six with the flue in
-the nest, and six more with it split, the savanna builds):
+finger-jointed or flat:
 
   box-square    a finger-jointed box, 16.88 x 16.88mm bore: four plates,
                 the sides' fingers in notches in the top and bottom, flush
@@ -44,9 +43,14 @@ FROM THE MOUTH END, the same in every variant:
 
 The block (the bird) sits over the exit hole and the plug, its front edge on
 the window's upstream edge, tied on and not glued, so it can be slid to voice
-the flute. Its underside carries the flue as a FILL ENGRAVE, the bore's width: the
-one feature here a laser draws better than a saw, since its depth -- about
-1mm -- is a power setting rather than a cut.
+the flute. The flue is a FILL ENGRAVE, the bore's width: the one feature
+here a laser draws better than a saw, since its depth is a power setting
+rather than a cut. It is drawn as a SAVANNA flue, half in the bird's
+underside and half in the nest, the top plate's face over the plug, each
+half in an ink of its own (BIRD_INK, NEST_INK), so either or both can be
+run: a woodland (bird) or plains (nest) flue about 1mm deep, or a savanna
+one at about 0.5mm each. Until 2026-10-18 each was a build of its own,
+eighteen in all, the nest and savanna ones from a plus_flute.py.
 
 THE SPLITTING EDGE is the window's downstream edge, and it wants a clean
 bevel of about 30 degrees that a laser cannot cut. File it by hand, before
@@ -85,8 +89,7 @@ def set_kerf(arg):
     """--kerf=MM: the laser's real kerf, for a recut when the press-fit
     comes out loose (a wider kerf) or too tight (a narrower one). Every
     outline is offset by half of it when the sheet is written, so it is read
-    then, not at import: plus_flute.py, your_flute.py and the ocarinas'
-    generator, which draw through this module, follow it too."""
+    then, not at import: your_flute.py and the ocarinas' generator, which draw through this module, follow it too."""
     global KERF
     try:
         k = float(arg.split('=', 1)[1])
@@ -132,25 +135,29 @@ MARGIN, GAP = 5.0, 4.0
 MIN_WEB = 1.5        # thinnest ply left between two cuts
 
 BLUE, ORANGE, BLACK = '#0000ff', '#ff8000', '#000000'
+# The flue's two halves, an ink each so the laser runs either or both. The
+# house order has one engrave ink, blue, which the depressions keep, and
+# green and cyan are cut stages, so these two are new (2026-10-18; the
+# four-hole ocarinas' duct uses them too).
+BIRD_INK, NEST_INK = '#ff0000', '#ff00ff'
 # no part numbers: the 3D view shows where every part goes (the author,
 # 2026-10-13), so nothing but the flue and the depressions is engraved
 
 SQ = math.sqrt(M.AREA)
 RW = M.AREA / 18.0
-# Named for where the flue is carved, since that is the one thing a build and
-# its counterpart in plus_flute.py differ in: -bird-flue here (the woodland
-# style), -nest-flue there (the plains style). Until 2026-10-13 these were
-# box-square-3 ... and their -plus versions. A box is square; a stack is as
-# square as 3mm layers allow.
+# Named for the construction and the hole wall. From 2026-10-13 to -18 each
+# also came three ways, -bird-flue, -nest-flue and -savanna-flue; now every
+# build carries both halves of the flue, in two inks. A box is square; a
+# stack is as square as 3mm layers allow.
 VARIANTS = {
-    'box-square-3-bird-flue': ('box', SQ, SQ, 3.0),
-    'box-square-6-bird-flue': ('box', SQ, SQ, 6.0),
+    'box-square-3': ('box', SQ, SQ, 3.0),
+    'box-square-6': ('box', SQ, SQ, 6.0),
     # the same boxes butt-jointed: plain plates, the sides glued between the
     # top and the bottom, as the author's 2017 flute was built
-    'box-square-3-bird-flue-flat': ('flat', SQ, SQ, 3.0),
-    'box-square-6-bird-flue-flat': ('flat', SQ, SQ, 6.0),
-    'stack-rect-3-bird-flue': ('stack', RW, 18.0, 3.0),
-    'stack-rect-6-bird-flue': ('stack', RW, 18.0, 6.0),
+    'box-square-3-flat': ('flat', SQ, SQ, 3.0),
+    'box-square-6-flat': ('flat', SQ, SQ, 6.0),
+    'stack-rect-3': ('stack', RW, 18.0, 3.0),
+    'stack-rect-6': ('stack', RW, 18.0, 6.0),
 }
 
 
@@ -338,11 +345,15 @@ def build(kind, W, D, wall, L, holes, diams):
 
     def top_plate():
         p = Part('top plate', next(num), rect(0, 0, total, PW),
-                 'exit hole, window and the five finger holes; file the window\'s '
+                 'exit hole, window and the five finger holes, and the nest\'s half '
+                 'of the flue fill-engraved over the plug; file the window\'s '
                  'far edge to a 30 degree bevel before assembly')
         # the exit hole and the window both run the bore's full width
         p.slot(SAC - EXIT_L, yc - W / 2, SAC, yc + W / 2)
         p.slot(SAC + PLUG, yc - W / 2, SAC + PLUG + M.WINDOW_L, yc + W / 2)
+        # the nest's half of the flue, between the two: the plug's span
+        p.fills.append(rect(SAC, yc - W / 2, SAC + PLUG, yc + W / 2))
+        p.ink = NEST_INK
         for x, d in zip(hx, diams):
             p.hole(x, yc, d)
             r = d * RING_OF
@@ -395,14 +406,18 @@ def build(kind, W, D, wall, L, holes, diams):
     b0 = SAC - EXIT_L - BIRD_UPSTREAM
     for k in range(BIRD_LAYERS):
         p = Part('bird layer', next(num), rect(b0, 0, SAC + PLUG, PW),
-                 'the flue fill-engraved in the bottom one, about 1mm deep'
+                 'the bird\'s half of the flue fill-engraved in its underside'
                  if k == 0 else 'glued on the one below')
         if k == 0:
+            # from the exit hole's upstream edge to the window
             p.fills.append(rect(SAC - EXIT_L, yc - W / 2, SAC + PLUG, yc + W / 2))
+            p.ink = BIRD_INK
         parts.append(p)
     # last, so every part number the variants had before it is unchanged
     parts.append(cap_part(next(num), PW, D + 2 * T))
     return parts, dict(total=total, wc=wc, PW=PW, hx=hx,
+                       fingers=xs if kind == 'box' else [],
+                       exit=(SAC - EXIT_L, SAC), win=(SAC + PLUG, SAC + PLUG + M.WINDOW_L),
                        doubler=(dz0, dz1) if wall > T else None)
 
 
@@ -442,6 +457,21 @@ def checks(name, kind, W, D, wall, parts, info, L, holes, diams, cents, sheets):
     edge = T if kind in ('box', 'flat') else 1.0
     note(max(rings) / 2 <= info['PW'] / 2 - edge, 'each depression clears the plate\'s edge joints',
          f'{info["PW"] / 2 - edge - max(rings) / 2:.1f}mm to spare')
+    tf = [p for p in parts if p.name.startswith('top')][0].fills
+    bf = [p.fills for p in parts if p.name == 'bird layer' and p.fills]
+    if tf and len(bf) == 1:
+        x0, x1 = max(tf[0][0][0], bf[0][0][0][0]), min(tf[0][1][0], bf[0][0][1][0])
+        ok = x1 - x0 >= info['win'][0] - info['exit'][1] - 0.01 and tf[0][0][1] == bf[0][0][0][1]
+    else:
+        ok, x0, x1 = False, 0, 0
+    note(ok, 'both halves of the flue cover the plug, in line',
+         f'{x1 - x0:.1f}mm in common, nest and bird')
+    if kind == 'box':
+        near = min((min(abs(x - a), abs(x - b)) - FINGER / 2
+                    for x in info['fingers'] for a, b in (info['exit'], info['win'])),
+                   default=99)
+        note(near >= FINGER_CLEAR, 'no finger notch beside a full-width opening',
+             f'{len(info["fingers"])} fingers a side, nearest {near:.1f}mm from one')
     tops = [p for p in parts if p.name.startswith('top')]
     note(len(tops) == 1 and tops[0].w == info['total'], 'the top is one piece',
          f'{len(tops)} plate, {tops[0].w:.1f}mm long')
@@ -508,8 +538,8 @@ def ring_data():
 
 
 def svg_sheet(variant, k, n, s, info, what):
-    orange, black = [], []
-    fills, imgs = [], []
+    orange, black, imgs = [], [], []
+    fills = {BIRD_INK: [], NEST_INK: []}
     for p, sx, sy in s['parts']:
         dx, dy = sx - p.x0 + KERF / 2, sy - p.y0 + KERF / 2
         mv = lambda pts: [(x + dx, y + dy) for x, y in pts]
@@ -527,19 +557,20 @@ def svg_sheet(variant, k, n, s, info, what):
                 orange.append(f'<circle cx="{cx + dx:.3f}" cy="{cy + dy:.3f}" '
                               f'r="{r - KERF / 2:.3f}"/>')
         for f in p.fills:
-            fills.append(path(mv(f)))
+            fills[p.ink].append(path(mv(f)))
         for name, x, y, w, h in p.images:
             imgs.append(f'<image x="{x + dx:.3f}" y="{y + dy:.3f}" width="{w:.3f}" '
                         f'height="{h:.3f}" preserveAspectRatio="none" href="{ring_data()}"/>')
     desc = (f'1 user unit = 1mm. Square-bore flute in A4, {variant}, sheet {k} of {n}: '
             f'{what}. 3mm ply, drawn for a {KERF:g}mm kerf. Finger joints as the trumpet '
             f'bores cut them: {FINGER:g}mm fingers and spaces, no play, the fit from the '
-            f'kerf. Blue {BLUE} engraves '
-            f'(the flue as a fill engrave about 1mm deep; and the '
-            f'depression round each finger hole, a greyscale image engrave, Grayscale '
-            f'mode in xTool Creative Space -- set both depths on scrap first), orange '
-            f'{ORANGE} cuts the holes and slots, '
-            f'black {BLACK} frees the parts.')
+            f'kerf. Engraves first. The flue is a fill engrave in two inks, run either or '
+            f'both: red {BIRD_INK} in the bird\'s underside, magenta {NEST_INK} in the top '
+            f'over the plug; one alone about 1mm deep, both about 0.5mm each. Blue {BLUE} '
+            f'engraves the depression round each finger hole, a greyscale image engrave, '
+            f'Grayscale mode in xTool Creative Space. Set every depth on scrap first. Then '
+            f'the cuts: orange {ORANGE} cuts the holes and slots, and black {BLACK} frees '
+            f'the parts.')
     g = lambda col, items, fill='none': (
         f'  <g fill="{fill}" stroke="{col}" stroke-width="0.2">\n'
         + ''.join(f'    {i}\n' if i.startswith('<') else f'    <path d="{i}"/>\n'
@@ -551,9 +582,9 @@ def svg_sheet(variant, k, n, s, info, what):
             f'<desc>{desc}</desc>\n'
             + (f'  <g id="images">\n' + ''.join(f'    {i}\n' for i in imgs) + '  </g>\n'
                if imgs else '')
-            + (f'  <g fill="{BLUE}" stroke="none">\n'
-               + ''.join(f'    <path d="{d}"/>\n' for d in fills) + '  </g>\n'
-               if fills else '')
+            + ''.join(f'  <g fill="{ink}" stroke="none">\n'
+                      + ''.join(f'    <path d="{d}"/>\n' for d in ds) + '  </g>\n'
+                      for ink, ds in fills.items() if ds)
             + g(ORANGE, orange) + g(BLACK, black) + '</svg>\n')
 
 

@@ -2,14 +2,14 @@
 """The author's own flute, from 2017: the design in yours/original/ measured,
 and what the model hears in it. It is not redrawn as a build of its own any
 more (2026-10-13, the author): at the 3/4in bore its redraw was a box-square-3
-nest-flue build, flat or finger-jointed, in all but its holes and block, and
-the 3D page's joint toggle covers it. Its ideas are in every build.
+build with only the nest's half of the flue run, flat or finger-jointed, in all
+but its holes and block, and the 3D page's joint toggle covers it. Its ideas are in every build.
 
     python3 your_flute.py --no-write          # what the model hears in it
     python3 your_flute.py --out=yours/cut-files   # and the leather tie
 
-This file also holds the sheet writer plus_flute.py uses (svg), and draws
-the leather tie, cut from leather, not ply.
+This file also draws the leather tie, cut from leather, not ply, with its
+own sheet writer (svg).
 
 WHAT WAS MEASURED, from yours/original/NAF_flatjoints.svg (Inkscape's 90 units
 to the inch, 0.28222mm a unit), along the flute from the mouth end:

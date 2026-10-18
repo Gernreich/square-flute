@@ -22,10 +22,10 @@ every build.
 
 <table>
 <tr>
-<td align="center"><a href="cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg"><img src="previews/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two openings across its width near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, each ringed by a soft engraved depression, four small square plug discs, three bird layers, one with a blue filled rectangle for the flue, and a mouthpiece cap with a half-round notch in one edge; the bottom plate has a matching half-round notch in its mouth end" width="100%"></a></td>
+<td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two openings across its width near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, each ringed by a soft engraved depression, four small square plug discs, three bird layers, one with a red filled rectangle for the bird's half of the flue, the top with a magenta one between its two openings for the nest's half, and a mouthpiece cap with a half-round notch in one edge; the bottom plate has a matching half-round notch in its mouth end" width="100%"></a></td>
 </tr>
 <tr>
-<td align="center"><sub>box-square-6-bird-flue · the whole flute on one 593 × 141mm sheet</sub></td>
+<td align="center"><sub>box-square-6 · the whole flute on one 593 × 141mm sheet</sub></td>
 </tr>
 </table>
 
@@ -38,13 +38,12 @@ generator and tool, indexed.
 
 ## The builds
 
-The box and the stack each come with the finger holes in 3mm or 6mm of wall. Each of
-those four comes three ways, the same in every part but the ones the flue is carved in:
-`-bird-flue` (the woodland style), `-nest-flue` (the plains style), or `-savanna-flue`,
-half its depth in each, as in `box-square-3-bird-flue`, `box-square-3-nest-flue` and
-`box-square-3-savanna-flue`. The boxes come finger-jointed,
-or **flat**, butt-jointed and glued as the 2017 flute was: `box-square-3-bird-flue-flat`.
-The 3D view below has a toggle for each.
+Six builds. The box and the stack each come with the finger holes in 3mm or 6mm of
+wall, and the boxes come finger-jointed or **flat**, butt-jointed and glued as the 2017
+flute was: `box-square-3-flat`. The 3D view below has a toggle for each. Every build
+carries its flue both ways at once, in the bird and in the nest, each in a colour of its
+own, so the laser cuts whichever you choose: see
+[Bird, nest or savanna flue](#bird-nest-or-savanna-flue-woodland-plains-and-between).
 
 | Build | Construction | Bore | Hole wall | Parts | Sheets | Joints |
 |---|---|---|---|---|---|---|
@@ -110,7 +109,7 @@ its length.
 18mm apart in 3mm of wall, and 28, 30, 47 and 15mm apart in 6mm; two fingers will not
 cover holes 15 or 18mm apart. So the lower hand takes holes 1–3
 and the upper hand 4–5, each hand's holes 25mm apart, and each hole is sized to its
-note. The bird-, nest- and savanna-flue builds of each share a layout:
+note. A flat box shares its jointed twin's layout:
 
 | Builds | Sound chamber | Hole 1, C5 | Hole 2, D5 | Hole 3, E5 | Hole 4, G5 | Hole 5, A5 |
 |---|---|---|---|---|---|---|
@@ -162,11 +161,10 @@ plays flat can be opened with a file. A hole that plays sharp cannot be closed u
 **The bore is 3/4in, the size for A4.** [Flutopedia's bore table](https://www.flutopedia.com/bore_diameter.htm)
 puts A4 near 3/4in, so these sit with most flutes in this key.
 
-**The flue is a fill engrave**, about 1mm deep and the full width of the bore. In the
-`-bird-flue` builds it is on the underside of the bottom bird layer, woodland style. In
-the `-nest-flue` builds and the 2017 flute, it is on the top plate over the plug, plains
-style. In the `-savanna-flue` builds it is both, each about 0.5mm deep. The depth is a power
-setting, so find it on scrap first.
+**The flue is a fill engrave**, the full width of the bore, in two colours: **red** on
+the underside of the bottom bird layer, and **magenta** on the top plate over the plug.
+Run one for a bird or a nest flue, about 1mm deep, or both, about 0.5mm each, for a
+savanna flue. The depth is a power setting, so find it on scrap first.
 
 **File the splitting edge by hand.** The window's far edge, where the air splits, needs
 a clean bevel of about 30°, and a laser cuts square, charred edges. File it before
@@ -184,9 +182,11 @@ on the [lyre-harp](https://github.com/Gernreich/lyre-harp). Press-fit, then seal
 seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece
 cap are glued.
 
-Run the colours **blue, orange, black**: blue engraves the flue, orange cuts the holes,
-slots and windows, and black frees the parts. That is the sequence every LaserMadeMusic
-repository uses. The parts are not numbered: the 3D view shows where each one goes. Every build also carries a greyscale
+Run the engraves first, then the cuts. **Red** and **magenta** engrave the flue's two
+halves, either or both; **blue** engraves the depressions; then **orange** cuts the
+holes, slots and windows, and **black** frees the parts. Red and magenta are outside the
+house order every LaserMadeMusic repository uses, whose one engrave colour is blue: the
+two halves need a colour each so that either can be left off. The parts are not numbered: the 3D view shows where each one goes. Every build also carries a greyscale
 image round each finger hole, the depression. It needs an image
 engrave that turns grey into depth, such as Grayscale mode in xTool Creative Space.
 
@@ -207,8 +207,7 @@ engrave that turns grey into depth, such as Grayscale mode in xTool Creative Spa
 python3 naf_model.py                          # the holes for every build, printed
 python3 naf_model.py --mouth=0.8              # with a different window correction
 python3 square_flute.py --no-write            # the generator's checks, writing nothing
-python3 square_flute.py --out=cut-files       # the bird-flue builds
-python3 plus_flute.py --out=cut-files         # the nest- and savanna-flue builds
+python3 square_flute.py --out=cut-files       # all six builds
 python3 square_flute.py --kerf=0.18 --out=mine  # for a laser with a 0.18mm kerf
 python3 your_flute.py --out=yours/cut-files   # the 2017 flute's prediction, and its leather tie
 python3 page_assets.py                        # viewer.js, turn.html and the two plans
@@ -220,7 +219,7 @@ hydraulic radius, which is where a square differs from a circle. Each finger hol
 Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a
 short closed stub up to the plug.
 
-`square_flute.py` builds each bird-flue build from what the model asks for and checks it before
+`square_flute.py` builds each of the six from what the model asks for and checks it before
 writing anything:
 
 - every note within a cent of its target
@@ -229,6 +228,9 @@ writing anything:
 - enough ply between neighbouring holes, and between a hole and a finger notch
 - the fingers flush with the outside faces
 - the top in one piece
+- the flue's two halves, nest and bird, lined up over the whole plug
+- in a box, no finger notch beside the exit hole or the window, which both reach the
+  notches' floor
 - the cap's notch and the bottom plate's end notch both opening into the bore
 - the depressions clear of each other and of the plate's edges, and the doubler clear of
   the window
@@ -243,20 +245,20 @@ originals as shipped without one.
 
 ## Bird, nest or savanna flue: woodland, plains and between
 
-Each build comes three ways, named for the one thing that differs between them: where
-the flue is carved. In a `-bird-flue` build it is engraved in the underside of the
-bird. In a `-nest-flue` build it is engraved in the **nest**, the top plate's face over
-the plug, and the bird is three plain layers. In a `-savanna-flue` build it is split,
-about 0.5mm in each, the two engraves lined up over the plug.
+Where the flue is carved is chosen at the laser, not in the file. Every sheet carries
+both halves, each in a colour of its own: **red** in the underside of the bird, and
+**magenta** in the **nest**, the top plate's face over the plug. The two are lined up,
+so run either or both:
+
+| Run | Where the flue is carved | Style | Depth |
+|---|---|---|---|
+| red only | the underside of the block, the bird | **woodland** | about 1mm |
+| magenta only | the flute's body, the nest under the bird, as in the 2017 flute | **plains**, or prairie | about 1mm |
+| both | half in each | **savanna**, where the woodland meets the prairie: not a traditional style, an experiment | about 0.5mm each |
 
 Bird and nest are the two traditional places for a Native American flute's flue, kept
-side by side on purpose; savanna, half in each, is an experiment between them:
-
-| | Where the flue is carved | Style | Here |
-|---|---|---|---|
-| `-bird-flue` | the underside of the block, the bird | **woodland** | `box-square-3-bird-flue` … `stack-rect-6-bird-flue` |
-| `-nest-flue` | the flute's body, the nest under the bird | **plains**, or prairie | `box-square-3-nest-flue` … `stack-rect-6-nest-flue`, and the 2017 flute |
-| `-savanna-flue` | half in each, about 0.5mm deep apiece | **savanna**, where the woodland meets the prairie: not a traditional style, an experiment | `box-square-3-savanna-flue` … `stack-rect-6-savanna-flue` |
+side by side on purpose; savanna, half in each, is an experiment between them. Until
+2026-10-18 each was a build of its own, eighteen in all.
 
 The two put the airstream at different heights. A flue carved in the bird has the nest's
 flat surface as its floor, so the air leaves **just above** the top plate. A flue carved
@@ -319,11 +321,12 @@ It tried two things the first designs here did not:
 </tr>
 </table>
 
-Its flue is in the nest, an engrave over the plug, as in the `-nest-flue` builds.
+Its flue is in the nest, an engrave over the plug, as in a build cut with only the
+magenta half of its flue.
 
 Its ideas are in every build: the full-width window and exit hole, the cap with its
-notch, the depressions round the holes, and, in the `-nest-flue` builds, its flue. A
-`box-square-3-nest-flue-flat` is the nearest build to it. The leather tie is its own
+notch, the depressions round the holes, and the nest's half of every flue. A
+`box-square-3-flat` with only the magenta half run is the nearest build to it. The leather tie is its own
 file, `yours/cut-files/your-flute-leather-tie-cut-files.svg`: cut it from leather, not
 ply.
 
@@ -350,107 +353,46 @@ with it the foot of every build here.
 
 Every build, every sheet. Each picture is a display rendering; click it for the cut file.
 
-**`box-square-3-bird-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue in the bird, woodland · 12 parts on 1 sheet
+**`box-square-3`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 3mm of wall · 12 parts on 1 sheet
 
-[![box-square-3-bird-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg)](cut-files/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg)
+[![box-square-3, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)](cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)
 
-**`box-square-3-bird-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue in the bird, woodland · 12 parts on 1 sheet
+**`box-square-3-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall · 12 parts on 1 sheet
 
-[![box-square-3-bird-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg)
+[![box-square-3-flat, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)](cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)
 
-**`box-square-3-nest-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue in the nest, plains · 12 parts on 1 sheet
+**`box-square-6`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
 
-[![box-square-3-nest-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg)](cut-files/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg)
+[![box-square-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)](cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)
 
-**`box-square-3-nest-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue in the nest, plains · 12 parts on 1 sheet
+**`box-square-6-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
 
-[![box-square-3-nest-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg)
+[![box-square-6-flat, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg)](cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg)
 
-**`box-square-3-savanna-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue half in the bird and half in the nest, savanna · 12 parts on 1 sheet
+**`stack-rect-3`** · laminated stack, bore 15.83 × 18.00mm, holes in 3mm of wall · 12 parts on 1 sheet
 
-[![box-square-3-savanna-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-savanna-flue/square-flute-A4-box-square-3-savanna-flue-sheet1-cut-files.svg)](cut-files/box-square-3-savanna-flue/square-flute-A4-box-square-3-savanna-flue-sheet1-cut-files.svg)
+[![stack-rect-3, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)](cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)
 
-**`box-square-3-savanna-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall, the flue half in the bird and half in the nest, savanna · 12 parts on 1 sheet
+**`stack-rect-6`** · laminated stack, bore 15.83 × 18.00mm, holes in 6mm of wall · 13 parts on 1 sheet
 
-[![box-square-3-savanna-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-3-savanna-flue-flat/square-flute-A4-box-square-3-savanna-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-3-savanna-flue-flat/square-flute-A4-box-square-3-savanna-flue-flat-sheet1-cut-files.svg)
-
-**`box-square-6-bird-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue in the bird, woodland · 13 parts on 1 sheet
-
-[![box-square-6-bird-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg)](cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg)
-
-**`box-square-6-bird-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue in the bird, woodland · 13 parts on 1 sheet
-
-[![box-square-6-bird-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg)
-
-**`box-square-6-nest-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue in the nest, plains · 13 parts on 1 sheet
-
-[![box-square-6-nest-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg)](cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg)
-
-**`box-square-6-nest-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue in the nest, plains · 13 parts on 1 sheet
-
-[![box-square-6-nest-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg)
-
-**`box-square-6-savanna-flue`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue half in the bird and half in the nest, savanna · 13 parts on 1 sheet
-
-[![box-square-6-savanna-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-savanna-flue/square-flute-A4-box-square-6-savanna-flue-sheet1-cut-files.svg)](cut-files/box-square-6-savanna-flue/square-flute-A4-box-square-6-savanna-flue-sheet1-cut-files.svg)
-
-**`box-square-6-savanna-flue-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall, the flue half in the bird and half in the nest, savanna · 13 parts on 1 sheet
-
-[![box-square-6-savanna-flue-flat, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/box-square-6-savanna-flue-flat/square-flute-A4-box-square-6-savanna-flue-flat-sheet1-cut-files.svg)](cut-files/box-square-6-savanna-flue-flat/square-flute-A4-box-square-6-savanna-flue-flat-sheet1-cut-files.svg)
-
-**`stack-rect-3-bird-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 3mm of wall, the flue in the bird, woodland · 12 parts on 1 sheet
-
-[![stack-rect-3-bird-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg)](cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg)
-
-**`stack-rect-3-nest-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 3mm of wall, the flue in the nest, plains · 12 parts on 1 sheet
-
-[![stack-rect-3-nest-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg)](cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg)
-
-**`stack-rect-3-savanna-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 3mm of wall, the flue half in the bird and half in the nest, savanna · 12 parts on 1 sheet
-
-[![stack-rect-3-savanna-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-3-savanna-flue/square-flute-A4-stack-rect-3-savanna-flue-sheet1-cut-files.svg)](cut-files/stack-rect-3-savanna-flue/square-flute-A4-stack-rect-3-savanna-flue-sheet1-cut-files.svg)
-
-**`stack-rect-6-bird-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 6mm of wall, the flue in the bird, woodland · 13 parts on 1 sheet
-
-[![stack-rect-6-bird-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg)](cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg)
-
-**`stack-rect-6-nest-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 6mm of wall, the flue in the nest, plains · 13 parts on 1 sheet
-
-[![stack-rect-6-nest-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg)](cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg)
-
-**`stack-rect-6-savanna-flue`** · laminated stack, bore 15.83 × 18.00mm, holes in 6mm of wall, the flue half in the bird and half in the nest, savanna · 13 parts on 1 sheet
-
-[![stack-rect-6-savanna-flue, sheet 1 of 1: the parts laid out for the laser, holes and slots in orange, outlines in black](previews/stack-rect-6-savanna-flue/square-flute-A4-stack-rect-6-savanna-flue-sheet1-cut-files.svg)](cut-files/stack-rect-6-savanna-flue/square-flute-A4-stack-rect-6-savanna-flue-sheet1-cut-files.svg)
+[![stack-rect-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)](cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)
 
 ## Files
 
 | | |
 |---|---|
-| `cut-files/box-square-3-bird-flue/square-flute-A4-box-square-3-bird-flue-sheet1-cut-files.svg` | box, square bore, 3mm hole wall, bird flue |
-| `cut-files/box-square-3-bird-flue-flat/square-flute-A4-box-square-3-bird-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/box-square-3-nest-flue/square-flute-A4-box-square-3-nest-flue-sheet1-cut-files.svg` | box, square bore, 3mm hole wall, nest flue |
-| `cut-files/box-square-3-nest-flue-flat/square-flute-A4-box-square-3-nest-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/box-square-3-savanna-flue/square-flute-A4-box-square-3-savanna-flue-sheet1-cut-files.svg` | box, square bore, 3mm hole wall, savanna flue |
-| `cut-files/box-square-3-savanna-flue-flat/square-flute-A4-box-square-3-savanna-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/box-square-6-bird-flue/square-flute-A4-box-square-6-bird-flue-sheet1-cut-files.svg` | box, square bore, 6mm hole wall, bird flue |
-| `cut-files/box-square-6-bird-flue-flat/square-flute-A4-box-square-6-bird-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/box-square-6-nest-flue/square-flute-A4-box-square-6-nest-flue-sheet1-cut-files.svg` | box, square bore, 6mm hole wall, nest flue |
-| `cut-files/box-square-6-nest-flue-flat/square-flute-A4-box-square-6-nest-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/box-square-6-savanna-flue/square-flute-A4-box-square-6-savanna-flue-sheet1-cut-files.svg` | box, square bore, 6mm hole wall, savanna flue |
-| `cut-files/box-square-6-savanna-flue-flat/square-flute-A4-box-square-6-savanna-flue-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
-| `cut-files/stack-rect-3-bird-flue/square-flute-A4-stack-rect-3-bird-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall, bird flue |
-| `cut-files/stack-rect-3-nest-flue/square-flute-A4-stack-rect-3-nest-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall, nest flue |
-| `cut-files/stack-rect-3-savanna-flue/square-flute-A4-stack-rect-3-savanna-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall, savanna flue |
-| `cut-files/stack-rect-6-bird-flue/square-flute-A4-stack-rect-6-bird-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall, bird flue |
-| `cut-files/stack-rect-6-nest-flue/square-flute-A4-stack-rect-6-nest-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall, nest flue |
-| `cut-files/stack-rect-6-savanna-flue/square-flute-A4-stack-rect-6-savanna-flue-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall, savanna flue |
+| `cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg` | box, square bore, 3mm hole wall |
+| `cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
+| `cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg` | box, square bore, 6mm hole wall |
+| `cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg` | the same, butt-jointed and glued |
+| `cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall |
+| `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall |
 | `previews/` | display renderings of every sheet — **not** cut files |
 | `viewer.js` | the 3D view of every build, loaded by the published page |
 | `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
 | `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
-| `plus_flute.py` | the nest- and savanna-flue builds |
 | `naf_model.py` | the acoustic model |
-| `square_flute.py` | the generator, and the bird-flue builds |
+| `square_flute.py` | the generator, its checks and every build |
 | `page_assets.py` | builds `viewer.js`, `turn.html` and the plans |
 | `yours/original/` | the author's 2017 files, unchanged but for the metadata stripped from the two PNGs: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | the 2017 flute's leather tie |
