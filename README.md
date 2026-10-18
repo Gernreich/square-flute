@@ -151,8 +151,8 @@ and the harmonic 7:4 at 968.8.
 
 **The window's end correction is not measured.** It is the least certain term in the
 model, and no built flute has checked it yet. Each 1mm of error in it moves the foot
-about 2.3mm. So the sound chamber is cut **15mm long**: trim the foot until the flute
-sounds A4 with every hole closed.
+about 2.3mm. So the sound chamber is cut **15mm longer** than the model's: trim the foot
+until the flute sounds A4 with every hole closed.
 
 **The holes move with it, almost as far.** A 10% error in that correction moves the
 foot 2.3mm and every hole 2.1–2.2mm. Trimming the foot puts the fundamental right but
@@ -177,7 +177,9 @@ recut the top.
 ones on the trumpet bores in
 [trumpet-elbows-allowed](https://github.com/Gernreich/trumpet-elbows-allowed): Boxes.py's
 own, with 6mm fingers and 6mm spaces and no play, so the fit comes from the kerf
-compensation alone (a `-flat` box glues its sides instead). The plug discs are drawn 0.12mm over the bore, the mallet fit used
+compensation alone (a `-flat` box glues its sides instead). **If your laser's kerf is
+not 0.13mm, redraw the sheets for its own** with `--kerf=`: a press-fit that comes
+out loose wants a wider kerf, one too tight to close a narrower one. The plug discs are drawn 0.12mm over the bore, the mallet fit used
 on the [lyre-harp](https://github.com/Gernreich/lyre-harp). Press-fit, then seal every
 seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece
 cap are glued.
@@ -191,7 +193,9 @@ engrave that turns grey into depth, such as Grayscale mode in xTool Creative Spa
 ## Tuning
 
 1. Tie the bird on over the exit hole, its front edge on the window's near edge. It is
-   tied rather than glued, so it can be slid to voice the flute.
+   tied rather than glued, so it can be slid to voice the flute. Any thin leather
+   strip will do; the 2017 flute's, `yours/cut-files/your-flute-leather-tie-cut-files.svg`,
+   is 360 × 4.6mm, long enough to wrap any of these bodies.
 2. With every hole closed, trim the foot until the flute sounds A4.
 3. Open hole 1 and tune C5. The holes are cut to the model's size, so if a note is flat,
    open its hole slightly with a file.
@@ -205,6 +209,7 @@ python3 naf_model.py --mouth=0.8              # with a different window correcti
 python3 square_flute.py --no-write            # the generator's checks, writing nothing
 python3 square_flute.py --out=cut-files       # the bird-flue builds
 python3 plus_flute.py --out=cut-files         # the nest- and savanna-flue builds
+python3 square_flute.py --kerf=0.18 --out=mine  # for a laser with a 0.18mm kerf
 python3 your_flute.py --out=yours/cut-files   # the 2017 flute's prediction, and its leather tie
 python3 page_assets.py                        # viewer.js, turn.html and the two plans
 ```

@@ -160,9 +160,11 @@ def main():
             write = False
         elif x.startswith('--out='):
             out = x.split('=', 1)[1]
+        elif x.startswith('--kerf='):
+            F.set_kerf(x)
         else:
             raise SystemExit(f'error: {x} is not a flag this generator reads. '
-                             f'It takes --out= and --no-write.')
+                             f'It takes --out=, --kerf= and --no-write.')
     if write and not out:
         raise SystemExit('error: --out=DIR, or --no-write to print the prediction only.')
     L, holes, fs = predict()

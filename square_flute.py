@@ -78,7 +78,24 @@ import naf_model as M                                          # noqa: E402
 from ribbon_bore import path                                   # noqa: E402
 
 T = 3.0              # ply
-KERF = 0.13          # measured, ribbon_bore's and lyre_harp's figure
+KERF = 0.13          # measured, ribbon_bore's and lyre_harp's figure; --kerf= sets it
+
+
+def set_kerf(arg):
+    """--kerf=MM: the laser's real kerf, for a recut when the press-fit
+    comes out loose (a wider kerf) or too tight (a narrower one). Every
+    outline is offset by half of it when the sheet is written, so it is read
+    then, not at import: plus_flute.py, your_flute.py and the ocarinas'
+    generator, which draw through this module, follow it too."""
+    global KERF
+    try:
+        k = float(arg.split('=', 1)[1])
+    except ValueError:
+        raise SystemExit(f'error: {arg} is not a kerf in mm, e.g. --kerf=0.15.')
+    if not 0 <= k <= 0.5:
+        raise SystemExit(f'error: a {k:g}mm kerf is outside 0 to 0.5mm.')
+    KERF = k
+    return k
 # The plug discs' press-fit, across the ply: lyre_harp.py's mallet fit.
 INTERF_ACROSS = 0.12
 # THE FINGER JOINT, since 2026-10-13: the trumpet bores' own. tools/bore_split.py
@@ -555,9 +572,11 @@ def main():
             if only not in VARIANTS:
                 raise SystemExit(f'error: {only} is not a variant. They are '
                                  + ', '.join(VARIANTS) + '.')
+        elif x.startswith('--kerf='):
+            set_kerf(x)
         else:
             raise SystemExit(f'error: {x} is not a flag this generator reads. '
-                             f'It takes --out=, --only=, --flat and --no-write.')
+                             f'It takes --out=, --only=, --kerf=, --flat and --no-write.')
     if write and not out:
         raise SystemExit('error: --out=DIR, or --no-write to run the checks only.')
     designs = {}

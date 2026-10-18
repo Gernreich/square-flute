@@ -210,9 +210,11 @@ def main():
             if only not in VARIANTS:
                 raise SystemExit(f'error: {only} is not a variant. They are '
                                  + ', '.join(VARIANTS) + '.')
+        elif x.startswith('--kerf='):
+            F.set_kerf(x)
         else:
             raise SystemExit(f'error: {x} is not a flag this generator reads. '
-                             f'It takes --out=, --only=, --flat and --no-write.')
+                             f'It takes --out=, --only=, --kerf=, --flat and --no-write.')
     if write and not out:
         raise SystemExit('error: --out=DIR, or --no-write to run the checks only.')
     designs, bad = {}, 0
