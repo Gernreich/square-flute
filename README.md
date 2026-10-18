@@ -48,8 +48,8 @@ own, so the laser cuts whichever you choose: see
 | Build | Construction | Bore | Hole wall | Parts | Sheets | Joints |
 |---|---|---|---|---|---|---|
 | `box-square-3` | finger-jointed box | 16.88 × 16.88mm | 3mm | 12 | 1 | the bird's layers and the cap glued, the rest press-fit |
-| `box-square-6` | finger-jointed box | 16.88 × 16.88mm | 6mm | 13 | 1 | the doubler, the bird's layers and the cap glued |
 | `box-square-3-flat` | flat box, butt-jointed | 16.88 × 16.88mm | 3mm | 12 | 1 | the sides, the bird's layers and the cap glued, the plug discs press-fit |
+| `box-square-6` | finger-jointed box | 16.88 × 16.88mm | 6mm | 13 | 1 | the doubler, the bird's layers and the cap glued |
 | `box-square-6-flat` | flat box, butt-jointed | 16.88 × 16.88mm | 6mm | 13 | 1 | the sides, the doubler, the bird's layers and the cap glued, the plug discs press-fit |
 | `stack-rect-3` | laminated stack | 15.83 × 18mm | 3mm | 12 | 1 | every layer and the cap glued |
 | `stack-rect-6` | laminated stack | 15.83 × 18mm | 6mm | 13 | 1 | every layer and the cap glued |
@@ -359,13 +359,13 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 
 [![box-square-3, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)](cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)
 
-**`box-square-6`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
-
-[![box-square-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)](cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)
-
 **`box-square-3-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall · 12 parts on 1 sheet
 
 [![box-square-3-flat, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)](cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)
+
+**`box-square-6`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
+
+[![box-square-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)](cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)
 
 **`box-square-6-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
 
@@ -384,8 +384,8 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | | |
 |---|---|
 | `cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg` | box, square bore, 3mm hole wall |
-| `cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg` | box, square bore, 6mm hole wall |
 | `cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg` | box, square bore, 3mm hole wall, butt-jointed and glued |
+| `cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg` | box, square bore, 6mm hole wall |
 | `cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg` | box, square bore, 6mm hole wall, butt-jointed and glued |
 | `cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall |
 | `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall |

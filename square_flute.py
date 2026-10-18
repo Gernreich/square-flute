@@ -149,12 +149,14 @@ RW = M.AREA / 18.0
 # also came three ways, -bird-flue, -nest-flue and -savanna-flue; now every
 # build carries both halves of the flue, in two inks. A box is square; a
 # stack is as square as 3mm layers allow.
+# In order as three binary choices, box/stack, 3/6 and fingers/flat, counted
+# 000 to 111 with the flat stacks (101, 111) left out, as the author asked
+# (2026-10-18). A -flat box is butt-jointed: plain plates, the sides glued
+# between the top and the bottom, as the author's 2017 flute was built.
 VARIANTS = {
     'box-square-3': ('box', SQ, SQ, 3.0),
-    'box-square-6': ('box', SQ, SQ, 6.0),
-    # the same boxes butt-jointed: plain plates, the sides glued between the
-    # top and the bottom, as the author's 2017 flute was built
     'box-square-3-flat': ('flat', SQ, SQ, 3.0),
+    'box-square-6': ('box', SQ, SQ, 6.0),
     'box-square-6-flat': ('flat', SQ, SQ, 6.0),
     'stack-rect-3': ('stack', RW, 18.0, 3.0),
     'stack-rect-6': ('stack', RW, 18.0, 6.0),
