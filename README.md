@@ -84,7 +84,7 @@ The box is square, the bore that was asked for. The stack cannot be: it is a who
 number of 3mm layers deep, 15 or 18mm, and 16.88 is neither, so it keeps the area and
 gives up the square.
 
-Every build is 491–495mm long, and all of them fit a 600 × 308mm bed.
+Every build is 491–495mm long, and all of them fit a 600 × 305mm bed.
 
 ## Turn it in 3D
 

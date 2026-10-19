@@ -130,7 +130,7 @@ CAP_D, NOTCH_IN = 9.59, 0.33
 RING_OF = 12.14 / 7.75
 RING_PNG = os.path.join(HERE, 'yours', 'original', 'ring.png')
 
-BED = (600.0, 308.0)
+BED = (600.0, 305.0)  # xTool P2S: the largest rectangle it cut, tested 2026-10-19
 MARGIN, GAP = 5.0, 4.0
 MIN_WEB = 1.5        # thinnest ply left between two cuts
 
