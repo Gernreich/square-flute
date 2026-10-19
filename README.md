@@ -156,7 +156,7 @@ about 2.3mm. So the sound chamber is cut **15mm longer** than the model's: trim 
 until the flute sounds A4 with every hole closed.
 
 **The holes move with it, almost as far.** A 10% error in that correction moves the
-foot 2.3mm and every hole 2.1–2.2mm. Trimming the foot puts the fundamental right but
+foot 2.2–2.4mm and every hole 2.0–2.4mm. Trimming the foot puts the fundamental right but
 leaves the holes where the model put them, so expect to tune each one. A hole that
 plays flat can be opened with a file. A hole that plays sharp cannot be closed up.
 
