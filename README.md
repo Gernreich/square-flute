@@ -4,9 +4,11 @@
 
 <!-- readme-only -->
 **[Read the writeup](https://gernreich.github.io/square-flute/)** ·
-**[Turn every build in 3D](https://gernreich.github.io/square-flute/#turn-it-in-3d)**
+**[Turn every build in 3D](https://gernreich.github.io/square-flute/)**
 
-<!-- page-only **[Read the README](https://github.com/Gernreich/square-flute)** -->
+<!-- page-only **[Read the README](https://github.com/Gernreich/square-flute)** · **[Turn it in 3D on a page of its own](turn.html)** -->
+
+<!-- page-only <div id="turn3d"></div><script src="viewer.js"></script> -->
 
 A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm
 plywood with a square or rectangular bore. It keeps the **bore area of a 3/4in (19.05mm)
@@ -91,11 +93,11 @@ Every build is 491–495mm long, and all of them fit a 600 × 305mm bed.
 ## Turn it in 3D
 
 <!-- readme-only -->
-Every build turns in 3D on the [published page](https://gernreich.github.io/square-flute/#turn-it-in-3d),
+Every build turns in 3D at the top of the [published page](https://gernreich.github.io/square-flute/),
 which GitHub does not run: drag to turn it, pull it apart into its parts, or see
 through the walls to the plug and the bird.
 
-<!-- page-only <div id="turn3d"></div><script src="viewer.js"></script> -->
+<!-- page-only The 3D view is at [the top of this page](#square-bore-flute). It also opens [on a page of its own](turn.html). -->
 
 ## What the model says
 
