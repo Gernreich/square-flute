@@ -408,3 +408,7 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `.repro` | the command that draws each generated file |
 
 Released under [CC0 1.0](LICENSE).
+
+## Credits
+
+Made by Michael Gernreich with [Claude](https://www.anthropic.com/claude) (Anthropic), working in Claude Code, which co-wrote the code and the documentation. Commits Claude made carry a `Co-Authored-By: Claude` line.
