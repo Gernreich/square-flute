@@ -10,8 +10,8 @@
 
 <!-- page-only <div id="turn3d"></div><script src="viewer.js"></script> -->
 
-A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3mm
-plywood with a square or rectangular bore. It keeps the **bore area of a 3/4in (19.05mm)
+A five-hole minor-pentatonic flute in A4, in the Native American style, rebuilt in 3 mm
+plywood with a square or rectangular bore. It keeps the **bore area of a 3/4in (19.05 mm)
 round-bore flute, 285mm²**, so the air column is the same in a section a laser can
 build. All closed it sounds A4; opening the holes from the foot up gives C5, D5, E5,
 G5 and A5.
@@ -29,7 +29,7 @@ every build.
 <td align="center"><a href="cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg"><img src="previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg" alt="One sheet of long thin parts: a bottom plate and a top plate notched along both edges for finger joints, the top with two openings across its width near one end and five round finger holes, two side walls with fingers along both edges, a doubler with five round holes, each ringed by a soft engraved depression, four small square plug discs, three bird layers, one with a red filled rectangle for the bird's half of the flue, the top with a magenta one between its two openings for the nest's half, and a mouthpiece cap with a half-round notch in one edge; the bottom plate has a matching half-round notch in its mouth end" width="100%"></a></td>
 </tr>
 <tr>
-<td align="center"><sub>box-square-6 · the whole flute on one 593 × 141mm sheet</sub></td>
+<td align="center"><sub>box-square-6 · the whole flute on one 593 × 141 mm sheet</sub></td>
 </tr>
 </table>
 
@@ -42,7 +42,7 @@ generator and tool, indexed.
 
 ## The builds
 
-Six builds. The box and the stack each come with the finger holes in 3mm or 6mm of
+Six builds. The box and the stack each come with the finger holes in 3 mm or 6 mm of
 wall, and the boxes come finger-jointed or **flat**, butt-jointed and glued as the 2017
 flute was: `box-square-3-flat`. The 3D view below has a toggle for each. Every build
 carries its flue both ways at once, in the bird and in the nest, each in a colour of its
@@ -51,12 +51,12 @@ own, so the laser cuts whichever you choose: see
 
 | Build | Construction | Bore | Hole wall | Parts | Sheets | Joints |
 |---|---|---|---|---|---|---|
-| `box-square-3` | finger-jointed box | 16.88 × 16.88mm | 3mm | 12 | 1 | the bird's layers and the cap glued, the rest press-fit |
-| `box-square-3-flat` | flat box, butt-jointed | 16.88 × 16.88mm | 3mm | 12 | 1 | the sides, the bird's layers and the cap glued, the plug discs press-fit |
-| `box-square-6` | finger-jointed box | 16.88 × 16.88mm | 6mm | 13 | 1 | the doubler, the bird's layers and the cap glued |
-| `box-square-6-flat` | flat box, butt-jointed | 16.88 × 16.88mm | 6mm | 13 | 1 | the sides, the doubler, the bird's layers and the cap glued, the plug discs press-fit |
-| `stack-rect-3` | laminated stack | 15.83 × 18mm | 3mm | 12 | 1 | every layer and the cap glued |
-| `stack-rect-6` | laminated stack | 15.83 × 18mm | 6mm | 13 | 1 | every layer and the cap glued |
+| `box-square-3` | finger-jointed box | 16.88 × 16.88 mm | 3 mm | 12 | 1 | the bird's layers and the cap glued, the rest press-fit |
+| `box-square-3-flat` | flat box, butt-jointed | 16.88 × 16.88 mm | 3 mm | 12 | 1 | the sides, the bird's layers and the cap glued, the plug discs press-fit |
+| `box-square-6` | finger-jointed box | 16.88 × 16.88 mm | 6 mm | 13 | 1 | the doubler, the bird's layers and the cap glued |
+| `box-square-6-flat` | flat box, butt-jointed | 16.88 × 16.88 mm | 6 mm | 13 | 1 | the sides, the doubler, the bird's layers and the cap glued, the plug discs press-fit |
+| `stack-rect-3` | laminated stack | 15.83 × 18 mm | 3 mm | 12 | 1 | every layer and the cap glued |
+| `stack-rect-6` | laminated stack | 15.83 × 18 mm | 6 mm | 13 | 1 | every layer and the cap glued |
 
 - **The box** is four plates, finger-jointed edge to edge: the sides' fingers fill
   notches in the edges of the top and the bottom and run flush to the outside faces, so
@@ -65,30 +65,30 @@ own, so the laser cuts whichever you choose: see
   bottom: the same parts, the same count, and glue in place of a press-fit.
 - **The stack** is a bottom layer, six bore layers with the bore cut out of them and
   the plug left solid, and the top.
-- **The 6mm builds** glue a 3mm doubler over the run of finger holes, so each hole has
-  a 6mm chimney, as a wooden flute's wall would give it.
+- **The 6 mm builds** glue a 3 mm doubler over the run of finger holes, so each hole has
+  a 6 mm chimney, as a wooden flute's wall would give it.
 
 Every build carries the author's mouthpiece cap from the 2017 flute below: a plate
 glued over the mouth end, with a half-round notch in its bottom edge, away from the
-finger holes. The notch is a 9.59mm circle centred 0.33mm inside the edge, 5.1mm
+finger holes. The notch is a 9.59 mm circle centred 0.33 mm inside the edge, 5.1 mm
 deep, so it opens through the bottom wall into the slow air chamber. The bottom plate has
-a second half-round notch, the same 9.59mm circle, cut into its mouth end midway
+a second half-round notch, the same 9.59 mm circle, cut into its mouth end midway
 across. It is at right angles to the cap's, so the two meet at the bottom corner as
 one rounded opening into the slow air chamber.
 
 Every build has the 2017 flute's window and exit hole too: both run **the whole width
 of the bore**, with the flue joining them across that same width. And every finger hole
 sits in the 2017 flute's **soft engraved depression**, its `ring.png` kept in the
-original's proportion to the hole, 1.57 times it across; on a 6mm build the
+original's proportion to the hole, 1.57 times it across; on a 6 mm build the
 depressions are on the doubler, where the finger lands. In the box no finger
 stands beside either opening, since a full-width opening reaches the inner face of the
 bore, which is the floor of every finger notch.
 
 The box is square, the bore that was asked for. The stack cannot be: it is a whole
-number of 3mm layers deep, 15 or 18mm, and 16.88 is neither, so it keeps the area and
+number of 3 mm layers deep, 15 or 18 mm, and 16.88 is neither, so it keeps the area and
 gives up the square.
 
-Every build is 491–495mm long, and all of them fit a 600 × 305mm bed.
+Every build is 491–495 mm long, and all of them fit a 600 × 305 mm bed.
 
 ## Turn it in 3D
 
@@ -101,35 +101,35 @@ through the walls to the plug and the bird.
 
 ## What the model says
 
-**The bore's shape barely matters.** The square and the 15.83 × 18mm rectangle put
-every hole within 1.2mm of each other, and even that is the window rather than the
+**The bore's shape barely matters.** The square and the 15.83 × 18 mm rectangle put
+every hole within 1.2 mm of each other, and even that is the window rather than the
 bore: the window is as wide as the bore, so the narrower rectangle has the narrower
-window. At one window width the two agree to 0.1mm. Box or stack is a building choice,
+window. At one window width the two agree to 0.1 mm. Box or stack is a building choice,
 not an acoustic one.
 
-**The wall's thickness matters most.** With the holes in 6mm of wall instead of 3mm,
-every one of them sits 8.6–10.1mm nearer the window, because a hole's chimney is part of
+**The wall's thickness matters most.** With the holes in 6 mm of wall instead of 3 mm,
+every one of them sits 8.6–10.1 mm nearer the window, because a hole's chimney is part of
 its length.
 
-**The holes are laid out for the hands.** Five equal 8mm holes land 30, 31, 45 and
-18mm apart in 3mm of wall, and 28, 30, 47 and 15mm apart in 6mm; two fingers will not
-cover holes 15 or 18mm apart. So the lower hand takes holes 1–3
-and the upper hand 4–5, each hand's holes 25mm apart, and each hole is sized to its
+**The holes are laid out for the hands.** Five equal 8 mm holes land 30, 31, 45 and
+18 mm apart in 3 mm of wall, and 28, 30, 47 and 15 mm apart in 6 mm; two fingers will not
+cover holes 15 or 18 mm apart. So the lower hand takes holes 1–3
+and the upper hand 4–5, each hand's holes 25 mm apart, and each hole is sized to its
 note. A flat box shares its jointed twin's layout:
 
 | Builds | Sound chamber | Hole 1, C5 | Hole 2, D5 | Hole 3, E5 | Hole 4, G5 | Hole 5, A5 |
 |---|---|---|---|---|---|---|
-| `box-square-3-…` | 354.3mm | 260.2 · ø7.1 | 235.2 · ø8.0 | 210.2 · ø9.9 | 159.4 · ø8.0 | 134.4 · ø6.4 |
-| `box-square-6-…` | 352.1mm | 251.6 · ø7.7 | 226.6 · ø8.0 | 201.6 · ø9.2 | 149.3 · ø8.0 | 124.3 · ø6.6 |
-| `stack-rect-3-…` | 353.1mm | 259.1 · ø7.1 | 234.1 · ø8.0 | 209.1 · ø9.9 | 158.3 · ø8.0 | 133.3 · ø6.4 |
-| `stack-rect-6-…` | 350.9mm | 250.5 · ø7.7 | 225.5 · ø8.0 | 200.5 · ø9.2 | 148.2 · ø8.0 | 123.2 · ø6.6 |
+| `box-square-3-…` | 354.3 mm | 260.2 · ø7.1 | 235.2 · ø8.0 | 210.2 · ø9.9 | 159.4 · ø8.0 | 134.4 · ø6.4 |
+| `box-square-6-…` | 352.1 mm | 251.6 · ø7.7 | 226.6 · ø8.0 | 201.6 · ø9.2 | 149.3 · ø8.0 | 124.3 · ø6.6 |
+| `stack-rect-3-…` | 353.1 mm | 259.1 · ø7.1 | 234.1 · ø8.0 | 209.1 · ø9.9 | 158.3 · ø8.0 | 133.3 · ø6.4 |
+| `stack-rect-6-…` | 350.9 mm | 250.5 · ø7.7 | 225.5 · ø8.0 | 200.5 · ø9.2 | 148.2 · ø8.0 | 123.2 · ø6.6 |
 
 Distances are from the centre of the window, in mm. Hole 1 is nearest the foot. Drawn
 to scale at the square bore, mouth on the left:
 
-![The 3mm-wall layout from above, to scale: the slow air chamber on the left, then a full-width exit hole, the flue over the plug in blue and a full-width window, then the long sound chamber with five finger holes in two groups, three for the lower hand and two for the upper, and the 15mm to trim at the foot shaded](plans/square-flute-A4-holes-3mm-wall.svg)
+![The 3mm-wall layout from above, to scale: the slow air chamber on the left, then a full-width exit hole, the flue over the plug in blue and a full-width window, then the long sound chamber with five finger holes in two groups, three for the lower hand and two for the upper, and the 15 mm to trim at the foot shaded](plans/square-flute-A4-holes-3mm-wall.svg)
 
-![The 6mm-wall layout, drawn the same way: the five holes sit nearer the window than in 3mm of wall, inside a dashed outline that is the doubler glued over them](plans/square-flute-A4-holes-6mm-wall.svg)
+![The 6mm-wall layout, drawn the same way: the five holes sit nearer the window than in 3 mm of wall, inside a dashed outline that is the doubler glued over them](plans/square-flute-A4-holes-6mm-wall.svg)
 
 ### The scale as ratios
 
@@ -155,12 +155,12 @@ and the harmonic 7:4 at 968.8.
 ## Before you cut
 
 **The window's end correction is not measured.** It is the least certain term in the
-model, and no built flute has checked it yet. Each 1mm of error in it moves the foot
-about 2.3mm. So the sound chamber is cut **15mm longer** than the model's: trim the foot
+model, and no built flute has checked it yet. Each 1 mm of error in it moves the foot
+about 2.3 mm. So the sound chamber is cut **15 mm longer** than the model's: trim the foot
 until the flute sounds A4 with every hole closed.
 
 **The holes move with it, almost as far.** A 10% error in that correction moves the
-foot 2.2–2.4mm and every hole 2.0–2.4mm. Trimming the foot puts the fundamental right but
+foot 2.2–2.4 mm and every hole 2.0–2.4 mm. Trimming the foot puts the fundamental right but
 leaves the holes where the model put them, so expect to tune each one. A hole that
 plays flat can be opened with a file. A hole that plays sharp cannot be closed up.
 
@@ -169,7 +169,7 @@ puts A4 near 3/4in, so these sit with most flutes in this key.
 
 **The flue is a fill engrave**, the full width of the bore, in two colours: **red** on
 the underside of the bottom bird layer, and **magenta** on the top plate over the plug.
-Run one for a bird or a nest flue, about 1mm deep, or both, about 0.5mm each, for a
+Run one for a bird or a nest flue, about 1 mm deep, or both, about 0.5 mm each, for a
 savanna flue. The depth is a power setting, so find it on scrap first.
 
 **File the splitting edge by hand.** The window's far edge, where the air splits, needs
@@ -177,13 +177,13 @@ a clean bevel of about 30°, and a laser cuts square, charred edges. File it bef
 assembly, while the top is still a flat plate on the bench; if the edge goes wrong,
 recut the top.
 
-**Cut it in 3mm Baltic birch plywood**, at a 0.13mm kerf. The finger joints are the
+**Cut it in 3 mm Baltic birch plywood**, at a 0.13 mm kerf. The finger joints are the
 ones on the trumpet bores in
 [trumpet-elbows-allowed](https://github.com/Gernreich/trumpet-elbows-allowed): Boxes.py's
-own, with 6mm fingers and 6mm spaces and no play, so the fit comes from the kerf
+own, with 6 mm fingers and 6 mm spaces and no play, so the fit comes from the kerf
 compensation alone (a `-flat` box glues its sides instead). **If your laser's kerf is
-not 0.13mm, redraw the sheets for its own** with `--kerf=`: a press-fit that comes
-out loose wants a wider kerf, one too tight to close a narrower one. The plug discs are drawn 0.12mm over the bore, the mallet fit used
+not 0.13 mm, redraw the sheets for its own** with `--kerf=`: a press-fit that comes
+out loose wants a wider kerf, one too tight to close a narrower one. The plug discs are drawn 0.12 mm over the bore, the mallet fit used
 on the [lyre-harp](https://github.com/Gernreich/lyre-harp). Press-fit, then seal every
 seam with shellac. The doubler, the bird's layers, every layer of the stack and every mouthpiece
 cap are glued.
@@ -201,7 +201,7 @@ engrave that turns grey into depth, such as Grayscale mode in xTool Creative Spa
 1. Tie the bird on over the exit hole, its front edge on the window's near edge. It is
    tied rather than glued, so it can be slid to voice the flute. Any thin leather
    strip will do; the 2017 flute's, `yours/cut-files/your-flute-leather-tie-cut-files.svg`,
-   is 360 × 4.6mm, long enough to wrap any of these bodies.
+   is 360 × 4.6 mm, long enough to wrap any of these bodies.
 2. With every hole closed, trim the foot until the flute sounds A4.
 3. Open hole 1 and tune C5. The holes are cut to the model's size, so if a note is flat,
    open its hole slightly with a file.
@@ -258,9 +258,9 @@ so run either or both:
 
 | Run | Where the flue is carved | Style | Depth |
 |---|---|---|---|
-| red only | the underside of the block, the bird | **woodland** | about 1mm |
-| magenta only | the flute's body, the nest under the bird, as in the 2017 flute | **plains**, or prairie | about 1mm |
-| both | half in each | **savanna**, where the woodland meets the prairie: not a traditional style, an experiment | about 0.5mm each |
+| red only | the underside of the block, the bird | **woodland** | about 1 mm |
+| magenta only | the flute's body, the nest under the bird, as in the 2017 flute | **plains**, or prairie | about 1 mm |
+| both | half in each | **savanna**, where the woodland meets the prairie: not a traditional style, an experiment | about 0.5 mm each |
 
 Bird and nest are the two traditional places for a Native American flute's flue, kept
 side by side on purpose; savanna, half in each, is an experiment between them. Until
@@ -271,7 +271,7 @@ flat surface as its floor, so the air leaves **just above** the top plate. A flu
 in the nest has the bird's flat underside as its roof, so the air leaves **just below**
 the top plate's surface. A savanna flue straddles the joint, so the air leaves at the
 top plate's surface itself, midway between the two. Against the splitting edge on the window's far side, that is a
-shift of about one flue depth, roughly 1mm, which is one reason the two styles voice
+shift of about one flue depth, roughly 1 mm, which is one reason the two styles voice
 differently. The model does not simulate the jet, so which suits these flutes is for a
 test cut to show.
 
@@ -281,7 +281,7 @@ leaves above the top plate exactly as from a bird flue; only the making differs.
 depth is the spacer's thickness rather than an engrave, so it is exact and even; the
 floor and roof are clean ply faces rather than a charred groove; a different depth is a
 different spacer, not a new bird; but it is one more surface to seal, and it wants stock
-about 1mm thick, not 3mm. None of the builds here uses one.
+about 1 mm thick, not 3 mm. None of the builds here uses one.
 [Flutopedia's anatomy of the flute](https://www.flutopedia.com/anatomy.htm) and its
 [glossary](https://www.flutopedia.com/glossary.htm) describe all three traditional ways.
 
@@ -298,16 +298,16 @@ exactly as they were. Measured out of `yours/original/NAF_flatjoints.svg`:
 
 | | |
 |---|---|
-| Bore | 19.37 wide × 22.44mm deep, 435mm² |
-| Sound chamber | 313.25mm from the window's centre to the foot |
-| Window | 19.37 × 6.0mm, the whole width of the bore |
-| Plug | 11mm, its top engraved as the flue |
-| Finger holes | 7.73, 7.87, 7.79, 7.79 and 5.47mm, 213.9, 185.7, 156.9, 109.5 and 78.0mm from the window |
+| Bore | 19.37 wide × 22.44 mm deep, 435mm² |
+| Sound chamber | 313.25 mm from the window's centre to the foot |
+| Window | 19.37 × 6.0 mm, the whole width of the bore |
+| Plug | 11 mm, its top engraved as the flue |
+| Finger holes | 7.73, 7.87, 7.79, 7.79 and 5.47 mm, 213.9, 185.7, 156.9, 109.5 and 78.0 mm from the window |
 
 It tried two things the first designs here did not:
 
 - **An engraved splitting edge.** `FluteEdge.png` is a greyscale ramp, black at the
-  window and white 9.9mm on, engraved beside the window so the laser would cut the
+  window and white 9.9 mm on, engraved beside the window so the laser would cut the
   bevel itself. **It did not work**, so the edge is filed by hand, as it is in every
   build.
 - **A soft engraved depression round each finger hole**, `ring.png`, for the finger
@@ -359,27 +359,27 @@ with it the foot of every build here.
 
 Every build, every sheet. Each picture is a display rendering; click it for the cut file.
 
-**`box-square-3`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 3mm of wall · 12 parts on 1 sheet
+**`box-square-3`** · finger-jointed box, bore 16.88 × 16.88 mm, holes in 3 mm of wall · 12 parts on 1 sheet
 
 [![box-square-3, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)](cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg)
 
-**`box-square-3-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 3mm of wall · 12 parts on 1 sheet
+**`box-square-3-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88 mm, holes in 3 mm of wall · 12 parts on 1 sheet
 
 [![box-square-3-flat, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)](cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg)
 
-**`box-square-6`** · finger-jointed box, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
+**`box-square-6`** · finger-jointed box, bore 16.88 × 16.88 mm, holes in 6 mm of wall · 13 parts on 1 sheet
 
 [![box-square-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)](cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg)
 
-**`box-square-6-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88mm, holes in 6mm of wall · 13 parts on 1 sheet
+**`box-square-6-flat`** · the same box butt-jointed and glued, bore 16.88 × 16.88 mm, holes in 6 mm of wall · 13 parts on 1 sheet
 
 [![box-square-6-flat, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg)](cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg)
 
-**`stack-rect-3`** · laminated stack, bore 15.83 × 18.00mm, holes in 3mm of wall · 12 parts on 1 sheet
+**`stack-rect-3`** · laminated stack, bore 15.83 × 18.00 mm, holes in 3 mm of wall · 12 parts on 1 sheet
 
 [![stack-rect-3, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)](cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg)
 
-**`stack-rect-6`** · laminated stack, bore 15.83 × 18.00mm, holes in 6mm of wall · 13 parts on 1 sheet
+**`stack-rect-6`** · laminated stack, bore 15.83 × 18.00 mm, holes in 6 mm of wall · 13 parts on 1 sheet
 
 [![stack-rect-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)](cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)
 
@@ -387,12 +387,12 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 
 | | |
 |---|---|
-| `cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg` | box, square bore, 3mm hole wall |
-| `cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg` | box, square bore, 3mm hole wall, butt-jointed and glued |
-| `cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg` | box, square bore, 6mm hole wall |
-| `cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg` | box, square bore, 6mm hole wall, butt-jointed and glued |
-| `cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 3mm hole wall |
-| `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 15.83 × 18mm bore, 6mm hole wall |
+| `cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg` | box, square bore, 3 mm hole wall |
+| `cut-files/box-square-3-flat/square-flute-A4-box-square-3-flat-sheet1-cut-files.svg` | box, square bore, 3 mm hole wall, butt-jointed and glued |
+| `cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg` | box, square bore, 6 mm hole wall |
+| `cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg` | box, square bore, 6 mm hole wall, butt-jointed and glued |
+| `cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg` | stack, 15.83 × 18 mm bore, 3 mm hole wall |
+| `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 15.83 × 18 mm bore, 6 mm hole wall |
 | `previews/` | display renderings of every sheet — **not** cut files |
 | `viewer.js` | the 3D view of every build, loaded by the published page |
 | `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
