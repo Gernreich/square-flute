@@ -246,6 +246,8 @@ It borrows its SVG path writer from
 [`ribbon_bore.py`](https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.py)
 in swept-curve, so it expects that repository cloned beside this one.
 
+One more is optional: with [bore-tmm](https://github.com/Gernreich/bore-tmm) checked out beside it too and built (`cargo build --release`), `naf_model.py` searches for each note in bore-tmm's Rust port of it, which gives the same results bit for bit, much sooner. Without it the Python runs, as it always did.
+
 `.repro` holds the exact command for every generated file here, and lists the 2017
 originals as shipped without one.
 

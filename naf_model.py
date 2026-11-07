@@ -41,7 +41,18 @@ from an area ratio never run through the model. Both were wrong.)
 """
 import cmath
 import math
+import os
 import sys
+
+# bore-tmm's Rust port of sounding(), when bore-tmm is checked out beside this
+# repository and built: the same bits, much sooner. Without it, this file's
+# own Python runs. bore-tmm/python/tmm_fast.py says how.
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bore-tmm',
+                             'python'))
+try:
+    import tmm_fast
+except ImportError:
+    tmm_fast = None
 
 # --- air, warm from the breath ----------------------------------------------
 T_C = 25.0
@@ -130,14 +141,19 @@ def hole(b, f, d, t, is_open):
     return mul(mul(half, ((1, 0), (1 / zs, 1))), half)
 
 
-def window_z(f):
-    """The true sound hole as a short neck of its own area into open air.
-    Its correction is a rectangle's equivalent radius, flanged both sides
-    (0.82 a each), scaled by MOUTH."""
-    w = 2 * math.pi * f
+def window_neck():
+    """The true sound hole as a neck: its area (m^2), equivalent radius and
+    effective length (m). Its correction is a rectangle's equivalent radius,
+    flanged both sides (0.82 a each), scaled by MOUTH."""
     Aw = WINDOW_W * WINDOW_L / 1e6
     aw = math.sqrt(Aw / math.pi)
-    leff = WINDOW_T / 1000 + MOUTH * 2 * 0.82 * aw
+    return Aw, aw, WINDOW_T / 1000 + MOUTH * 2 * 0.82 * aw
+
+
+def window_z(f):
+    """The true sound hole as a short neck of its own area into open air."""
+    w = 2 * math.pi * f
+    Aw, aw, leff = window_neck()
     k = w / C
     return RHO * C / Aw * (0.5 * (k * aw) ** 2) + 1j * w * RHO * leff / Aw
 
@@ -175,6 +191,35 @@ def reactance(b, f, L, holes, n_open, wall, diams):
 def sounding(b, L, holes, n_open, wall, near, diams):
     """The playing frequency nearest `near`: a zero crossing of the
     reactance, rising through zero, found by scanning then bisecting."""
+    if tmm_fast is None:
+        return _sounding(b, L, holes, n_open, wall, near, diams)
+    return tmm_fast.run('naf_model', lambda: _sounding_rust(b, L, holes, n_open, wall, near, diams),
+                        lambda: _sounding(b, L, holes, n_open, wall, near, diams))
+
+
+def _sounding_rust(b, L, holes, n_open, wall, near, diams, span=1.4):
+    """_sounding in bore-tmm's Rust, given what does not change with f."""
+    chain, pos = [], L
+    for i, x in enumerate(holes):
+        chain.append(('tube', pos - x))
+        chain.append(('hole', (i < n_open, diams[i])))
+        pos = x
+    chain.append(('tube', pos))
+    kind, length, r, op = [], [], [], []
+    for k, v in reversed(chain):
+        kind.append(0 if k == 'tube' else 1)
+        length.append(v / 1000 if k == 'tube' else 0.0)
+        r.append(0.0 if k == 'tube' else v[1] / 2000)
+        op.append(k == 'hole' and v[0])
+    area, a, leff = window_neck()
+    root = tmm_fast.jet(C, RHO, b.rh, b.A, b.a, kind, length, r, op, wall, WINDOW_L / 2000,
+                        area, a, leff, near, span, 80, 40)
+    if math.isnan(root):
+        raise ValueError(f'no resonance within 40% of {near:.1f}Hz')
+    return root
+
+
+def _sounding(b, L, holes, n_open, wall, near, diams):
     lo, hi = near / 1.4, near * 1.4
     n = 80
     X = lambda f: reactance(b, f, L, holes, n_open, wall, diams)
