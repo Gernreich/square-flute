@@ -401,6 +401,7 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
 | `naf_model.py` | the acoustic model |
 | `square_flute.py` | the generator, its checks and every build |
+| `square_flute.rs` · `Cargo.toml` · `Cargo.lock` | the part, kerf, finger joint and shelf packing in Rust, for the Rust generators that borrow them (the panpipes and the chanters); the same numbers as `square_flute.py`, which their `.repro` gates prove |
 | `page_assets.py` | builds `viewer.js`, `turn.html` and the plans |
 | `yours/original/` | the author's 2017 files, unchanged but for the metadata stripped from the two PNGs: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | the 2017 flute's leather tie |
