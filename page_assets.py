@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The published page's moving parts, built from the generators' own build()
 so the page cannot disagree with the cut files. The writeup itself is
-README.md, built into index.html by md2html.py like every page here; this
+README.md, built into index.html by md2html like every page here; this
 adds what markdown cannot carry.
 
     python3 page_assets.py                     # viewer.js, turn.html and plans/*.svg
