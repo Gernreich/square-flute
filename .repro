@@ -48,3 +48,11 @@ yours/original/NAF_fingerjoints.svg :: !
 yours/original/NAF_flatjoints.svg :: !
 yours/original/NativeAmericaStyleFlute.svg :: !
 
+# --- the STEP files: the 3D view's parts as solids for a CAD program, one
+# file per design, written from the page by lasermade-tools' step-export ---
+step/square-flute-box-square-3.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
+step/square-flute-box-square-3-flat.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
+step/square-flute-box-square-6.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
+step/square-flute-box-square-6-flat.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
+step/square-flute-stack-rect-3.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
+step/square-flute-stack-rect-6.step :: ../lasermade-tools/target/release/step-export viewer.js --name=square-flute --out=$(dirname $OUT)
