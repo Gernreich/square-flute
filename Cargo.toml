@@ -3,17 +3,35 @@ name = "square-flute"
 version = "0.1.0"
 edition = "2021"
 authors = ["Michael Gernreich", "Claude (Anthropic) <noreply@anthropic.com>"]
-description = "What other LaserMadeMusic generators borrow from this repository, in Rust"
+description = "Cut files for a five-hole minor-pentatonic flute in A4, square or rectangular bore, and the parts other LaserMadeMusic generators borrow"
 license-file = "LICENSE"
 publish = false
 autobins = false
 
-# A library only: the Rust generators beside this checkout (panpipes,
-# practice-chanters, ghb-chanter, uilleann-chanter) depend on it by path.
-# This repository's own generators are still Python.
+# The library is the generator and what the panpipes, the chanters and the
+# ocarinas borrow from it; each program in bin/ is one main(). Rust since
+# 2026-11-07, Python until then: the move changed no byte of any file.
 [lib]
 name = "square_flute"
 path = "square_flute.rs"
 
+[[bin]]
+name = "square_flute"
+path = "bin/square_flute.rs"
+
+[[bin]]
+name = "naf_model"
+path = "bin/naf_model.rs"
+
+[[bin]]
+name = "page_assets"
+path = "bin/page_assets.rs"
+
+[[bin]]
+name = "your_flute"
+path = "bin/your_flute.rs"
+
 [dependencies]
 lasermade-tools = { path = "../lasermade-tools" }
+swept-curve = { path = "../swept-curve" }
+bore-tmm = { path = "../bore-tmm" }

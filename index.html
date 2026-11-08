@@ -407,15 +407,18 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <li>Work up the flute in order, since each hole nudges the ones above it.</li>
 </ol>
 <h2 id="regenerating-it">Regenerating it</h2>
-<pre class="sh"><code>python3 naf_model.py                          # the holes for every build, printed
-python3 naf_model.py --mouth=0.8              # with a different window correction
-python3 square_flute.py --no-write            # the generator&#39;s checks, writing nothing
-python3 square_flute.py --out=cut-files       # all six builds
-python3 square_flute.py --kerf=0.18 --out=mine  # for a laser with a 0.18mm kerf
-python3 your_flute.py --out=yours/cut-files   # the 2017 flute&#39;s prediction, and its leather tie
-python3 page_assets.py                        # viewer.js, turn.html and the two plans</code></pre>
-<p><code>naf_model.py</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
-<p><code>square_flute.py</code> builds each of the six from what the model asks for and checks it before writing anything:</p>
+<pre class="sh"><code>cargo build --release                                  # once, and after any change
+target/release/naf_model                               # the holes for every build, printed
+target/release/naf_model --mouth=0.8                   # with a different window correction
+target/release/naf_model --bores                       # the designs, as bore-tmm reads them
+target/release/square_flute --no-write                 # the generator&#39;s checks, writing nothing
+target/release/square_flute --out=cut-files            # all six builds
+target/release/square_flute --kerf=0.18 --out=mine     # for a laser with a 0.18mm kerf
+target/release/your_flute --out=yours/cut-files        # the 2017 flute&#39;s prediction, and its leather tie
+target/release/page_assets                             # viewer.js, turn.html and the two plans</code></pre>
+<p>The generators are Rust since 2026-11-07, Python until then; the move changed no byte of any cut file, plan or page.</p>
+<p><code>naf_model.rs</code> is a transmission-matrix model, the standard way woodwind calculators predict pitch. It treats the bore as a lossy tube, using the section's area and its hydraulic radius, which is where a square differs from a circle. Each finger hole is Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a short closed stub up to the plug.</p>
+<p><code>square_flute.rs</code> builds each of the six from what the model asks for and checks it before writing anything:</p>
 <ul>
 <li>every note within a cent of its target</li>
 <li>every part on the bed</li>
@@ -429,8 +432,7 @@ python3 page_assets.py                        # viewer.js, turn.html and the two
 <li>the depressions clear of each other and of the plate's edges, and the doubler clear of the window</li>
 <li>every part placed on a sheet</li>
 </ul>
-<p>It borrows its SVG path writer from <a href="https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.py" target="_blank" rel="noopener"><code>ribbon_bore.py</code></a> in swept-curve, so it expects that repository cloned beside this one.</p>
-<p>One more is optional: with <a href="https://github.com/Gernreich/bore-tmm" target="_blank" rel="noopener">bore-tmm</a> checked out beside it too and built (<code>cargo build --release</code>), <code>naf_model.py</code> searches for each note in bore-tmm's Rust port of it, which gives the same results bit for bit, much sooner. Without it the Python runs, as it always did.</p>
+<p>The crate borrows its SVG path writer from swept-curve's <a href="https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.rs" target="_blank" rel="noopener"><code>ribbon_bore.rs</code></a> and each note's search from <a href="https://github.com/Gernreich/bore-tmm" target="_blank" rel="noopener">bore-tmm</a>'s <code>src/models.rs</code>, so it expects <a href="https://github.com/Gernreich/swept-curve" target="_blank" rel="noopener">swept-curve</a>, <a href="https://github.com/Gernreich/bore-tmm" target="_blank" rel="noopener">bore-tmm</a> and <a href="https://github.com/Gernreich/lasermade-tools" target="_blank" rel="noopener">lasermade-tools</a> cloned beside this one.</p>
 <p><code>.repro</code> holds the exact command for every generated file here, and lists the 2017 originals as shipped without one.</p>
 <h2 id="bird-nest-or-savanna-flue-woodland-plains-and-between">Bird, nest or savanna flue: woodland, plains and between</h2>
 <p>Where the flue is carved is chosen at the laser, not in the file. Every sheet carries both halves, each in a colour of its own: <strong>red</strong> in the underside of the bird, and <strong>magenta</strong> in the <strong>nest</strong>, the top plate's face over the plug. The two are lined up, so run either or both:</p>
@@ -635,20 +637,20 @@ python3 page_assets.py                        # viewer.js, turn.html and the two
 <td>the two hole layouts, to scale — display drawings, <strong>not</strong> cut files</td>
 </tr>
 <tr>
-<td><code>naf_model.py</code></td>
-<td>the acoustic model</td>
+<td><code>naf_model.rs</code></td>
+<td>the acoustic model, and the designs as bore-tmm reads them</td>
 </tr>
 <tr>
-<td><code>square_flute.py</code></td>
-<td>the generator, its checks and every build</td>
+<td><code>square_flute.rs</code></td>
+<td>the generator, its checks and every build; the part, kerf, finger joint and shelf packing that the ocarinas, the octagonal flute, the panpipes and the chanters borrow</td>
 </tr>
 <tr>
-<td><code>square_flute.rs</code> · <code>Cargo.toml</code> · <code>Cargo.lock</code></td>
-<td>the part, kerf, finger joint and shelf packing in Rust, for the Rust generators that borrow them (the panpipes and the chanters); the same numbers as <code>square_flute.py</code>, which their <code>.repro</code> gates prove</td>
+<td><code>page_assets.rs</code> · <code>page_text.rs</code></td>
+<td>builds <code>viewer.js</code>, <code>turn.html</code> and the plans; the viewer's fixed style, markup and script, which the ocarinas' and the octagonal flute's pages share</td>
 </tr>
 <tr>
-<td><code>page_assets.py</code></td>
-<td>builds <code>viewer.js</code>, <code>turn.html</code> and the plans</td>
+<td><code>bin/</code> · <code>Cargo.toml</code> · <code>Cargo.lock</code></td>
+<td>the crate: one small file per program, and the pinned build</td>
 </tr>
 <tr>
 <td><code>yours/original/</code></td>
@@ -663,7 +665,7 @@ python3 page_assets.py                        # viewer.js, turn.html and the two
 <td>a display rendering of it — <strong>not</strong> a cut file</td>
 </tr>
 <tr>
-<td><code>your_flute.py</code></td>
+<td><code>your_flute.rs</code></td>
 <td>measures the original, says what the model hears in it, and draws the tie</td>
 </tr>
 <tr>

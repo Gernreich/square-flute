@@ -210,22 +210,27 @@ engrave that turns grey into depth, such as Grayscale mode in xTool Creative Spa
 ## Regenerating it
 
 ```sh
-python3 naf_model.py                          # the holes for every build, printed
-python3 naf_model.py --mouth=0.8              # with a different window correction
-python3 square_flute.py --no-write            # the generator's checks, writing nothing
-python3 square_flute.py --out=cut-files       # all six builds
-python3 square_flute.py --kerf=0.18 --out=mine  # for a laser with a 0.18mm kerf
-python3 your_flute.py --out=yours/cut-files   # the 2017 flute's prediction, and its leather tie
-python3 page_assets.py                        # viewer.js, turn.html and the two plans
+cargo build --release                                  # once, and after any change
+target/release/naf_model                               # the holes for every build, printed
+target/release/naf_model --mouth=0.8                   # with a different window correction
+target/release/naf_model --bores                       # the designs, as bore-tmm reads them
+target/release/square_flute --no-write                 # the generator's checks, writing nothing
+target/release/square_flute --out=cut-files            # all six builds
+target/release/square_flute --kerf=0.18 --out=mine     # for a laser with a 0.18mm kerf
+target/release/your_flute --out=yours/cut-files        # the 2017 flute's prediction, and its leather tie
+target/release/page_assets                             # viewer.js, turn.html and the two plans
 ```
 
-`naf_model.py` is a transmission-matrix model, the standard way woodwind calculators
+The generators are Rust since 2026-11-07, Python until then; the move changed no byte of
+any cut file, plan or page.
+
+`naf_model.rs` is a transmission-matrix model, the standard way woodwind calculators
 predict pitch. It treats the bore as a lossy tube, using the section's area and its
 hydraulic radius, which is where a square differs from a circle. Each finger hole is
 Keefe's tone hole, open or closed. At the top, the window opens into the bore beside a
 short closed stub up to the plug.
 
-`square_flute.py` builds each of the six from what the model asks for and checks it before
+`square_flute.rs` builds each of the six from what the model asks for and checks it before
 writing anything:
 
 - every note within a cent of its target
@@ -242,11 +247,13 @@ writing anything:
   the window
 - every part placed on a sheet
 
-It borrows its SVG path writer from
-[`ribbon_bore.py`](https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.py)
-in swept-curve, so it expects that repository cloned beside this one.
-
-One more is optional: with [bore-tmm](https://github.com/Gernreich/bore-tmm) checked out beside it too and built (`cargo build --release`), `naf_model.py` searches for each note in bore-tmm's Rust port of it, which gives the same results bit for bit, much sooner. Without it the Python runs, as it always did.
+The crate borrows its SVG path writer from swept-curve's
+[`ribbon_bore.rs`](https://github.com/Gernreich/swept-curve/blob/main/ribbon_bore.rs)
+and each note's search from [bore-tmm](https://github.com/Gernreich/bore-tmm)'s
+`src/models.rs`, so it expects
+[swept-curve](https://github.com/Gernreich/swept-curve),
+[bore-tmm](https://github.com/Gernreich/bore-tmm) and
+[lasermade-tools](https://github.com/Gernreich/lasermade-tools) cloned beside this one.
 
 `.repro` holds the exact command for every generated file here, and lists the 2017
 originals as shipped without one.
@@ -399,14 +406,14 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `viewer.js` | the 3D view of every build, loaded by the published page |
 | `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
 | `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
-| `naf_model.py` | the acoustic model |
-| `square_flute.py` | the generator, its checks and every build |
-| `square_flute.rs` · `Cargo.toml` · `Cargo.lock` | the part, kerf, finger joint and shelf packing in Rust, for the Rust generators that borrow them (the panpipes and the chanters); the same numbers as `square_flute.py`, which their `.repro` gates prove |
-| `page_assets.py` | builds `viewer.js`, `turn.html` and the plans |
+| `naf_model.rs` | the acoustic model, and the designs as bore-tmm reads them |
+| `square_flute.rs` | the generator, its checks and every build; the part, kerf, finger joint and shelf packing that the ocarinas, the octagonal flute, the panpipes and the chanters borrow |
+| `page_assets.rs` · `page_text.rs` | builds `viewer.js`, `turn.html` and the plans; the viewer's fixed style, markup and script, which the ocarinas' and the octagonal flute's pages share |
+| `bin/` · `Cargo.toml` · `Cargo.lock` | the crate: one small file per program, and the pinned build |
 | `yours/original/` | the author's 2017 files, unchanged but for the metadata stripped from the two PNGs: `NAF_flatjoints.svg`, `NAF_fingerjoints.svg`, `NativeAmericaStyleFlute.svg`, `AirPlug.svg`, `BubingaAirPlug.svg`, `Block.svg`, `FluteEdge.svg`, `FluteEdge.png`, `HoleWithDepression.svg`, `ring.png`, `LeatherStrip.svg` and `Mouthpiece.svg` |
 | `yours/cut-files/your-flute-leather-tie-cut-files.svg` | the 2017 flute's leather tie |
 | `yours/previews/` | a display rendering of it — **not** a cut file |
-| `your_flute.py` | measures the original, says what the model hears in it, and draws the tie |
+| `your_flute.rs` | measures the original, says what the model hears in it, and draws the tie |
 | `README.md` · `index.html` | this writeup and its published page; the markdown is the source |
 | `.repro` | the command that draws each generated file |
 

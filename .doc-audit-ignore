@@ -1,10 +1,5 @@
 # Names doc-audit reads as filenames that are not files here.
 #
-# ribbon_bore.py is in trumpet-elbows-allowed. square_flute.py imports its
-# stroke font from there, and the README links it in that repository.
-
-ribbon_bore.py
-
 # Boxes.py is Florian Festi's box generator, the project whose finger joint the
 # box variants copy from the trumpet bores. It is named as a project, spelled
 # the way its own README spells it, and none of it is in this repository.
