@@ -432,6 +432,15 @@ lasermade-tools' `step-export`, and `.repro` checks them:
 ../lasermade-tools/target/release/step-export viewer.js --name=square-flute
 ```
 
+The files:
+
+- `step/square-flute-box-square-3-flat.step`
+- `step/square-flute-box-square-3.step`
+- `step/square-flute-box-square-6-flat.step`
+- `step/square-flute-box-square-6.step`
+- `step/square-flute-stack-rect-3.step`
+- `step/square-flute-stack-rect-6.step`
+
 ## Credits
 
 Made by Michael Gernreich with [Claude](https://www.anthropic.com/claude) (Anthropic), working in Claude Code, which co-wrote the code and the documentation. Commits Claude made carry a `Co-Authored-By: Claude` line.
