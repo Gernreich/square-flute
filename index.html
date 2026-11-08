@@ -685,14 +685,15 @@ target/release/page_assets                             # viewer.js, turn.html an
 </div>
 <p>Released under <a href="LICENSE" target="_blank" rel="noopener">CC0 1.0</a>.</p>
 <h2 id="solidcraft-designs">SolidCraft designs</h2>
-<p>The generator also writes every build as a parametric SolidCraft design, in <code>solidcraft/</code>: the rules it follows are expressions there, so changing one number rebuilds the rest. Build one with <code>solidcraft-cli run FILE --save NAME.sc</code> and open the <code>.sc</code> in SolidCraft:</p>
+<p>The generator also writes every build as a parametric SolidCraft design, in <code>solidcraft/</code>: the rules it follows are expressions there, so changing one number rebuilds the rest.</p>
+<p>Open a <code>.sc</code> in SolidCraft. The parameters are under the <strong>SOLID</strong> tab, <strong>MODIFY</strong> panel, <strong>Change Parameters</strong>; the Browser lists the parts and the timeline every step. The <code>.solidcraft.json</code> beside it is the script it was built from (<code>solidcraft-cli run FILE --save NAME.sc</code>). The <code>.sc</code> holds the design without SolidCraft's build cache, which it rebuilds on opening, so it is the same file every time. A STEP file in <code>step/</code> is the built parts only, with no parameters:</p>
 <ul>
-<li><code>solidcraft/square-flute-box-square-3.solidcraft.json</code></li>
-<li><code>solidcraft/square-flute-box-square-3-flat.solidcraft.json</code></li>
-<li><code>solidcraft/square-flute-box-square-6.solidcraft.json</code></li>
-<li><code>solidcraft/square-flute-box-square-6-flat.solidcraft.json</code></li>
-<li><code>solidcraft/square-flute-stack-rect-3.solidcraft.json</code></li>
-<li><code>solidcraft/square-flute-stack-rect-6.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-3.sc</code> · <code>solidcraft/square-flute-box-square-3.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-3-flat.sc</code> · <code>solidcraft/square-flute-box-square-3-flat.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-6.sc</code> · <code>solidcraft/square-flute-box-square-6.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-6-flat.sc</code> · <code>solidcraft/square-flute-box-square-6-flat.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-stack-rect-3.sc</code> · <code>solidcraft/square-flute-stack-rect-3.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-stack-rect-6.sc</code> · <code>solidcraft/square-flute-stack-rect-6.solidcraft.json</code></li>
 </ul>
 <div class="tw">
 <table>

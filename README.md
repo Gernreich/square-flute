@@ -424,15 +424,21 @@ Released under [CC0 1.0](LICENSE).
 
 The generator also writes every build as a parametric SolidCraft design, in
 `solidcraft/`: the rules it follows are expressions there, so changing one number
-rebuilds the rest. Build one with `solidcraft-cli run FILE --save NAME.sc` and open the
-`.sc` in SolidCraft:
+rebuilds the rest.
 
-- `solidcraft/square-flute-box-square-3.solidcraft.json`
-- `solidcraft/square-flute-box-square-3-flat.solidcraft.json`
-- `solidcraft/square-flute-box-square-6.solidcraft.json`
-- `solidcraft/square-flute-box-square-6-flat.solidcraft.json`
-- `solidcraft/square-flute-stack-rect-3.solidcraft.json`
-- `solidcraft/square-flute-stack-rect-6.solidcraft.json`
+Open a `.sc` in SolidCraft. The parameters are under the **SOLID** tab, **MODIFY**
+panel, **Change Parameters**; the Browser lists the parts and the timeline every step.
+The `.solidcraft.json` beside it is the script it was built from (`solidcraft-cli run
+FILE --save NAME.sc`). The `.sc` holds the design without SolidCraft's build cache,
+which it rebuilds on opening, so it is the same file every time. A STEP file in
+`step/` is the built parts only, with no parameters:
+
+- `solidcraft/square-flute-box-square-3.sc` · `solidcraft/square-flute-box-square-3.solidcraft.json`
+- `solidcraft/square-flute-box-square-3-flat.sc` · `solidcraft/square-flute-box-square-3-flat.solidcraft.json`
+- `solidcraft/square-flute-box-square-6.sc` · `solidcraft/square-flute-box-square-6.solidcraft.json`
+- `solidcraft/square-flute-box-square-6-flat.sc` · `solidcraft/square-flute-box-square-6-flat.solidcraft.json`
+- `solidcraft/square-flute-stack-rect-3.sc` · `solidcraft/square-flute-stack-rect-3.solidcraft.json`
+- `solidcraft/square-flute-stack-rect-6.sc` · `solidcraft/square-flute-stack-rect-6.solidcraft.json`
 
 | Parameter | Default | What it is |
 |---|---|---|
