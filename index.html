@@ -99,7 +99,7 @@ pre,.tw{break-inside:avoid}h1{break-after:avoid}}
 <body>
 <button class="tog" type="button">theme</button>
 <div class="wrap">
-<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-builds">The builds</a><a class="l2" href="#turn-it-in-3d">Turn it in 3D</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#bird-nest-or-savanna-flue-woodland-plains-and-between">Bird, nest or savanna flue: woodland, plains and between</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#every-cut-sheet">Every cut sheet</a><a class="l2" href="#files">Files</a><a class="l2" href="#step-files">STEP files</a><a class="l2" href="#credits">Credits</a></nav>
+<nav><b>Contents</b><a class="l1" href="#square-bore-flute">Square-bore flute</a><a class="l2" href="#the-builds">The builds</a><a class="l2" href="#turn-it-in-3d">Turn it in 3D</a><a class="l2" href="#what-the-model-says">What the model says</a><a class="l2" href="#before-you-cut">Before you cut</a><a class="l2" href="#tuning">Tuning</a><a class="l2" href="#regenerating-it">Regenerating it</a><a class="l2" href="#bird-nest-or-savanna-flue-woodland-plains-and-between">Bird, nest or savanna flue: woodland, plains and between</a><a class="l2" href="#the-authors-flute">The author&#x27;s flute</a><a class="l2" href="#every-cut-sheet">Every cut sheet</a><a class="l2" href="#files">Files</a><a class="l2" href="#solidcraft-designs">SolidCraft designs</a><a class="l2" href="#step-files">STEP files</a><a class="l2" href="#credits">Credits</a></nav>
 <main>
 <h1 id="square-bore-flute">Square-bore flute</h1>
 <p><strong><a href="https://gernreich.github.io/" target="_blank" rel="noopener">← All projects</a></strong></p>
@@ -641,6 +641,10 @@ target/release/page_assets                             # viewer.js, turn.html an
 <td>the acoustic model, and the designs as bore-tmm reads them</td>
 </tr>
 <tr>
+<td><code>solidcraft.rs</code> · <code>solidcraft/</code></td>
+<td>every build as a parametric SolidCraft design, and the designs it writes</td>
+</tr>
+<tr>
 <td><code>square_flute.rs</code></td>
 <td>the generator, its checks and every build; the part, kerf, finger joint and shelf packing that the ocarinas, the octagonal flute, the panpipes and the chanters borrow</td>
 </tr>
@@ -680,15 +684,98 @@ target/release/page_assets                             # viewer.js, turn.html an
 </table>
 </div>
 <p>Released under <a href="LICENSE" target="_blank" rel="noopener">CC0 1.0</a>.</p>
+<h2 id="solidcraft-designs">SolidCraft designs</h2>
+<p>The generator also writes every build as a parametric SolidCraft design, in <code>solidcraft/</code>: the rules it follows are expressions there, so changing one number rebuilds the rest. Build one with <code>solidcraft-cli run FILE --save NAME.sc</code> and open the <code>.sc</code> in SolidCraft:</p>
+<ul>
+<li><code>solidcraft/square-flute-box-square-3.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-3-flat.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-6.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-box-square-6-flat.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-stack-rect-3.solidcraft.json</code></li>
+<li><code>solidcraft/square-flute-stack-rect-6.solidcraft.json</code></li>
+</ul>
+<div class="tw">
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ply</code></td>
+<td>3 mm</td>
+<td>sheet thickness: every plate, wall, layer and plug disc, and the fingers' depth</td>
+</tr>
+<tr>
+<td><code>bore_ref</code></td>
+<td>19.05 mm</td>
+<td>the round bore whose area every build keeps. A box's bore is the square of that area; a stack's is <code>bore_layers</code> of ply deep and as wide as the area needs</td>
+</tr>
+<tr>
+<td><code>bore_layers</code> · <code>side</code></td>
+<td>6 · 6 mm</td>
+<td>a stack's bore layers, and its walls each side of the bore</td>
+</tr>
+<tr>
+<td><code>sac</code> · <code>exit_l</code> · <code>window_l</code></td>
+<td>110 · 6 · 7 mm</td>
+<td>the slow air chamber, the exit hole and the window along the flute</td>
+</tr>
+<tr>
+<td><code>plug_discs</code> · <code>interf</code></td>
+<td>4 · 0.12 mm</td>
+<td>the plug's press-fit discs, so the plug is <code>plug_discs</code> of ply long, and their press-fit</td>
+</tr>
+<tr>
+<td><code>flue_depth</code></td>
+<td>0.5 mm</td>
+<td>each half of the flue: a savanna flue, half in the top plate's outer face, half in the bird's underside</td>
+</tr>
+<tr>
+<td><code>chamber</code> · <code>h_1</code> … <code>h_5</code> · <code>d_1</code> … <code>d_5</code></td>
+<td>the model's</td>
+<td>the sound chamber from the window centre, and each hole's place and diameter, foot-most first</td>
+</tr>
+<tr>
+<td><code>foot_spare</code></td>
+<td>15 mm</td>
+<td>cut long at the foot, to trim to pitch</td>
+</tr>
+<tr>
+<td><code>doubler_past</code> · <code>bird_upstream</code></td>
+<td>20 · 6 mm</td>
+<td>how far the doubler runs past the outer holes, and the bird before the exit hole</td>
+</tr>
+<tr>
+<td><code>cap_d</code> · <code>notch_in</code></td>
+<td>9.59 · 0.33 mm</td>
+<td>the half-round notch in the mouthpiece cap and the bottom plate's mouth end</td>
+</tr>
+<tr>
+<td><code>finger</code> · <code>finger_end</code> · <code>finger_clear</code></td>
+<td>6 · 12 · 3 mm</td>
+<td>a box's fingers (twice <code>ply</code>), how far they keep from each end, and from the exit hole and the window</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The tuning cannot follow: the chamber and the holes are what the model's solver found for that bore and hole wall, and no expression redoes it. They are parameters so that a flute tuned by hand can be written back into its design; change the bore or the ply and they no longer play A4 until the model is run again. The counts of plug discs, bore layers and bird layers are fixed per design, since each is a part.</p>
+<p>Read-only parameters show the results: the bore, the flute's <code>total</code> length and width <code>pw</code>, the window centre <code>wc</code>, a box's finger counts, and the generator's checks as room left, where below 0 fails: <code>bed_room</code> (the bed's length past the flute), <code>hole_room</code> (the largest hole inside the bore), <code>gap_room</code> (ply between the closest two holes, past 3 mm) and, on a box, <code>notch_room</code> (ply between a hole and a finger notch).</p>
+<p>The depressions round the holes are not drawn.</p>
+<p><strong>Checked</strong> body by body against the generator's own parts, as the earlier STEP files held them: every part of all six builds matches to within 0.012 mm, the sag of those files' straight runs round a curve. The difference is the flue, which they left out. The box's fingers re-count along the flute as the generator counts them, including the ones it keeps between the exit hole and the window when the plug is long enough for one. With <code>ply</code> at 3.2 mm, or with a wider bore and the holes moved, every design rebuilds with no two parts overlapping but the plug discs' press-fit.</p>
 <h2 id="step-files">STEP files</h2>
-<p><code>step/</code> holds the 3D view as STEP files, one per design, to open or import in a CAD program such as SolidCraft, Fusion or FreeCAD: one solid body per part, in millimetres, assembled as the view shows it. Every face is flat, so a curve comes in as short straight runs; round holes come in with 64 sides, and the flue marks, which have no depth, are left out. They are written from <code>viewer.js</code> by lasermade-tools' <code>step-export</code>, and <code>.repro</code> checks them:</p>
-<pre><code>../lasermade-tools/target/release/step-export viewer.js --name=square-flute</code></pre>
+<p><code>step/</code> holds each design as a STEP file, built by SolidCraft from the designs above, to open or import in a CAD program such as SolidCraft, Fusion or FreeCAD: one solid body per part, in millimetres, assembled. The holes and notches are true circles, and the flue is cut 0.5 mm into each face. <code>.repro</code> checks them:</p>
+<pre><code>target/release/square_flute --no-write --solidcraft=solidcraft
+solidcraft-cli run solidcraft/square-flute-box-square-3.solidcraft.json --out step/square-flute-box-square-3.step</code></pre>
 <p>The files:</p>
 <ul>
-<li><code>step/square-flute-box-square-3-flat.step</code></li>
 <li><code>step/square-flute-box-square-3.step</code></li>
-<li><code>step/square-flute-box-square-6-flat.step</code></li>
+<li><code>step/square-flute-box-square-3-flat.step</code></li>
 <li><code>step/square-flute-box-square-6.step</code></li>
+<li><code>step/square-flute-box-square-6-flat.step</code></li>
 <li><code>step/square-flute-stack-rect-3.step</code></li>
 <li><code>step/square-flute-stack-rect-6.step</code></li>
 </ul>

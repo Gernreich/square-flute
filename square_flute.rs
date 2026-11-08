@@ -282,6 +282,7 @@ pub fn pack(sizes: &[(f64, f64)]) -> Vec<Sheet> {
 
 pub mod naf_model;
 pub mod page_assets;
+pub mod solidcraft;
 pub mod your_flute;
 
 use lasermade_tools::py;
@@ -811,6 +812,7 @@ pub fn designs() -> Vec<(&'static str, &'static str, f64, f64, f64, m::Design)> 
 
 pub fn main() -> i32 {
     let (mut out, mut only, mut write, mut flat): (Option<String>, Option<String>, bool, bool) = (None, None, true, false);
+    let mut scdir: Option<String> = None;
     let names: Vec<&str> = variants().iter().map(|v| v.0).collect();
     for x in std::env::args().skip(1) {
         if x == "--no-write" {
@@ -826,8 +828,10 @@ pub fn main() -> i32 {
             only = Some(v.to_string());
         } else if x.starts_with("--kerf=") {
             set_kerf(&x);
+        } else if let Some(v) = x.strip_prefix("--solidcraft=") {
+            scdir = Some(v.to_string());
         } else {
-            lasermade_tools::die(format!("error: {x} is not a flag this generator reads. It takes --out=, --only=, --kerf=, --flat and --no-write."));
+            lasermade_tools::die(format!("error: {x} is not a flag this generator reads. It takes --out=, --only=, --kerf=, --solidcraft=, --flat and --no-write."));
         }
     }
     if write && out.is_none() {
@@ -846,6 +850,13 @@ pub fn main() -> i32 {
         let ds = cache.iter().find(|c| c.0 == key).unwrap().1.clone();
         let (parts, info) = build(kind, w, d, wall, ds.l, &ds.holes, &ds.diams);
         let sheets = pack_parts(&parts);
+        if let Some(dir) = &scdir {
+            // the parametric design: written whatever the checks say, as the
+            // design carries its own room readouts
+            std::fs::create_dir_all(dir).unwrap_or_else(|e| lasermade_tools::die(format!("{dir}: {e}")));
+            let f = format!("{}/square-flute-{name}.solidcraft.json", dir.trim_end_matches('/'));
+            std::fs::write(&f, solidcraft::script(kind, wall, &ds)).unwrap_or_else(|e| lasermade_tools::die(format!("{f}: {e}")));
+        }
         println!("\n{name}: {kind}, bore {w:.2} x {d:.2}mm, {}mm hole wall", py::g(wall));
         println!(
             "  sound chamber {:.1}mm from the window centre, cut {:.1}; flute {:.1}mm long, {:.2}mm wide",

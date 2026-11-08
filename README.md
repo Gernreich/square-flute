@@ -407,6 +407,7 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
 | `plans/square-flute-A4-holes-3mm-wall.svg` · `plans/square-flute-A4-holes-6mm-wall.svg` | the two hole layouts, to scale — display drawings, **not** cut files |
 | `naf_model.rs` | the acoustic model, and the designs as bore-tmm reads them |
+| `solidcraft.rs` · `solidcraft/` | every build as a parametric SolidCraft design, and the designs it writes |
 | `square_flute.rs` | the generator, its checks and every build; the part, kerf, finger joint and shelf packing that the ocarinas, the octagonal flute, the panpipes and the chanters borrow |
 | `page_assets.rs` · `page_text.rs` | builds `viewer.js`, `turn.html` and the plans; the viewer's fixed style, markup and script, which the ocarinas' and the octagonal flute's pages share |
 | `bin/` · `Cargo.toml` · `Cargo.lock` | the crate: one small file per program, and the pinned build |
@@ -419,25 +420,74 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 
 Released under [CC0 1.0](LICENSE).
 
+## SolidCraft designs
+
+The generator also writes every build as a parametric SolidCraft design, in
+`solidcraft/`: the rules it follows are expressions there, so changing one number
+rebuilds the rest. Build one with `solidcraft-cli run FILE --save NAME.sc` and open the
+`.sc` in SolidCraft:
+
+- `solidcraft/square-flute-box-square-3.solidcraft.json`
+- `solidcraft/square-flute-box-square-3-flat.solidcraft.json`
+- `solidcraft/square-flute-box-square-6.solidcraft.json`
+- `solidcraft/square-flute-box-square-6-flat.solidcraft.json`
+- `solidcraft/square-flute-stack-rect-3.solidcraft.json`
+- `solidcraft/square-flute-stack-rect-6.solidcraft.json`
+
+| Parameter | Default | What it is |
+|---|---|---|
+| `ply` | 3 mm | sheet thickness: every plate, wall, layer and plug disc, and the fingers' depth |
+| `bore_ref` | 19.05 mm | the round bore whose area every build keeps. A box's bore is the square of that area; a stack's is `bore_layers` of ply deep and as wide as the area needs |
+| `bore_layers` · `side` | 6 · 6 mm | a stack's bore layers, and its walls each side of the bore |
+| `sac` · `exit_l` · `window_l` | 110 · 6 · 7 mm | the slow air chamber, the exit hole and the window along the flute |
+| `plug_discs` · `interf` | 4 · 0.12 mm | the plug's press-fit discs, so the plug is `plug_discs` of ply long, and their press-fit |
+| `flue_depth` | 0.5 mm | each half of the flue: a savanna flue, half in the top plate's outer face, half in the bird's underside |
+| `chamber` · `h_1` … `h_5` · `d_1` … `d_5` | the model's | the sound chamber from the window centre, and each hole's place and diameter, foot-most first |
+| `foot_spare` | 15 mm | cut long at the foot, to trim to pitch |
+| `doubler_past` · `bird_upstream` | 20 · 6 mm | how far the doubler runs past the outer holes, and the bird before the exit hole |
+| `cap_d` · `notch_in` | 9.59 · 0.33 mm | the half-round notch in the mouthpiece cap and the bottom plate's mouth end |
+| `finger` · `finger_end` · `finger_clear` | 6 · 12 · 3 mm | a box's fingers (twice `ply`), how far they keep from each end, and from the exit hole and the window |
+
+The tuning cannot follow: the chamber and the holes are what the model's solver found
+for that bore and hole wall, and no expression redoes it. They are parameters so that
+a flute tuned by hand can be written back into its design; change the bore or the ply
+and they no longer play A4 until the model is run again. The counts of plug discs,
+bore layers and bird layers are fixed per design, since each is a part.
+
+Read-only parameters show the results: the bore, the flute's `total` length and
+width `pw`, the window centre `wc`, a box's finger counts, and the generator's checks
+as room left, where below 0 fails: `bed_room` (the bed's length past the flute),
+`hole_room` (the largest hole inside the bore), `gap_room` (ply between the closest two
+holes, past 3 mm) and, on a box, `notch_room` (ply between a hole and a finger notch).
+
+The depressions round the holes are not drawn.
+
+**Checked** body by body against the generator's own parts, as the earlier STEP files
+held them: every part of all six builds matches to within 0.012 mm, the sag of those
+files' straight runs round a curve. The difference is the flue, which they left out.
+The box's fingers re-count along the flute as the generator counts them, including
+the ones it keeps between the exit hole and the window when the plug is long enough
+for one. With `ply` at 3.2 mm, or with a wider bore and the holes moved, every design
+rebuilds with no two parts overlapping but the plug discs' press-fit.
+
 ## STEP files
 
-`step/` holds the 3D view as STEP files, one per design, to open or import in a
-CAD program such as SolidCraft, Fusion or FreeCAD: one solid body per part, in
-millimetres, assembled as the view shows it. Every face is flat, so a curve comes
-in as short straight runs; round holes come in with 64 sides, and the flue marks, which have
-no depth, are left out. They are written from `viewer.js` by
-lasermade-tools' `step-export`, and `.repro` checks them:
+`step/` holds each design as a STEP file, built by SolidCraft from the designs above,
+to open or import in a CAD program such as SolidCraft, Fusion or FreeCAD: one solid
+body per part, in millimetres, assembled. The holes and notches are true circles, and
+the flue is cut 0.5 mm into each face. `.repro` checks them:
 
 ```
-../lasermade-tools/target/release/step-export viewer.js --name=square-flute
+target/release/square_flute --no-write --solidcraft=solidcraft
+solidcraft-cli run solidcraft/square-flute-box-square-3.solidcraft.json --out step/square-flute-box-square-3.step
 ```
 
 The files:
 
-- `step/square-flute-box-square-3-flat.step`
 - `step/square-flute-box-square-3.step`
-- `step/square-flute-box-square-6-flat.step`
+- `step/square-flute-box-square-3-flat.step`
 - `step/square-flute-box-square-6.step`
+- `step/square-flute-box-square-6-flat.step`
 - `step/square-flute-stack-rect-3.step`
 - `step/square-flute-stack-rect-6.step`
 
