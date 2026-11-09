@@ -371,8 +371,52 @@ pub fn bores() -> String {
     use lasermade_tools::turn3d::{Num::F, J};
     let n = |x: f64| J::N(F(x));
     let s = |x: &str| J::S(x.to_string());
-    let tg = targets();
     let names: Vec<String> = (0..5).map(|i| format!("h{}", i + 1)).collect();
+    // one design as bore-tmm reads it: tg the six notes' targets, nn their names
+    let model_json = |label: &str, source: &str, w: f64, wall: f64, b: &Bore, model: &Model, ds: &Design, tg: &[f64], nn: &[String]| -> J {
+        let hz: Vec<f64> = (0..6)
+            .map(|k| model.sounding(b, ds.l, &ds.holes, k, wall, tg[k], &ds.diams).unwrap_or_else(|e| lasermade_tools::die(format!("ValueError: {e}"))))
+            .collect();
+        J::obj(vec![
+            ("name", s(label)),
+            ("source", s(source)),
+            ("temp_c", n(T_C)),
+            (
+                "drive",
+                J::obj(vec![
+                    ("kind", s("jet")),
+                    ("area_mm2", n(w * WINDOW_L)),
+                    ("chimney_mm", n(WINDOW_T)),
+                    ("mouth", n(model.mouth)),
+                    ("stub_mm", n(WINDOW_L / 2.0)),
+                ]),
+            ),
+            ("bore", J::A(vec![J::obj(vec![("len_mm", n(ds.l)), ("d_mm", n(2000.0 * b.a)), ("loss_ratio", n(b.rh / b.a))])])),
+            ("end", s("unflanged")),
+            (
+                "holes",
+                J::A((0..5).map(|i| J::obj(vec![("name", s(&names[i])), ("at_mm", n(ds.holes[i])), ("d_mm", n(ds.diams[i])), ("chimney_mm", n(wall))])).collect()),
+            ),
+            (
+                "notes",
+                J::A(
+                    (0..6)
+                        .map(|k| {
+                            J::obj(vec![
+                                ("name", s(&nn[k])),
+                                ("hz", n(tg[k])),
+                                ("open", J::A(names[..k].iter().map(|x| s(x)).collect())),
+                                ("span", n(1.4)),
+                                ("model_hz", n(hz[k])),
+                            ])
+                        })
+                        .collect(),
+                ),
+            ),
+        ])
+    };
+    let tg = targets();
+    let a4: Vec<String> = NOTES.iter().map(|x| x.to_string()).collect();
     let (ar, mut models, mut variants) = (area(), vec![], vec![]);
     let sq = ar.sqrt();
     for (name, w, d, wall) in [
@@ -385,49 +429,29 @@ pub fn bores() -> String {
         variants.push((name.to_string(), J::obj(vec![("wall", n(wall)), ("d_mm", n(2000.0 * b.a)), ("loss_ratio", n(b.rh / b.a))])));
         let model = Model { window_w: w, ..Model::default() };
         let ds = model.design(&b, wall, true).unwrap_or_else(|e| lasermade_tools::die(format!("ValueError: {e}")));
-        let hz: Vec<f64> = (0..6)
-            .map(|k| model.sounding(&b, ds.l, &ds.holes, k, wall, tg[k], &ds.diams).unwrap_or_else(|e| lasermade_tools::die(format!("ValueError: {e}"))))
-            .collect();
-        models.push((
-            format!("square-flute-{name}"),
+        let label = format!("square-bore flute {name}, naf_model.rs design (laid out for the hands)");
+        models.push((format!("square-flute-{name}"), model_json(&label, "square-flute/naf_model.rs design(even=true)", w, wall, &b, &model, &ds, &tg, &a4)));
+    }
+    // the long builds (2026-11-08): their own key, so their own notes, which
+    // the reader takes in place of the A4 list
+    for lb in crate::long_builds() {
+        let (name, w, wall) = (lb.name(), lb.w(), crate::T);
+        let b = Bore::new(Some((w, w)));
+        let model = Model { window_w: w, spacing: lb.spacing, ..Model::default() };
+        let ds = lb.design();
+        let ltg: Vec<f64> = SEMIS.iter().map(|k| ds.key * py::powf(2.0, *k as f64 / 12.0)).collect();
+        let nn: Vec<String> = std::iter::once(lb.key.to_string()).chain(lb.notes.iter().map(|x| x.to_string())).collect();
+        variants.push((
+            name.clone(),
             J::obj(vec![
-                ("name", s(&format!("square-bore flute {name}, naf_model.rs design (laid out for the hands)"))),
-                ("source", s("square-flute/naf_model.rs design(even=true)")),
-                ("temp_c", n(T_C)),
-                (
-                    "drive",
-                    J::obj(vec![
-                        ("kind", s("jet")),
-                        ("area_mm2", n(w * WINDOW_L)),
-                        ("chimney_mm", n(WINDOW_T)),
-                        ("mouth", n(model.mouth)),
-                        ("stub_mm", n(WINDOW_L / 2.0)),
-                    ]),
-                ),
-                ("bore", J::A(vec![J::obj(vec![("len_mm", n(ds.l)), ("d_mm", n(2000.0 * b.a)), ("loss_ratio", n(b.rh / b.a))])])),
-                ("end", s("unflanged")),
-                (
-                    "holes",
-                    J::A((0..5).map(|i| J::obj(vec![("name", s(&names[i])), ("at_mm", n(ds.holes[i])), ("d_mm", n(ds.diams[i])), ("chimney_mm", n(wall))])).collect()),
-                ),
-                (
-                    "notes",
-                    J::A(
-                        (0..6)
-                            .map(|k| {
-                                J::obj(vec![
-                                    ("name", s(NOTES[k])),
-                                    ("hz", n(tg[k])),
-                                    ("open", J::A(names[..k].iter().map(|x| s(x)).collect())),
-                                    ("span", n(1.4)),
-                                    ("model_hz", n(hz[k])),
-                                ])
-                            })
-                            .collect(),
-                    ),
-                ),
+                ("wall", n(wall)),
+                ("d_mm", n(2000.0 * b.a)),
+                ("loss_ratio", n(b.rh / b.a)),
+                ("notes", J::A((0..6).map(|k| J::A(vec![s(&nn[k]), n(ltg[k])])).collect())),
             ]),
         ));
+        let label = format!("square-bore flute {name}, naf_model.rs design_held ({} mm overall, in {})", py::g(crate::LONG_TOTAL), lb.key);
+        models.push((format!("square-flute-{name}"), model_json(&label, "square-flute/naf_model.rs design_held(), square_flute.rs long_builds()", w, wall, &b, &model, &ds, &ltg, &nn)));
     }
     let reader = J::obj(vec![
         ("temp_c", n(T_C)),
