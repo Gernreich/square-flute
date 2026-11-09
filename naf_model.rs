@@ -250,7 +250,72 @@ impl Model {
         for n in 0..6 {
             cents.push(1200.0 * py::log2(self.sounding(b, l, &holes, n, wall, tg[n], &diams)? / tg[n]));
         }
-        Ok(Design { l, holes, diams, cents })
+        Ok(Design { l, holes, diams, cents, key: A4 })
+    }
+
+    /// design() the other way round (2026-11-08): the sound chamber held at
+    /// `l` mm, and the flute in whatever key that length sounds. The closed
+    /// note is found first, the five holes are laid out for the minor
+    /// pentatonic on it as design() lays them out for A4 (holes 2 and 4
+    /// ANCHOR_D and placed, 1, 3 and 5 `spacing` from them and sized), and
+    /// the two are iterated until neither moves. For a build the bed's length
+    /// sets, not a note.
+    pub fn design_held(&self, b: &Bore, wall: f64, l: f64) -> Result<Design, String> {
+        const FRAC: [f64; 5] = [0.69, 0.61, 0.52, 0.37, 0.33];
+        let mut holes: Vec<f64> = FRAC.iter().map(|r| l * r).collect();
+        let mut diams = vec![ANCHOR_D; 5];
+        let mut key = 0.0;
+        let pent = |k: f64| -> Vec<f64> { SEMIS.iter().map(|s| k * py::powf(2.0, *s as f64 / 12.0)).collect() };
+        for _ in 0..8 {
+            key = self.sounding(b, l, &holes, 0, wall, 380.0, &diams)?;
+            let tg = pent(key);
+            for n in 1..6 {
+                let i = n - 1;
+                if n == 2 || n == 4 {
+                    let mut lo = if n < 5 { holes[i + 1] + 0.5 } else { 30.0 };
+                    let hi = if n > 1 { holes[i - 1] - 0.5 } else { l - 15.0 };
+                    loop {
+                        let f_pos = |x: f64| {
+                            let mut hs = holes.clone();
+                            hs[i] = x;
+                            self.sounding(b, l, &hs, n, wall, tg[n], &diams)
+                        };
+                        match bisect(f_pos, tg[n], lo, hi, false) {
+                            Ok(x) => {
+                                holes[i] = x;
+                                break;
+                            }
+                            Err(e) => {
+                                if lo <= 30.0 {
+                                    return Err(e);
+                                }
+                                lo = py::max(30.0, lo - 20.0);
+                            }
+                        }
+                    }
+                    if n == 2 {
+                        holes[0] = holes[1] + self.spacing;
+                        holes[2] = holes[1] - self.spacing;
+                    }
+                    if n == 4 {
+                        holes[4] = holes[3] - self.spacing;
+                    }
+                } else {
+                    let f_dia = |d: f64| {
+                        let mut ds = diams.clone();
+                        ds[i] = d;
+                        self.sounding(b, l, &holes, n, wall, tg[n], &ds)
+                    };
+                    diams[i] = bisect(f_dia, tg[n], D_MIN, D_MAX, true)?;
+                }
+            }
+        }
+        let tg = pent(key);
+        let mut cents = vec![];
+        for n in 0..6 {
+            cents.push(1200.0 * py::log2(self.sounding(b, l, &holes, n, wall, tg[n], &diams)? / tg[n]));
+        }
+        Ok(Design { l, holes, diams, cents, key })
     }
 }
 
@@ -262,6 +327,8 @@ pub struct Design {
     pub holes: Vec<f64>,
     pub diams: Vec<f64>,
     pub cents: Vec<f64>,
+    /// the closed note, Hz: A4 for design(), what the length gives for design_held()
+    pub key: f64,
 }
 
 /// x in [lo, hi] with fn(x) == target. fn falls as x grows, unless rising.

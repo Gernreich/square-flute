@@ -43,15 +43,51 @@ fn bx(s: &mut Script, name: &str, x: (&str, &str), y: (&str, &str), z: (&str, &s
     );
 }
 
+/// What differs between builds at the head and in the tuning: the bore's
+/// reference, the slow air chamber, and what the comments say of the key.
+pub struct Head {
+    pub bore_ref: f64,
+    pub bore_comment: String,
+    pub sac: f64,
+    pub sac_comment: String,
+    pub chamber_comment: String,
+    pub notes: [String; 5],
+}
+
+impl Head {
+    /// the six A4 builds
+    pub fn a4() -> Head {
+        Head {
+            bore_ref: m::REF_BORE,
+            bore_comment: "the round bore whose area every build keeps (3/4in)".into(),
+            sac: SAC,
+            sac_comment: "the slow air chamber, from the mouth end to the plug".into(),
+            chamber_comment: "the sound chamber, window centre to the foot: naf_model's A4 for this bore and hole wall".into(),
+            notes: ["C5", "D5", "E5", "G5", "A5"].map(String::from),
+        }
+    }
+    /// a long build; main() fills in the chamber's comment once the key is known
+    pub fn long(lb: &Long) -> Head {
+        Head {
+            bore_ref: lb.bore_ref,
+            bore_comment: format!("the round bore whose area the square bore keeps: wider than the A4 builds' {} mm, so the biggest finger hole keeps 3 mm of ply beside the finger notches", n(m::REF_BORE)),
+            sac: lb.sac,
+            sac_comment: if lb.sac == SAC { "the slow air chamber, from the mouth end to the plug".into() } else { format!("the slow air chamber, from the mouth end to the plug: {} mm shorter than the A4 builds', the length given to the sound chamber", n(SAC - lb.sac)) },
+            chamber_comment: String::new(),
+            notes: lb.notes.map(String::from),
+        }
+    }
+}
+
 /// The design of one build: kind is "box", "flat" or "stack", as build().
-pub fn script(kind: &str, wall: f64, ds: &m::Design) -> String {
+pub fn script(kind: &str, wall: f64, ds: &m::Design, head: &Head) -> String {
     let boxy = kind == "box" || kind == "flat";
     let dbl = wall > T;
     let mut s = Script::new();
     // the sheet
     s.len("ply", format!("{} mm", n(T)), "sheet thickness: every plate, wall, layer and plug disc");
     // the bore: the reference round bore's area, in a section the ply builds
-    s.len("bore_ref", format!("{} mm", n(m::REF_BORE)), "the round bore whose area every build keeps (3/4in)");
+    s.len("bore_ref", format!("{} mm", n(head.bore_ref)), &head.bore_comment);
     if boxy {
         s.len("bore_w", "sqrt(pi)*bore_ref/2", "read only: the square bore across, the reference's area");
         s.len("bore_d", "bore_w", "read only: and deep");
@@ -63,7 +99,7 @@ pub fn script(kind: &str, wall: f64, ds: &m::Design) -> String {
     }
     s.len("pw", if boxy { "bore_w + 2*ply" } else { "bore_w + 2*side" }, "read only: the flute across");
     // the head
-    s.len("sac", format!("{} mm", n(SAC)), "the slow air chamber, from the mouth end to the plug");
+    s.len("sac", format!("{} mm", n(head.sac)), &head.sac_comment);
     s.len("exit_l", format!("{} mm", n(EXIT_L)), "the exit hole along the flute, just before the plug");
     s.num("plug_discs", n((PLUG / T) as i64 as f64), "the plug's press-fit discs, each a body");
     s.len("plug", "plug_discs*ply", "read only: the plug's length, the flue's run");
@@ -72,9 +108,9 @@ pub fn script(kind: &str, wall: f64, ds: &m::Design) -> String {
     s.len("flue_depth", "0.5 mm", "each half of the flue, engraved in the top's outer face and the bird's underside");
     s.len("wc", "sac + plug + window_l/2", "read only: the window's centre, where the tuning measures from");
     // the tuning, the solver's
-    s.len("chamber", format!("{} mm", n(ds.l)), "the sound chamber, window centre to the foot: naf_model's A4 for this bore and hole wall");
+    s.len("chamber", format!("{} mm", n(ds.l)), &head.chamber_comment);
     s.len("foot_spare", format!("{} mm", n(m::FOOT_SPARE)), "cut this much long at the foot, trim to pitch");
-    let notes = ["C5", "D5", "E5", "G5", "A5"];
+    let notes = &head.notes;
     for k in 0..5 {
         s.len(&format!("h_{}", k + 1), format!("{} mm", n(ds.holes[k])), &format!("hole {} (opens {}), from the window centre: the solver's", k + 1, notes[k]));
         s.len(&format!("d_{}", k + 1), format!("{} mm", n(ds.diams[k])), &format!("hole {}'s diameter: the solver's", k + 1));

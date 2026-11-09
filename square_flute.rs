@@ -342,6 +342,61 @@ pub fn variants() -> Vec<(&'static str, &'static str, f64, f64, f64)> {
     ]
 }
 
+/// The two long builds (2026-11-08, at the author's asking): box-square-3
+/// made as long as the bed allows, the key whatever that length sounds:
+/// 589.5 mm overall, the 600 mm bed less MARGIN each end and room for a
+/// kerf up to 0.5 mm (at 590 the sheet came out 600.13 mm wide). Named
+/// -590 all the same. The bore is
+/// wider, a 22.23 mm round bore's area in a 19.70 mm square, so the
+/// biggest finger hole keeps 3 mm of ply beside the finger notches (the
+/// 19.05 mm reference left 1.7 mm), and the hands are 31 mm apart, so
+/// hole 3 stays near 10 mm where large fingers seal it. F4 keeps the
+/// 110 mm slow air chamber; E4 takes 30 mm from it and gives them to the
+/// sound chamber, a semitone lower in the same length. The slow air
+/// chamber is outside the acoustics (the plug seals it), so that changes
+/// the key and not how the flute speaks.
+pub const LONG_TOTAL: f64 = 589.5;
+pub struct Long {
+    pub key: &'static str,
+    pub notes: [&'static str; 5],
+    pub bore_ref: f64,
+    pub sac: f64,
+    pub spacing: f64,
+}
+
+pub fn long_builds() -> Vec<Long> {
+    vec![
+        Long { key: "F4", notes: ["Ab4", "Bb4", "C5", "Eb5", "F5"], bore_ref: 22.23, sac: 110.0, spacing: 31.0 },
+        Long { key: "E4", notes: ["G4", "A4", "B4", "D5", "E5"], bore_ref: 22.23, sac: 80.0, spacing: 31.0 },
+    ]
+}
+
+impl Long {
+    pub fn name(&self) -> String {
+        format!("box-square-3-{}-590", self.key)
+    }
+    /// the square bore across, the round bore's area
+    pub fn w(&self) -> f64 {
+        (std::f64::consts::PI * py::powf(self.bore_ref / 2.0, 2.0)).sqrt()
+    }
+    pub fn chamber(&self) -> f64 {
+        LONG_TOTAL - (self.sac + PLUG + m::WINDOW_L / 2.0) - m::FOOT_SPARE
+    }
+    pub fn design(&self) -> m::Design {
+        let w = self.w();
+        let model = m::Model { window_w: w, spacing: self.spacing, ..m::Model::default() };
+        model.design_held(&m::Bore::new(Some((w, w))), T, self.chamber()).unwrap_or_else(|e| lasermade_tools::die(format!("ValueError: {e}")))
+    }
+}
+
+/// A note's name and how far off it, from its frequency.
+pub fn note_of(f: f64) -> (String, f64) {
+    let x = 12.0 * py::log2(f / m::A4) + 57.0;
+    let r = x.round();
+    let names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    (format!("{}{}", names[(r as i64).rem_euclid(12) as usize], (r as i64).div_euclid(12)), (x - r) * 100.0)
+}
+
 // --- geometry ----------------------------------------------------------------
 
 fn area2(poly: &[Pt]) -> f64 {
@@ -521,8 +576,8 @@ pub struct Info {
 
 /// Every part of one variant, in its own flat coordinates: x along the
 /// flute from the mouth end, y across it.
-pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams: &[f64]) -> (Vec<FPart>, Info) {
-    let wc = SAC + PLUG + m::WINDOW_L / 2.0; // window centre
+pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams: &[f64], sac: f64) -> (Vec<FPart>, Info) {
+    let wc = sac + PLUG + m::WINDOW_L / 2.0; // window centre
     let total = wc + l + m::FOOT_SPARE;
     let hx: Vec<f64> = holes.iter().map(|h| wc + h).collect(); // finger holes, foot-most first
     let (dz0, dz1) = (fmin(&hx) - DOUBLER_PAST, fmax(&hx) + DOUBLER_PAST);
@@ -540,10 +595,10 @@ pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams
         "exit hole, window and the five finger holes, and the nest's half of the flue fill-engraved over the plug; file the window's far edge to a 30 degree bevel before assembly",
     );
     // the exit hole and the window both run the bore's full width
-    top.slot(SAC - EXIT_L, yc - w / 2.0, SAC, yc + w / 2.0);
-    top.slot(SAC + PLUG, yc - w / 2.0, SAC + PLUG + m::WINDOW_L, yc + w / 2.0);
+    top.slot(sac - EXIT_L, yc - w / 2.0, sac, yc + w / 2.0);
+    top.slot(sac + PLUG, yc - w / 2.0, sac + PLUG + m::WINDOW_L, yc + w / 2.0);
     // the nest's half of the flue, between the two: the plug's span
-    top.fills.push(rectf(SAC, yc - w / 2.0, SAC + PLUG, yc + w / 2.0));
+    top.fills.push(rectf(sac, yc - w / 2.0, sac + PLUG, yc + w / 2.0));
     top.ink = Some(NEST_INK);
     for (&x, &dd) in hx.iter().zip(diams) {
         top.hole(x, yc, dd);
@@ -556,7 +611,7 @@ pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams
         if kind == "box" {
             // both full-width openings reach the bore's inner face, the floor
             // of every finger notch, so no finger may stand beside either
-            xs = fingers_x(total, &[(SAC - EXIT_L, SAC), (SAC + PLUG, SAC + PLUG + m::WINDOW_L)]);
+            xs = fingers_x(total, &[(sac - EXIT_L, sac), (sac + PLUG, sac + PLUG + m::WINDOW_L)]);
             top.p.outline = notched(total, pw, &xs);
             rest.push(end_notch(FPart::new("bottom plate", next(), notched(total, pw, &xs), "a half-round notch in the mouth end")));
             for _ in 0..2 {
@@ -579,7 +634,7 @@ pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams
     } else {
         rest.push(end_notch(FPart::new("bottom layer", next(), rect(Z, Z, F(total), F(pw)), "a half-round notch in the mouth end")));
         let (s1, s2) = (F(SIDE), F(SIDE + w));
-        let (t, sp, sa) = (F(total), F(SAC + PLUG), F(SAC));
+        let (t, sp, sa) = (F(total), F(sac + PLUG), F(sac));
         let bore = vec![[Z, Z], [t, Z], [t, s1], [sp, s1], [sp, s2], [t, s2], [t, F(pw)], [Z, F(pw)], [Z, s2], [sa, s2], [sa, s1], [Z, s1]];
         for _ in 0..py::round(d / T) {
             rest.push(FPart::new("bore layer", next(), bore.clone(), "the chamber and the bore cut out, the plug left solid"));
@@ -594,15 +649,15 @@ pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams
         p.images = std::mem::take(&mut top.images);
         rest.push(p);
     }
-    let b0 = SAC - EXIT_L - BIRD_UPSTREAM;
+    let b0 = sac - EXIT_L - BIRD_UPSTREAM;
     for k in 0..BIRD_LAYERS {
         let mut p = FPart::new(
-            "bird layer", next(), rect(F(b0), Z, F(SAC + PLUG), F(pw)),
+            "bird layer", next(), rect(F(b0), Z, F(sac + PLUG), F(pw)),
             if k == 0 { "the bird's half of the flue fill-engraved in its underside" } else { "glued on the one below" },
         );
         if k == 0 {
             // from the exit hole's upstream edge to the window
-            p.fills.push(rectf(SAC - EXIT_L, yc - w / 2.0, SAC + PLUG, yc + w / 2.0));
+            p.fills.push(rectf(sac - EXIT_L, yc - w / 2.0, sac + PLUG, yc + w / 2.0));
             p.ink = Some(BIRD_INK);
         }
         rest.push(p);
@@ -614,8 +669,8 @@ pub fn build(kind: &str, w: f64, d: f64, wall: f64, l: f64, holes: &[f64], diams
     let info = Info {
         total, wc, pw, hx,
         fingers: if kind == "box" { xs } else { vec![] },
-        exit: (SAC - EXIT_L, SAC),
-        win: (SAC + PLUG, SAC + PLUG + m::WINDOW_L),
+        exit: (sac - EXIT_L, sac),
+        win: (sac + PLUG, sac + PLUG + m::WINDOW_L),
         doubler: if wall > T { Some((dz0, dz1)) } else { None },
     };
     (parts, info)
@@ -675,7 +730,7 @@ pub fn checks(kind: &str, w: f64, d: f64, parts: &[FPart], info: &Info, holes: &
     let tops: Vec<&FPart> = parts.iter().filter(|p| p.p.name.starts_with("top")).collect();
     note(tops.len() == 1 && tops[0].p.w == info.total, "the top is one piece", format!("{} plate, {:.1}mm long", tops.len(), tops[0].p.w));
     if let Some((z0, z1)) = info.doubler {
-        let clear = z0 - (SAC + PLUG + m::WINDOW_L);
+        let clear = z0 - info.win.1;
         note(clear >= 10.0 && z1 <= info.total, "the doubler stays clear of the window", format!("{clear:.0}mm past it, {z0:.1} to {z1:.1}mm"));
     }
     note(
@@ -750,7 +805,7 @@ pub fn group(col: &str, items: &[String]) -> String {
     s + "  </g>\n"
 }
 
-pub fn svg_sheet(variant: &str, k: usize, n: usize, s: &Sheet, parts: &[FPart], what: &str) -> String {
+pub fn svg_sheet(key: &str, variant: &str, k: usize, n: usize, s: &Sheet, parts: &[FPart], what: &str) -> String {
     let kf = kerf();
     let (mut orange, mut black, mut imgs) = (vec![], vec![], vec![]);
     let mut fills: Vec<(&str, Vec<String>)> = vec![(BIRD_INK, vec![]), (NEST_INK, vec![])];
@@ -769,11 +824,11 @@ pub fn svg_sheet(variant: &str, k: usize, n: usize, s: &Sheet, parts: &[FPart], 
         }
     }
     let desc = format!(
-        "1 user unit = 1mm. Square-bore flute in A4, {variant}, sheet {k} of {n}: {what}. 3mm ply, drawn for a {}mm kerf. Finger joints as the trumpet bores cut them: {}mm fingers and spaces, no play, the fit from the kerf. Engraves first. The flue is a fill engrave in two inks, run either or both: red {BIRD_INK} in the bird's underside, magenta {NEST_INK} in the top over the plug; one alone about 1mm deep, both about 0.5mm each. Blue {BLUE} engraves the depression round each finger hole, a greyscale image engrave, Grayscale mode in xTool Creative Space. Set every depth on scrap first. Then the cuts: orange {ORANGE} cuts the holes and slots, and black {BLACK} frees the parts.",
+        "1 user unit = 1mm. Square-bore flute in {key}, {variant}, sheet {k} of {n}: {what}. 3mm ply, drawn for a {}mm kerf. Finger joints as the trumpet bores cut them: {}mm fingers and spaces, no play, the fit from the kerf. Engraves first. The flue is a fill engrave in two inks, run either or both: red {BIRD_INK} in the bird's underside, magenta {NEST_INK} in the top over the plug; one alone about 1mm deep, both about 0.5mm each. Blue {BLUE} engraves the depression round each finger hole, a greyscale image engrave, Grayscale mode in xTool Creative Space. Set every depth on scrap first. Then the cuts: orange {ORANGE} cuts the holes and slots, and black {BLACK} frees the parts.",
         py::g(kf), py::g(FINGER)
     );
     let mut out = format!(
-        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{w:.2}mm\" height=\"{h:.2}mm\" viewBox=\"0 0 {w:.2} {h:.2}\">\n<title>Square-bore flute in A4, {variant}, sheet {k} of {n}</title>\n<desc>{desc}</desc>\n",
+        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{w:.2}mm\" height=\"{h:.2}mm\" viewBox=\"0 0 {w:.2} {h:.2}\">\n<title>Square-bore flute in {key}, {variant}, sheet {k} of {n}</title>\n<desc>{desc}</desc>\n",
         w = s.w, h = s.h
     );
     if !imgs.is_empty() {
@@ -813,7 +868,8 @@ pub fn designs() -> Vec<(&'static str, &'static str, f64, f64, f64, m::Design)> 
 pub fn main() -> i32 {
     let (mut out, mut only, mut write, mut flat): (Option<String>, Option<String>, bool, bool) = (None, None, true, false);
     let mut scdir: Option<String> = None;
-    let names: Vec<&str> = variants().iter().map(|v| v.0).collect();
+    let longs: Vec<String> = long_builds().iter().map(|l| l.name()).collect();
+    let names: Vec<&str> = variants().iter().map(|v| v.0).chain(longs.iter().map(|s| s.as_str())).collect();
     for x in std::env::args().skip(1) {
         if x == "--no-write" {
             write = false;
@@ -839,25 +895,52 @@ pub fn main() -> i32 {
     }
     let mut bad = 0;
     let mut cache: Vec<((u64, u64, u64), m::Design)> = vec![];
+    // (name, kind, bore across, deep, wall, slow air chamber, key, the file names' stem, the design's head)
+    let mut jobs: Vec<(String, &str, f64, f64, f64, f64, String, String, solidcraft::Head)> = vec![];
     for (name, kind, w, d, wall) in variants() {
+        jobs.push((name.to_string(), kind, w, d, wall, SAC, "A4".to_string(), format!("square-flute-A4-{name}"), solidcraft::Head::a4()));
+    }
+    for lb in long_builds() {
+        let stem = format!("square-flute-{}-box-square-3-590", lb.key);
+        jobs.push((lb.name(), "box", lb.w(), lb.w(), T, lb.sac, lb.key.to_string(), stem, solidcraft::Head::long(&lb)));
+    }
+    for (name, kind, w, d, wall, sac, key, stem, mut head) in jobs {
+        let name = name.as_str();
         if only.as_deref().is_some_and(|o| o != name) {
             continue;
         }
-        let key = (py::round_dp(w, 4).to_bits(), py::round_dp(d, 4).to_bits(), wall.to_bits());
-        if !cache.iter().any(|c| c.0 == key) {
-            cache.push((key, design(w, d, wall)));
-        }
-        let ds = cache.iter().find(|c| c.0 == key).unwrap().1.clone();
-        let (parts, info) = build(kind, w, d, wall, ds.l, &ds.holes, &ds.diams);
+        let ds = if let Some(lb) = long_builds().into_iter().find(|l| l.name() == name) {
+            let ds = lb.design();
+            let (nn, c) = note_of(ds.key);
+            if nn != lb.key {
+                lasermade_tools::die(format!("error: {name} sounds {nn} ({:.2}Hz), not {}", ds.key, lb.key));
+            }
+            head.chamber_comment = format!(
+                "the sound chamber, window centre to the foot: held so the flute is {} mm overall, the bed's length less its margins and a kerf; naf_model's design_held() puts this bore and hole wall in {nn} ({:.2} Hz, {c:+.0} cents) at it",
+                py::g(LONG_TOTAL), ds.key
+            );
+            ds
+        } else {
+            let key = (py::round_dp(w, 4).to_bits(), py::round_dp(d, 4).to_bits(), wall.to_bits());
+            if !cache.iter().any(|c| c.0 == key) {
+                cache.push((key, design(w, d, wall)));
+            }
+            cache.iter().find(|c| c.0 == key).unwrap().1.clone()
+        };
+        let (parts, info) = build(kind, w, d, wall, ds.l, &ds.holes, &ds.diams, sac);
         let sheets = pack_parts(&parts);
         if let Some(dir) = &scdir {
             // the parametric design: written whatever the checks say, as the
             // design carries its own room readouts
             std::fs::create_dir_all(dir).unwrap_or_else(|e| lasermade_tools::die(format!("{dir}: {e}")));
             let f = format!("{}/square-flute-{name}.solidcraft.json", dir.trim_end_matches('/'));
-            std::fs::write(&f, solidcraft::script(kind, wall, &ds)).unwrap_or_else(|e| lasermade_tools::die(format!("{f}: {e}")));
+            std::fs::write(&f, solidcraft::script(kind, wall, &ds, &head)).unwrap_or_else(|e| lasermade_tools::die(format!("{f}: {e}")));
         }
         println!("\n{name}: {kind}, bore {w:.2} x {d:.2}mm, {}mm hole wall", py::g(wall));
+        if key != "A4" {
+            let (nn, c) = note_of(ds.key);
+            println!("  in {nn} {c:+.1} cents ({:.2}Hz) closed, a {}mm slow air chamber, hands {}mm apart", ds.key, py::g(sac), py::g(long_builds().iter().find(|l| l.name() == name).unwrap().spacing));
+        }
         println!(
             "  sound chamber {:.1}mm from the window centre, cut {:.1}; flute {:.1}mm long, {:.2}mm wide",
             ds.l, ds.l + m::FOOT_SPARE, info.total, info.pw
@@ -878,9 +961,9 @@ pub fn main() -> i32 {
                 let mut ns: Vec<&str> = s.parts.iter().map(|&(i, _, _)| parts[i].p.name.as_str()).collect();
                 ns.sort();
                 ns.dedup();
-                let fname = format!("square-flute-A4-{name}-sheet{}-cut-files.svg", k + 1);
+                let fname = format!("{stem}-sheet{}-cut-files.svg", k + 1);
                 let f = format!("{}/{fname}", dir.trim_end_matches('/'));
-                std::fs::write(&f, svg_sheet(name, k + 1, sheets.len(), s, &parts, &ns.join(", "))).unwrap_or_else(|e| lasermade_tools::die(format!("{f}: {e}")));
+                std::fs::write(&f, svg_sheet(&key, name, k + 1, sheets.len(), s, &parts, &ns.join(", "))).unwrap_or_else(|e| lasermade_tools::die(format!("{f}: {e}")));
                 println!("  wrote {fname}  {:.0} x {:.0}mm, {} parts", s.w, s.h, s.parts.len());
             }
         }

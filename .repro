@@ -14,6 +14,8 @@ cut-files/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: targ
 cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg :: target/release/square_flute --only=box-square-6-flat --flat --out=$(dirname $OUT)
 cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: target/release/square_flute --only=stack-rect-3 --flat --out=$(dirname $OUT)
 cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: target/release/square_flute --only=stack-rect-6 --flat --out=$(dirname $OUT)
+cut-files/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg :: target/release/square_flute --only=box-square-3-F4-590 --flat --out=$(dirname $OUT)
+cut-files/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg :: target/release/square_flute --only=box-square-3-E4-590 --flat --out=$(dirname $OUT)
 
 # --- display renderings of them, never cut files ---
 previews/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/box-square-3/square-flute-A4-box-square-3-sheet1-cut-files.svg $OUT
@@ -22,6 +24,8 @@ previews/box-square-6/square-flute-A4-box-square-6-sheet1-cut-files.svg :: ../la
 previews/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg $OUT
 previews/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg $OUT
 previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg $OUT
+previews/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg $OUT
+previews/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg :: ../lasermade-tools/target/release/make-preview cut-files/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg $OUT
 
 # --- the pages ---
 viewer.js :: target/release/page_assets --viewer-to=$OUT
@@ -65,6 +69,10 @@ solidcraft/square-flute-box-square-6.sc :: target/release/square_flute --no-writ
 solidcraft/square-flute-box-square-6-flat.sc :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-6-flat.solidcraft.json --save $OUT --quiet && ../lasermade-tools/target/release/sc-slim $OUT
 solidcraft/square-flute-stack-rect-3.sc :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-stack-rect-3.solidcraft.json --save $OUT --quiet && ../lasermade-tools/target/release/sc-slim $OUT
 solidcraft/square-flute-stack-rect-6.sc :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-stack-rect-6.solidcraft.json --save $OUT --quiet && ../lasermade-tools/target/release/sc-slim $OUT
+solidcraft/square-flute-box-square-3-F4-590.solidcraft.json :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT)
+solidcraft/square-flute-box-square-3-F4-590.sc :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-3-F4-590.solidcraft.json --save $OUT --quiet && ../lasermade-tools/target/release/sc-slim $OUT
+solidcraft/square-flute-box-square-3-E4-590.solidcraft.json :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT)
+solidcraft/square-flute-box-square-3-E4-590.sc :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-3-E4-590.solidcraft.json --save $OUT --quiet && ../lasermade-tools/target/release/sc-slim $OUT
 
 # --- the STEP files: each design built by SolidCraft, one solid per part ---
 step/square-flute-box-square-3.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-3.solidcraft.json --out $OUT --quiet
@@ -73,3 +81,5 @@ step/square-flute-box-square-6.step :: target/release/square_flute --no-write --
 step/square-flute-box-square-6-flat.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-6-flat.solidcraft.json --out $OUT --quiet
 step/square-flute-stack-rect-3.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-stack-rect-3.solidcraft.json --out $OUT --quiet
 step/square-flute-stack-rect-6.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-stack-rect-6.solidcraft.json --out $OUT --quiet
+step/square-flute-box-square-3-F4-590.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-3-F4-590.solidcraft.json --out $OUT --quiet
+step/square-flute-box-square-3-E4-590.step :: target/release/square_flute --no-write --solidcraft=$(dirname $OUT) && solidcraft-cli run $(dirname $OUT)/square-flute-box-square-3-E4-590.solidcraft.json --out $OUT --quiet

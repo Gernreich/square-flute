@@ -42,7 +42,8 @@ generator and tool, indexed.
 
 ## The builds
 
-Six builds. The box and the stack each come with the finger holes in 3 mm or 6 mm of
+Eight builds: six in A4, and two long ones in F4 and E4 (see
+[The long flutes](#the-long-flutes-f4-and-e4)). The box and the stack each come with the finger holes in 3 mm or 6 mm of
 wall, and the boxes come finger-jointed or **flat**, butt-jointed and glued as the 2017
 flute was: `box-square-3-flat`. The 3D view below has a toggle for each. Every build
 carries its flue both ways at once, in the bird and in the nest, each in a colour of its
@@ -57,6 +58,8 @@ own, so the laser cuts whichever you choose: see
 | `box-square-6-flat` | flat box, butt-jointed | 16.88 × 16.88 mm | 6 mm | 13 | 1 | the sides, the doubler, the bird's layers and the cap glued, the plug discs press-fit |
 | `stack-rect-3` | laminated stack | 15.83 × 18 mm | 3 mm | 12 | 1 | every layer and the cap glued |
 | `stack-rect-6` | laminated stack | 15.83 × 18 mm | 6 mm | 13 | 1 | every layer and the cap glued |
+| `box-square-3-F4-590` | finger-jointed box, long | 19.70 × 19.70 mm | 3 mm | 12 | 1 | as `box-square-3` |
+| `box-square-3-E4-590` | finger-jointed box, long | 19.70 × 19.70 mm | 3 mm | 12 | 1 | as `box-square-3` |
 
 - **The box** is four plates, finger-jointed edge to edge: the sides' fingers fill
   notches in the edges of the top and the bottom and run flush to the outside faces, so
@@ -207,15 +210,51 @@ engrave that turns grey into depth, such as Grayscale mode in xTool Creative Spa
    open its hole slightly with a file.
 4. Work up the flute in order, since each hole nudges the ones above it.
 
+## The long flutes: F4 and E4
+
+`box-square-3-F4-590` and `box-square-3-E4-590` (2026-11-08) are `box-square-3` made as
+long as the bed allows, and in whatever key that length sounds. Each is 589.5 mm
+overall: the 600 mm bed, less 5 mm at each end and room for a kerf of up to 0.5 mm.
+The six A4 builds solve the sound chamber for A4. These two hold it at the length the
+bed gives, and the model finds the note and lays the holes out for the minor pentatonic
+on it.
+
+- **The bore is wider:** a 19.70 mm square, the area of a 22.23 mm round bore. In the
+  16.88 mm bore a 590 mm flute's biggest hole leaves only 1.7 mm of ply beside the
+  finger notches; here it leaves over 4 mm.
+- **The hands are 31 mm apart**, not 25, so hole 3 stays near 10 mm, which large
+  fingers seal. Closer than 28 mm and hole 3 would need to be wider than the 11 mm the
+  model allows.
+- **F4 and E4 differ only in the slow air chamber.** E4 takes 30 mm from it and gives
+  them to the sound chamber, a semitone lower in the same length. The plug seals the
+  slow air chamber off from the bore, so its length is not in the model and moves no
+  hole against the window. It moves the hands nearer the mouth.
+
+| Build | Slow air chamber | Sound chamber | Closed | Hole 1 | Hole 2 | Hole 3 | Hole 4 | Hole 5 |
+|---|---|---|---|---|---|---|---|---|
+| `box-square-3-F4-590` | 110 mm | 449.0 mm | F4, 349.01 Hz | 326.0 · ø7.1 | 295.0 · ø8.0 | 264.0 · ø10.0 | 198.4 · ø8.0 | 167.4 · ø6.5 |
+| `box-square-3-E4-590` | 80 mm | 479.0 mm | E4, 329.00 Hz | 347.9 · ø6.8 | 316.9 · ø8.0 | 285.9 · ø10.8 | 214.8 · ø8.0 | 183.8 · ø6.8 |
+
+Distances are from the centre of the window, in mm. The holes play the minor pentatonic
+on the closed note: A♭4, B♭4, C5, E♭5, F5 on the F4 flute and G4, A4, B4, D5, E5 on the
+E4. The model puts F4 1.1 cents flat and E4 3.3 cents flat, and every note within
+0.01 cents of its target. As on every build, the window is the uncalibrated part: trim
+the foot to pitch and tune each hole. The fingers re-count along the length: 44 a side,
+against 36 on `box-square-3`.
+
+`naf_model.rs`'s `design_held()` solves these: the closed note first, then the holes as
+`design()` lays them out, until neither moves. They are not on the 3D view.
+
 ## Regenerating it
 
 ```sh
 cargo build --release                                  # once, and after any change
-target/release/naf_model                               # the holes for every build, printed
+target/release/naf_model                               # the holes for every A4 build, printed
 target/release/naf_model --mouth=0.8                   # with a different window correction
 target/release/naf_model --bores                       # the designs, as bore-tmm reads them
 target/release/square_flute --no-write                 # the generator's checks, writing nothing
-target/release/square_flute --out=cut-files            # all six builds
+target/release/square_flute --out=cut-files            # all eight builds
+target/release/square_flute --only=box-square-3-E4-590 --no-write   # one build's checks
 target/release/square_flute --kerf=0.18 --out=mine     # for a laser with a 0.18mm kerf
 target/release/your_flute --out=yours/cut-files        # the 2017 flute's prediction, and its leather tie
 target/release/page_assets                             # viewer.js, turn.html and the two plans
@@ -392,6 +431,14 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 
 [![stack-rect-6, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)](cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg)
 
+**`box-square-3-F4-590`** · finger-jointed box in F4, 589.5 mm long, bore 19.70 × 19.70 mm, holes in 3 mm of wall · 12 parts on 1 sheet
+
+[![box-square-3-F4-590, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg)](cut-files/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg)
+
+**`box-square-3-E4-590`** · finger-jointed box in E4, 589.5 mm long, an 80 mm slow air chamber, bore 19.70 × 19.70 mm, holes in 3 mm of wall · 12 parts on 1 sheet
+
+[![box-square-3-E4-590, sheet 1 of 1: the parts laid out for the laser, the flue in red on a bird layer and magenta on the top, holes and slots in orange, outlines in black](previews/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg)](cut-files/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg)
+
 ## Files
 
 | | |
@@ -402,6 +449,8 @@ Every build, every sheet. Each picture is a display rendering; click it for the 
 | `cut-files/box-square-6-flat/square-flute-A4-box-square-6-flat-sheet1-cut-files.svg` | box, square bore, 6 mm hole wall, butt-jointed and glued |
 | `cut-files/stack-rect-3/square-flute-A4-stack-rect-3-sheet1-cut-files.svg` | stack, 15.83 × 18 mm bore, 3 mm hole wall |
 | `cut-files/stack-rect-6/square-flute-A4-stack-rect-6-sheet1-cut-files.svg` | stack, 15.83 × 18 mm bore, 6 mm hole wall |
+| `cut-files/box-square-3-F4-590/square-flute-F4-box-square-3-590-sheet1-cut-files.svg` | the long box in F4, 19.70 mm square bore, 3 mm hole wall |
+| `cut-files/box-square-3-E4-590/square-flute-E4-box-square-3-590-sheet1-cut-files.svg` | the long box in E4, 80 mm slow air chamber |
 | `previews/` | display renderings of every sheet — **not** cut files |
 | `viewer.js` | the 3D view of every build, loaded by the published page |
 | `turn.html` | the same 3D view on a page of its own, for framing elsewhere |
@@ -439,6 +488,8 @@ which it rebuilds on opening, so it is the same file every time. A STEP file in
 - `solidcraft/square-flute-box-square-6-flat.sc` · `solidcraft/square-flute-box-square-6-flat.solidcraft.json`
 - `solidcraft/square-flute-stack-rect-3.sc` · `solidcraft/square-flute-stack-rect-3.solidcraft.json`
 - `solidcraft/square-flute-stack-rect-6.sc` · `solidcraft/square-flute-stack-rect-6.solidcraft.json`
+- `solidcraft/square-flute-box-square-3-F4-590.sc` · `solidcraft/square-flute-box-square-3-F4-590.solidcraft.json`
+- `solidcraft/square-flute-box-square-3-E4-590.sc` · `solidcraft/square-flute-box-square-3-E4-590.solidcraft.json`
 
 | Parameter | Default | What it is |
 |---|---|---|
@@ -473,7 +524,9 @@ held them: every part of all six builds matches to within 0.012 mm, the sag of t
 files' straight runs round a curve. The difference is the flue, which they left out.
 The box's fingers re-count along the flute as the generator counts them, including
 the ones it keeps between the exit hole and the window when the plug is long enough
-for one. With `ply` at 3.2 mm, or with a wider bore and the holes moved, every design
+for one. The two long builds were checked the other way round (2026-11-08):
+lasermade-tools' `sc-flatten` drew their cut sheets from the designs' solids, and
+`sc-compare` put every part within 0.03 mm of the generator's. With `ply` at 3.2 mm, or with a wider bore and the holes moved, every design
 rebuilds with no two parts overlapping but the plug discs' press-fit.
 
 ## STEP files
@@ -496,6 +549,8 @@ The files:
 - `step/square-flute-box-square-6-flat.step`
 - `step/square-flute-stack-rect-3.step`
 - `step/square-flute-stack-rect-6.step`
+- `step/square-flute-box-square-3-F4-590.step`
+- `step/square-flute-box-square-3-E4-590.step`
 
 ## Credits
 

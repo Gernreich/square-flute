@@ -212,7 +212,7 @@ pub fn plan_svg(l: f64, holes: &[f64], diams: &[f64], wall: f64, title: &str) ->
 pub fn build_all() -> (Vec<(String, J)>, Vec<(f64, m::Design)>) {
     let (mut three, mut plans): (Vec<(String, J)>, Vec<(f64, m::Design)>) = (vec![], vec![]);
     for (name, kind, w, d, wall, ds) in designs() {
-        let (parts, info) = build(kind, w, d, wall, ds.l, &ds.holes, &ds.diams);
+        let (parts, info) = build(kind, w, d, wall, ds.l, &ds.holes, &ds.diams, SAC);
         three.push((name.to_string(), solids(w, d, wall, &parts, &info)));
         if !plans.iter().any(|p| p.0 == wall) {
             // drawn at the square bore
